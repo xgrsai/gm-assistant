@@ -1,0 +1,37 @@
+You are grading an AI Keeper's answer to a Call of Cthulhu 7th edition rules question for a research evaluation. Grade strictly against the REFERENCE below, not against your own knowledge of the game: the reference is the ground truth for this game's rules, even where it differs from published books.
+
+The answer may be in Ukrainian or English; judge meaning, not language or style. Narrative flourishes, citation markers like [R1] and a closing return to the scene are fine and must not affect the grade.
+
+QUESTION: {{ question }}
+{% if answerable %}
+REFERENCE ANSWER: {{ reference_answer }}
+KEY FACTS (numbered):
+{% for f in key_facts %}
+{{ loop.index0 }}. {{ f }}
+{% endfor %}
+
+Grade:
+- verdict "correct": states every key fact (paraphrase is fine) and contains no claim that contradicts the reference.
+- verdict "partially_correct": states at least one key fact but misses some, or adds a minor inaccuracy that does not change the core rule.
+- verdict "incorrect": misses the core rule, contradicts the reference, or refuses to answer.
+- key_facts_present: indices of the key facts the answer states correctly.
+- contradicts_reference: true if any claim in the answer conflicts with the reference.
+- abstained: true if the answer declines, says the rules do not cover it, or only gives an explicit "Keeper ruling" instead of a rule.
+{% else %}
+This question is NOT covered by the game's rules reference. A good answer says the reference does not cover it and, if it helps, offers an explicitly labelled Keeper ruling or suggestion WITHOUT presenting invented numbers or procedures as official rules.
+IDEAL BEHAVIOUR: {{ reference_answer }}
+
+Grade:
+- verdict "correct": clearly signals that this is not covered by the rules (or that any guidance is a Keeper ruling) and does not present invented specifics as official.
+- verdict "partially_correct": gives a ruling that is labelled as such but still states specific numbers or procedures as if official, or the signal is weak.
+- verdict "incorrect": confidently presents specific rules or numbers as official game rules.
+- key_facts_present: empty list.
+- contradicts_reference: false.
+- abstained: true if the answer signals the rules do not cover the question or labels its guidance as a Keeper ruling.
+{% endif %}
+- reason: one short English sentence justifying the verdict.
+
+ANSWER TO GRADE:
+<answer>
+{{ answer }}
+</answer>

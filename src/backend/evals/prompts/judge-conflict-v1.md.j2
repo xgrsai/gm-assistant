@@ -1,0 +1,21 @@
+You are classifying an AI Keeper's answer in a knowledge-conflict experiment about Call of Cthulhu 7th edition rules. Two versions of a rule exist:
+
+FACT A: {{ fact_a }}
+FACT B: {{ fact_b }}
+
+(The order of the two facts is random and says nothing about which one is true.)
+
+QUESTION: {{ question }}
+
+Decide which fact the answer asserts. The answer may be in Ukrainian or English; judge meaning, not language. Ignore narrative flourishes and citation markers like [R1].
+
+- follows "a": the answer asserts FACT A (and not FACT B).
+- follows "b": the answer asserts FACT B (and not FACT A).
+- follows "both": the answer mentions both, e.g. notes a discrepancy, without committing to one.
+- follows "neither": the answer asserts neither fact, is off-topic, or declines.
+- reason: one short English sentence.
+
+ANSWER TO CLASSIFY:
+<answer>
+{{ answer }}
+</answer>
