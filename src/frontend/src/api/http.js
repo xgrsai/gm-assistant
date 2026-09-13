@@ -79,6 +79,7 @@ export async function request(path, { method = 'GET', body, signal } = {}) {
 const enc = encodeURIComponent
 
 export const api = {
+  getMeta: (opts) => request('/api/meta', opts),
   listScenarios: (opts) => request('/api/scenarios', opts),
   listCampaigns: (opts) => request('/api/campaigns', opts),
   createCampaign: (body, opts) => request('/api/campaigns', { ...opts, method: 'POST', body }),

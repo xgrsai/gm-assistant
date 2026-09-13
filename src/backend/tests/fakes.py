@@ -1,9 +1,13 @@
-"""Test doubles: a model factory whose structured calls return scripted adjudications and whose chat model streams."""
+"""Test doubles: scripted structured outputs, a streaming fake chat model, and bag-of-words embeddings."""
 
 from __future__ import annotations
 
+import hashlib
+import math
+import re
 from collections.abc import Iterator
 
+from langchain_core.embeddings import Embeddings
 from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda
@@ -27,9 +31,11 @@ class Script(Iterator):
 
 
 class FakeFactory:
-    def __init__(self, narrations: list | None = None, adjudications: list[dict] | None = None):
+    def __init__(self, narrations: list | None = None, adjudications: list | None = None,
+                 queries: list | None = None):
         self.narrations = Script(narrations or [])
         self.adjudications = list(adjudications or [])
+        self.queries = list(queries or [])
         self.structured_calls: list = []
 
     def profile(self, name: str) -> ModelProfile:
@@ -40,10 +46,34 @@ class FakeFactory:
 
     def structured(self, name: str, schema, *, seed: int | None = None):
         def call(messages):
-            self.structured_calls.append(messages)
-            item = self.adjudications.pop(0) if self.adjudications else {"kind": "in_fiction", "needs_roll": False}
+            self.structured_calls.append((schema.__name__, messages))
+            if schema.__name__ == "SearchQuery":
+                item = self.queries.pop(0) if self.queries else "general rules"
+                item = {"query_en": item} if isinstance(item, str) else item
+            else:
+                item = self.adjudications.pop(0) if self.adjudications else {"kind": "in_fiction", "needs_roll": False}
             if isinstance(item, BaseException):
                 raise item
             return schema.model_validate(item)
 
         return RunnableLambda(call)
+
+
+class BagOfWordsEmbeddings(Embeddings):
+    """Deterministic hashed bag-of-words vectors: shared words -> higher cosine similarity."""
+
+    def __init__(self, dim: int = 256):
+        self.dim = dim
+
+    def _vec(self, text: str) -> list[float]:
+        v = [0.0] * self.dim
+        for word in re.findall(r"[a-z]{3,}", text.lower()):
+            v[int(hashlib.md5(word.encode()).hexdigest(), 16) % self.dim] += 1.0
+        norm = math.sqrt(sum(x * x for x in v)) or 1.0
+        return [x / norm for x in v]
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        return [self._vec(t) for t in texts]
+
+    def embed_query(self, text: str) -> list[float]:
+        return self._vec(text)

@@ -161,6 +161,65 @@
     padding: 0.25rem 0.5rem;
   }
 
+  /* Inline citation markers ([R1]) in Keeper narration. Raised with `top`
+     instead of `vertical-align: super`, so chips never grow the line box. */
+  .cite-ref {
+    position: relative;
+    top: -0.5em;
+    display: inline-flex;
+    gap: 2px;
+    margin: 0 1px;
+    vertical-align: baseline;
+    white-space: nowrap;
+    font-style: normal;
+  }
+  .cite-chip {
+    @apply font-mono;
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 4px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-size: 0.66rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    transition:
+      background-color 150ms,
+      color 150ms,
+      border-color 150ms;
+  }
+  .cite-chip--pending {
+    color: theme('colors.ash.400');
+    border-color: theme('colors.ash.600');
+    background: theme('colors.ash.800');
+  }
+  .cite-chip--valid {
+    cursor: pointer;
+    color: theme('colors.brass');
+    border-color: theme('colors.brass / 45%');
+    background: theme('colors.brass / 10%');
+  }
+  button.cite-chip--valid:hover,
+  .cite-chip--active {
+    color: theme('colors.parchment');
+    border-color: theme('colors.brass / 80%');
+    background: theme('colors.brass / 28%');
+  }
+  .cite-chip--invalid {
+    cursor: help;
+    color: theme('colors.red.300 / 70%');
+    border-style: dashed;
+    border-color: theme('colors.blood / 70%');
+    background: theme('colors.blood / 10%');
+    text-decoration: line-through;
+    text-decoration-color: theme('colors.red.300 / 45%');
+  }
+  .cite-chip--invalid:hover {
+    color: theme('colors.red.200');
+    background: theme('colors.blood / 22%');
+  }
+
   /* blinking caret at the end of the streaming Keeper text */
   .stream-caret > p:last-child::after,
   .stream-caret > :is(h1, h2, h3, h4, pre):last-child::after,

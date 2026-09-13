@@ -11,6 +11,7 @@ from .experiments import ExperimentRegistry
 from .game.coc7e.dice import DEFAULT_RULES, RulesConfig
 from .llm import ModelProfile
 from .prompts import PromptSet
+from .rag.retriever import Retriever
 from .runlog import RunLog
 from .scenarios import ScenarioRepo
 
@@ -28,4 +29,5 @@ class Deps:
     scenarios: ScenarioRepo
     experiments: ExperimentRegistry
     runlog: RunLog
+    retriever: Retriever | None = None  # required by arms with use_rag
     rules: RulesConfig = field(default_factory=lambda: DEFAULT_RULES)

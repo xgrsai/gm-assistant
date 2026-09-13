@@ -1,0 +1,9 @@
+# Embedding profiles referenced by RetrievalSpec.embedder. The collection name encodes the embedder,
+# so changing a profile means re-ingesting into a new collection.
+
+nomic15:
+  provider: ollama
+  model: nomic-embed-text      # v1.5, English, 768 dims; needs task prefixes
+  dim: 768
+  query_prefix: "search_query: "
+  document_prefix: "search_document: "

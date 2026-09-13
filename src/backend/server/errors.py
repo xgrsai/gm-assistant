@@ -10,6 +10,7 @@ from langchain_core.exceptions import (
     ModelTimeoutError,
 )
 from langgraph.errors import NodeTimeoutError
+from qdrant_client.http.exceptions import ApiException
 
 from keeper.nodes import EmptyGeneration
 
@@ -33,6 +34,6 @@ def map_error(exc: BaseException) -> dict:
         return error_event("timeout", True)
     if isinstance(exc, ModelRateLimitError):
         return error_event("rate_limited", True)
-    if isinstance(exc, (ModelAPIError, ModelConnectionError, httpx.TransportError, ConnectionError)):
+    if isinstance(exc, (ModelAPIError, ModelConnectionError, httpx.TransportError, ConnectionError, ApiException)):
         return error_event("upstream_unavailable", True)
     return error_event("internal_error", False)

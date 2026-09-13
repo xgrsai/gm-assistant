@@ -15,6 +15,7 @@ export const ERROR_MESSAGES = {
   network_error: 'Не вдалося зв’язатися з сервером. Перевірте, чи запущено бекенд.',
   server_unavailable: 'Сервер не відповідає. Перевірте, чи запущено бекенд.',
   validation_error: 'Сервер відхилив запит: некоректні дані.',
+  unknown_arm: 'Сервер не знає обраного режиму Хранителя. Список режимів оновлено — оберіть режим ще раз.',
 }
 
 export function errorMessage(code) {
@@ -25,8 +26,8 @@ export function errorMessage(code) {
 // `progress.node` → status line under the streaming Keeper bubble.
 export const STAGE_LABELS = {
   prepare_turn: 'Хранитель вислуховує дію…',
-  analyze: 'Хранитель зважує дію…',
-  retrieve: 'Хранитель гортає записи…',
+  analyze: 'Хранитель формулює запит…',
+  retrieve: 'Хранитель гортає правила…',
   adjudicate: 'Хранитель зважує дію…',
   mechanics: 'Кидок кубиків…',
   narrate: 'Хранитель розповідає…',
@@ -68,6 +69,22 @@ export const CHARACTERISTIC_LABELS = {
   INT: 'Інтелект',
   POW: 'Воля',
   EDU: 'Освіта',
+}
+
+// Retrieved knowledge-base chunks cited by the Keeper as `[R<n>]`.
+export const SOURCE_TYPE_LABELS = {
+  rules: 'Правила',
+  lore: 'Лор світу',
+}
+
+export const CITATION_INVALID_HINT = 'Цього фрагмента не було серед знайдених — можлива галюцинація'
+
+/** Human label of an experiment arm (`meta.arms[]`). */
+export function armLabel(arm, arms = []) {
+  if (!arm) return ''
+  const base = arm.use_rag ? 'З базою правил (RAG)' : 'Без бази знань'
+  const twins = arms.filter((a) => Boolean(a.use_rag) === Boolean(arm.use_rag))
+  return twins.length > 1 && arm.generator_model ? `${base} · ${arm.generator_model}` : base
 }
 
 export const LANGUAGE_LABELS = {

@@ -43,6 +43,7 @@ class ScenarioPack(BaseModel):
     def scenario_state(self, language: str) -> dict:
         return {
             "id": self.id,
+            "game_system": self.game_system,
             "title": self.localized(self.title, language),
             "era": self.localized(self.era, language),
             "language": language,

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Eye, Loader2, Plus, RotateCcw, ScrollText, Trash2, X } from 'lucide-react'
+import RagBadge from './RagBadge'
 
 function CampaignItem({ campaign, active, onSelect, onDelete }) {
   const [confirming, setConfirming] = useState(false)
@@ -59,7 +60,10 @@ function CampaignItem({ campaign, active, onSelect, onDelete }) {
       >
         <ScrollText size={14} className={`mt-1 shrink-0 ${active ? 'text-ember' : 'text-ember/60'}`} aria-hidden />
         <span className="min-w-0">
-          <span className="block truncate text-sm">{campaign.title}</span>
+          <span className="flex min-w-0 items-center gap-1.5">
+            <span className="truncate text-sm">{campaign.title}</span>
+            {campaign.use_rag && <RagBadge />}
+          </span>
           {campaign.scenario_title && (
             <span className="block truncate text-xs text-ash-500">{campaign.scenario_title}</span>
           )}

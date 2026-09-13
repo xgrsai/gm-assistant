@@ -1,6 +1,6 @@
 [project]
 name = "gm-assistant-backend"
-version = "0.2.0"
+version = "0.3.0"
 description = "AI Keeper for Call of Cthulhu 7e: FastAPI + LangGraph"
 requires-python = ">=3.12,<3.14"
 dependencies = [
@@ -14,10 +14,13 @@ dependencies = [
   "aiosqlite",
   "jinja2",
   "pyyaml",
+  "qdrant-client==1.19.0",
+  "langchain-ollama==1.1.0",
+  "langchain-text-splitters==1.1.2",
 ]
 
 [project.optional-dependencies]
-local = ["langchain-ollama==1.1.0", "langchain-openai==1.6.2"]
+local = ["langchain-openai==1.6.2"]  # vLLM (OpenAI-compatible) profiles
 
 [dependency-groups]
 dev = ["pytest", "pytest-asyncio", "httpx", "hypothesis", "ruff"]

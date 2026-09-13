@@ -62,9 +62,13 @@ export function useCampaigns() {
 
   const select = useCallback((id) => setSelectedId(id), [])
 
-  /** Creates a campaign on the server and selects it. Throws ApiError on failure. */
-  const create = useCallback(async ({ title, scenario_id, language }) => {
-    const campaign = await api.createCampaign({ title, scenario_id, language })
+  /**
+   * Creates a campaign on the server and selects it. Throws ApiError on failure
+   * (`unknown_arm` when `arm` is not one of `meta.arms`). Without `arm` the
+   * server uses its `default_arm`.
+   */
+  const create = useCallback(async ({ title, scenario_id, language, arm }) => {
+    const campaign = await api.createCampaign({ title, scenario_id, language, ...(arm ? { arm } : {}) })
     setCampaigns((prev) => [campaign, ...prev.filter((c) => c.id !== campaign.id)])
     setSelectedId(campaign.id)
     setStatus('ready')
