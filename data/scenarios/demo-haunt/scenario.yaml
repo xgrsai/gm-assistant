@@ -1,0 +1,132 @@
+# Original demo scenario written for this project (not derived from any published adventure).
+# Licensed with the repository code (MIT). Game terms follow Call of Cthulhu 7th edition conventions.
+id: demo-haunt
+game_system: coc7e
+
+title:
+  uk: Тиша на Пекарській
+  en: Silence on Pekarska Street
+
+era:
+  uk: Львів, листопад 1927
+  en: Lviv, November 1927
+
+blurb:
+  uk: >-
+    Професор анатомії зник зі своєї квартири на Пекарській вулиці. Господиня клянеться,
+    що вночі з-під підлоги досі хтось шкрябає.
+  en: >-
+    An anatomy professor has vanished from his flat on Pekarska Street. His landlady swears
+    that something still scratches beneath the floor at night.
+
+opening:
+  uk: |
+    Листопадовий дощ січе ліхтарі Пекарської, і бруківка блищить, мов мокра шкіра.
+    Пані Стефанія Возняк, господиня кам'яниці під номером 17, тремтячими пальцями
+    відмикає двері другого поверху. «Пан професор Грицай не виходив уже дев'ять днів, —
+    шепоче вона. — Поліція каже, що поїхав до Відня. Але його пальто тут. І вночі… вночі
+    я чую, як під підлогою щось шкрябає».
+
+    Двері відчиняються. Усередині пахне формаліном, холодним тютюном і чимось солодкавим,
+    від чого стискається горло. Кабінет завалений книжками, на столі — погасла гасова лампа,
+    а килим біля каміна дивно зсунутий убік.
+
+    Що ви робите?
+  en: |
+    November rain lashes the lamps of Pekarska Street, and the cobbles gleam like wet skin.
+    Mrs Stefania Vozniak, landlady of number 17, unlocks the second-floor door with shaking
+    fingers. "Professor Hrytsai has not come out for nine days," she whispers. "The police say
+    he went to Vienna. But his coat is still here. And at night... at night I hear something
+    scratching under the floor."
+
+    The door swings open. The flat smells of formalin, cold tobacco and something sweetish that
+    tightens your throat. The study is buried in books; an extinguished oil lamp stands on the
+    desk, and the rug by the fireplace has been pushed oddly aside.
+
+    What do you do?
+
+keeper_notes: |
+  TRUTH: Professor Mykhailo Hrytsai (anatomy, Lviv University) found an 18th-century plague-pit
+  register describing "the quiet eaters" beneath the Lychakiv district. He broke through the
+  cellar wall of No. 17 into an old burial tunnel and met a small band of ghouls. He was not
+  killed: fascinated and half-mad, he now lives with them below, slowly changing. He comes up
+  at night to take food and books; that is the scratching.
+
+  CLUES (reveal only when earned):
+  1. Study desk (Spot Hidden or Library Use): his diary. Last entries mention "tunnels older than
+     the city", "they do not wish me harm, they only listen", and "the cellar wall is hollow".
+  2. Under the pushed-aside rug (Spot Hidden, or simply lifting it): fresh scratches on the floorboards
+     and a trail of grey soil leading to the hall.
+  3. Mrs Vozniak (Psychology or Persuade): nine days ago he bought lamp oil, a crowbar and ten metres
+     of rope; two nights ago the pantry was raided and raw meat is missing.
+  4. Cellar (key from Mrs Vozniak, or Locksmith): a wooden shelf hides a hole broken through the wall.
+     Behind it a brick tunnel slopes down; the air is warm and smells of earth and old meat.
+  5. Tunnel (Listen): distant soft voices that almost sound like Hrytsai reciting Latin anatomy terms.
+  6. Burial chamber: gnawed human bones in niches (SAN: bones). Hrytsai sits by a candle, gaunt,
+     nails long, eyes too reflective. Two ghouls crouch in the dark (SAN: ghoul, once seen clearly).
+     Hrytsai talks calmly and asks to be left alone; he offers to "show the older city".
+
+  THREAT & PACING: the ghouls are cautious and avoid open fights; they attack only if cornered,
+  if light is thrown on them suddenly, or if the investigator tries to drag Hrytsai away.
+  A Hard Persuade or a good argument can convince Hrytsai to let the investigator leave in peace
+  (or even to return to the surface, very rarely). Sealing the hole with the landlady's help is a
+  valid ending. Escalate slowly: sounds, smells, traces before any creature is seen.
+
+sanity_events:
+  gnawed_bones: "0/1D3"
+  professor_changed: "0/1D4"
+  ghoul_seen: "0/1D6"
+  ghouls_feeding: "1/1D8"
+
+investigators:
+  - id: olena-koval
+    name:
+      uk: Олена Коваль
+      en: Olena Koval
+    occupation:
+      uk: Журналістка газети «Діло»
+      en: Journalist for the "Dilo" newspaper
+    age: 29
+    characteristics: {STR: 40, CON: 60, SIZ: 50, DEX: 50, APP: 50, INT: 80, POW: 60, EDU: 70}
+    luck: 55
+    skills:
+      Accounting: 5
+      Anthropology: 1
+      Appraise: 5
+      Archaeology: 1
+      "Art/Craft (Photography)": 45
+      Charm: 35
+      Climb: 20
+      Credit Rating: 30
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 25
+      Drive Auto: 20
+      Electrical Repair: 10
+      Fast Talk: 45
+      "Fighting (Brawl)": 25
+      "Firearms (Handgun)": 20
+      First Aid: 40
+      History: 50
+      Intimidate: 15
+      Jump: 20
+      "Language (Other: German)": 40
+      "Language (Own: Ukrainian)": 70
+      Law: 5
+      Library Use: 60
+      Listen: 50
+      Locksmith: 1
+      Mechanical Repair: 10
+      Medicine: 1
+      Natural World: 10
+      Navigate: 10
+      Occult: 25
+      Persuade: 50
+      Psychology: 55
+      Science (Chemistry): 1
+      Sleight of Hand: 10
+      Spot Hidden: 70
+      Stealth: 30
+      Swim: 20
+      Throw: 20
+      Track: 10

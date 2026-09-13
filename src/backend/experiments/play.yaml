@@ -1,0 +1,12 @@
+# Arms used by the interactive app. Thesis matrices (prompt / RAG / FT / RAG+FT) get their own files later.
+fixed:
+  aux: gemini-aux
+  adjudicator: aux
+  prompt_version: keeper-v1
+  adjudicate_prompt_version: adjudicate-v1
+  history_max_tokens: 6000
+
+arms:
+  - arm: play-gemini
+    generator: gemini-flash
+    use_rag: false

@@ -3,39 +3,193 @@
 @tailwind utilities;
 
 @layer base {
-  html, body, #root {
+  html,
+  body,
+  #root {
     height: 100%;
   }
 
+  html {
+    color-scheme: dark;
+  }
+
   body {
-    background-color: #130f08;
-    color: #e8dcc8;
-    font-family: 'Crimson Pro', serif;
+    @apply bg-ink font-body text-parchment antialiased;
+    overflow: hidden; /* the app scrolls inside its panes, never the page */
+    /* faint lamplight vignette */
+    background-image: radial-gradient(ellipse at 50% -10%, rgba(192, 82, 42, 0.07), transparent 60%);
+  }
+
+  ::selection {
+    background: rgba(192, 82, 42, 0.35);
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #38301f;
-    border-radius: 2px;
+    background: theme('colors.ash.700');
+    border-radius: 3px;
+  }
+
+  :focus-visible {
+    outline: 1px solid theme('colors.ember');
+    outline-offset: 2px;
+  }
+
+  dialog::backdrop {
+    background: rgba(10, 8, 5, 0.75);
+    backdrop-filter: blur(2px);
   }
 }
 
 @layer components {
-  .prose-gm p {
-    margin-bottom: 0.75rem;
-    line-height: 1.7;
+  /* Keeper narration rendered from Markdown */
+  .prose-keeper {
+    line-height: 1.75;
+    overflow-wrap: anywhere;
   }
-  .prose-gm strong {
-    color: #c0522a;
+  .prose-keeper > :first-child {
+    margin-top: 0;
+  }
+  .prose-keeper > :last-child {
+    margin-bottom: 0;
+  }
+  .prose-keeper p {
+    margin: 0 0 0.75rem;
+  }
+  .prose-keeper strong {
+    color: theme('colors.ember');
     font-weight: 600;
   }
-  .prose-gm em {
-    color: #afa594;
+  .prose-keeper em {
+    color: theme('colors.ash.300');
     font-style: italic;
+  }
+  .prose-keeper h1,
+  .prose-keeper h2,
+  .prose-keeper h3,
+  .prose-keeper h4 {
+    @apply font-display text-parchment;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 1.1rem 0 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .prose-keeper h1 {
+    font-size: 1.5rem;
+  }
+  .prose-keeper h2 {
+    font-size: 1.3rem;
+  }
+  .prose-keeper h3,
+  .prose-keeper h4 {
+    font-size: 1.12rem;
+  }
+  .prose-keeper ul,
+  .prose-keeper ol {
+    margin: 0 0 0.75rem;
+    padding-left: 1.4rem;
+  }
+  .prose-keeper ul {
+    list-style: disc;
+  }
+  .prose-keeper ol {
+    list-style: decimal;
+  }
+  .prose-keeper li {
+    margin: 0.2rem 0;
+  }
+  .prose-keeper li::marker {
+    color: theme('colors.ember');
+  }
+  .prose-keeper blockquote {
+    margin: 0 0 0.75rem;
+    padding: 0.35rem 0 0.35rem 0.9rem;
+    border-left: 2px solid theme('colors.ember / 60%');
+    color: theme('colors.ash.200');
+    font-style: italic;
+    background: theme('colors.ash.800 / 40%');
+  }
+  .prose-keeper code {
+    @apply font-mono;
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    background: theme('colors.ash.800');
+    color: theme('colors.ash.100');
+  }
+  .prose-keeper pre {
+    margin: 0 0 0.75rem;
+    padding: 0.75rem;
+    overflow-x: auto;
+    border-radius: 6px;
+    background: theme('colors.ash.900');
+    border: 1px solid theme('colors.ash.700');
+  }
+  .prose-keeper pre code {
+    padding: 0;
+    background: transparent;
+  }
+  .prose-keeper a {
+    color: theme('colors.ember');
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-keeper a:hover {
+    color: theme('colors.parchment');
+  }
+  .prose-keeper hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid theme('colors.ash.700');
+  }
+  .prose-keeper table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 0 0 0.75rem;
+  }
+  .prose-keeper th,
+  .prose-keeper td {
+    border: 1px solid theme('colors.ash.700');
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* blinking caret at the end of the streaming Keeper text */
+  .stream-caret > p:last-child::after,
+  .stream-caret > :is(h1, h2, h3, h4, pre):last-child::after,
+  .stream-caret > :is(ul, ol):last-child > li:last-child::after,
+  .stream-caret > blockquote:last-child > p:last-child::after {
+    content: '▍';
+    margin-left: 2px;
+    color: theme('colors.ember');
+    animation: caret-blink 1s step-end infinite;
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

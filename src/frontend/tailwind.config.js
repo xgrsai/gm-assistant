@@ -1,19 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Cinzel"', 'serif'],
-        body: ['"Crimson Pro"', 'serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        // All three families ship Cyrillic glyphs (the default campaign language is `uk`).
+        display: ['"Cormorant Garamond"', '"PT Serif"', 'Georgia', '"Times New Roman"', 'serif'],
+        body: ['"Literata"', '"PT Serif"', 'Georgia', '"Times New Roman"', 'serif'],
+        mono: ['"JetBrains Mono"', 'Consolas', '"Courier New"', 'monospace'],
       },
       colors: {
         parchment: '#e8dcc8',
         ink: '#1a1410',
         ember: '#c0522a',
+        // 1920s accents for dice outcomes
+        brass: '#c9a24a',
+        verdigris: '#6f9c86',
+        blood: '#9e2b25',
         ash: {
-          50:  '#f5f3ef',
+          50: '#f5f3ef',
           100: '#e8e4dc',
           200: '#cdc6b8',
           300: '#afa594',
@@ -27,16 +32,22 @@ export default {
       },
       animation: {
         'fade-in': 'fadeIn 0.4s ease-out forwards',
-        'blink': 'blink 1s step-end infinite',
+        blink: 'blink 1s step-end infinite',
+        flicker: 'flicker 3.2s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
-          '0%':   { opacity: '0', transform: 'translateY(6px)' },
+          '0%': { opacity: '0', transform: 'translateY(6px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         blink: {
           '0%, 100%': { opacity: '1' },
-          '50%':      { opacity: '0' },
+          '50%': { opacity: '0' },
+        },
+        flicker: {
+          '0%, 100%': { opacity: '0.95' },
+          '45%': { opacity: '0.55' },
+          '55%': { opacity: '0.85' },
         },
       },
     },

@@ -1,59 +1,154 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { Loader2, Menu, UserRound } from 'lucide-react'
 import Sidebar from './components/Sidebar'
 import ChatWindow from './components/ChatWindow'
 import MessageInput from './components/MessageInput'
-import { sendMessage } from './lib/api'
+import ErrorBanner from './components/ErrorBanner'
+import InvestigatorPanel from './components/InvestigatorPanel'
+import NewCampaignDialog from './components/NewCampaignDialog'
+import EmptyState from './components/EmptyState'
+import { useCampaigns } from './hooks/useCampaigns'
+import { useTurnStream } from './hooks/useTurnStream'
 
 export default function App() {
-  const [messages, setMessages] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const campaigns = useCampaigns()
+  const { selected, selectedId, refresh, select } = campaigns
+  const turn = useTurnStream(selectedId, { onCampaignMissing: () => refresh() })
 
-  const handleSend = async (text) => {
-    const userMsg = { role: 'user', content: text }
-    const updated = [...messages, userMsg]
-    setMessages(updated)
-    setLoading(true)
-    setError(null)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sheetOpen, setSheetOpen] = useState(false)
 
-    try {
-      const reply = await sendMessage(updated)
-      setMessages([...updated, { role: 'assistant', content: reply }])
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
+  // Close drawers with Escape.
+  useEffect(() => {
+    if (!sidebarOpen && !sheetOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setSidebarOpen(false)
+        setSheetOpen(false)
+      }
     }
-  }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [sidebarOpen, sheetOpen])
 
-  const handleNewGame = () => {
-    setMessages([])
-    setError(null)
-  }
+  const openNew = useCallback(() => {
+    setSidebarOpen(false)
+    setDialogOpen(true)
+  }, [])
+
+  const selectCampaign = useCallback(
+    (id) => {
+      select(id)
+      setSidebarOpen(false)
+    },
+    [select],
+  )
+
+  const noCampaigns = campaigns.status !== 'loading' && campaigns.campaigns.length === 0
+  const inputHint =
+    turn.phase === 'streaming'
+      ? 'Хранитель відповідає — можна вже писати наступну дію'
+      : turn.phase === 'failed' && turn.error?.turn
+        ? 'Спершу повторіть або відкиньте перерваний хід'
+        : ''
 
   return (
-    <div className="h-full flex bg-ink">
-      <Sidebar onNewGame={handleNewGame} />
+    <div className="fixed inset-0 flex overflow-hidden">
+      <Sidebar
+        campaigns={campaigns.campaigns}
+        status={campaigns.status}
+        selectedId={selectedId}
+        onSelect={selectCampaign}
+        onDelete={campaigns.remove}
+        onNew={openNew}
+        onReload={() => refresh()}
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
-      <main className="flex-1 flex flex-col min-w-0">
-        {/* Header */}
-        <header className="px-6 py-4 border-b border-ash-800 flex items-center justify-between shrink-0">
-          <div>
-            <h1 className="font-display text-sm tracking-widest text-parchment uppercase">
-              The Ashen Crown
-            </h1>
-            <p className="text-xs text-ash-500 mt-0.5">Dark fantasy campaign</p>
+      <main className="flex min-w-0 flex-1 flex-col">
+        <header className="flex shrink-0 items-center gap-3 border-b border-ash-800 px-3 py-3 sm:px-6">
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Відкрити список кампаній"
+            aria-controls="campaign-sidebar"
+            aria-expanded={sidebarOpen}
+            className="rounded p-1.5 text-ash-300 hover:bg-ash-800 hover:text-parchment md:hidden"
+          >
+            <Menu size={20} aria-hidden />
+          </button>
+
+          <div className="min-w-0 flex-1">
+            {selected ? (
+              <>
+                <h1 className="truncate font-display text-xl font-semibold leading-tight tracking-wide text-parchment">
+                  {selected.title}
+                </h1>
+                <p className="truncate text-xs text-ash-500">
+                  {selected.scenario_title}
+                  {selected.language && <span className="ml-2 uppercase tracking-widest text-ash-600">{selected.language}</span>}
+                </p>
+              </>
+            ) : (
+              <>
+                <h1 className="font-display text-xl font-semibold leading-tight tracking-wide text-parchment">Хранитель</h1>
+                <p className="text-xs text-ash-500">Ведучий для «Поклику Ктулху» 7-ї редакції</p>
+              </>
+            )}
           </div>
-          {error && (
-            <p className="text-sm text-red-400 bg-red-900/20 border border-red-800/40 px-3 py-1.5 rounded-lg">
-              {error}
-            </p>
+
+          {selected && (
+            <button
+              type="button"
+              onClick={() => setSheetOpen(true)}
+              aria-label="Відкрити аркуш слідчого"
+              aria-controls="investigator-panel"
+              aria-expanded={sheetOpen}
+              className="inline-flex items-center gap-1.5 rounded border border-ash-700 px-2 py-1.5 text-sm text-ash-300 hover:border-ash-500 hover:text-parchment xl:hidden"
+            >
+              <UserRound size={16} aria-hidden />
+              <span className="hidden sm:inline">Слідчий</span>
+            </button>
           )}
         </header>
 
-        <ChatWindow messages={messages} loading={loading} />
-        <MessageInput onSend={handleSend} disabled={loading} />
+        {campaigns.status === 'loading' && campaigns.campaigns.length === 0 ? (
+          <div className="flex flex-1 items-center justify-center gap-2 text-ash-500" role="status">
+            <Loader2 size={16} className="animate-spin" aria-hidden /> Завантаження кампаній…
+          </div>
+        ) : noCampaigns || !selected ? (
+          <EmptyState status={campaigns.status} onNew={openNew} onReload={() => refresh()} />
+        ) : (
+          <div className="flex min-h-0 flex-1">
+            <section className="flex min-w-0 flex-1 flex-col" aria-label="Гра">
+              <ChatWindow
+                campaignId={selectedId}
+                messages={turn.messages}
+                loading={turn.loading}
+                loadError={turn.loadError}
+                onReload={turn.reload}
+                phase={turn.phase}
+                stage={turn.stage}
+                liveRolls={turn.liveRolls}
+                liveText={turn.liveText}
+              />
+              <ErrorBanner
+                error={turn.error}
+                busy={turn.phase === 'streaming' || turn.phase === 'discarding'}
+                onRetry={turn.retry}
+                onDiscard={turn.discard}
+                onDismiss={turn.dismissError}
+              />
+              <MessageInput onSend={turn.send} canSend={turn.canSend} hint={inputHint} />
+            </section>
+            <InvestigatorPanel investigator={turn.investigator} open={sheetOpen} onClose={() => setSheetOpen(false)} />
+          </div>
+        )}
       </main>
+
+      <NewCampaignDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onCreate={campaigns.create} />
     </div>
   )
 }

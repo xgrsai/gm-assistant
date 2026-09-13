@@ -1,11 +1,13 @@
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
+RUN chown node:node /app
+USER node
 
-COPY package*.json ./
-RUN npm install
+COPY --chown=node:node package.json package-lock.json ./
+RUN npm ci
 
-COPY . .
+COPY --chown=node:node . .
 
 EXPOSE 5173
 
