@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "app (docker compose)",
-      "runtimeExecutable": "docker",
-      "runtimeArgs": ["compose", "up", "--build"],
-      "port": 5173
+      "name": "backend (uvicorn)",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "--directory", "src/backend", "uvicorn", "server.main:app", "--reload", "--port", "8000"],
+      "port": 8000
     },
     {
       "name": "frontend (vite)",

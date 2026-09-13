@@ -1,0 +1,26 @@
+# Model profiles referenced by ExperimentSpec.generator / .aux. No secrets here.
+# Pick ONE Gemini id for a whole study and never change it mid-study.
+
+gemini-flash:
+  provider: google_genai
+  model: gemini-3.8-flash
+  thinking_level: low
+  max_tokens: 4096
+  context_window: 1000000
+
+gemini-aux:
+  provider: google_genai
+  model: gemini-3.8-flash
+  thinking_level: low
+  max_tokens: 2048
+  context_window: 1000000
+
+# Local models (Phase 4), require `uv sync --extra local` and a running server.
+gemma4-base-ollama:
+  provider: ollama
+  model: "gemma4:e4b"
+  temperature: 0.7
+  max_tokens: 1024
+  num_ctx: 16384
+  context_window: 16384
+  quant: ollama-default

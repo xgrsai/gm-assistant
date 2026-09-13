@@ -1,0 +1,41 @@
+[project]
+name = "gm-assistant-backend"
+version = "0.2.0"
+description = "AI Keeper for Call of Cthulhu 7e: FastAPI + LangGraph"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi==0.141.1",
+  "uvicorn[standard]",
+  "pydantic-settings",
+  "langgraph==1.2.11",
+  "langgraph-checkpoint-sqlite==3.1.1",
+  "langchain-core==1.6.3",
+  "langchain-google-genai==4.4.0",
+  "aiosqlite",
+  "jinja2",
+  "pyyaml",
+]
+
+[project.optional-dependencies]
+local = ["langchain-ollama==1.1.0", "langchain-openai==1.6.2"]
+
+[dependency-groups]
+dev = ["pytest", "pytest-asyncio", "httpx", "hypothesis", "ruff"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends"]

@@ -1,25 +1,48 @@
+# Optional containerised dev setup. On Windows the native setup (README) is faster:
+# bind mounts from NTFS are slow and need polling for reload.
 services:
-  frontend:
-    build:
-      context: ./src/frontend
-    ports:
-      - "127.0.0.1:5173:5173"
-    volumes:
-      - ./src/frontend:/app
-      - /app/node_modules
-    environment:
-      - VITE_API_URL=http://localhost:8000
-    depends_on:
-      - backend
-
-  backend:
+  api:
     build:
       context: ./src/backend
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+      ARTIFACTS_DIR: /app/artifacts
+      CHECKPOINT_PATH: /app/var/checkpoints.db
+      APP_DB_PATH: /app/var/app.db
+      WATCHFILES_FORCE_POLLING: "true"
+    command: ["uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    volumes:
+      - ./src/backend/server:/app/server
+      - ./src/backend/keeper:/app/keeper
+      - ./src/backend/config:/app/config:ro
+      - ./src/backend/experiments:/app/experiments:ro
+      - ./data:/data:ro
+      - ./artifacts:/app/artifacts
+      - api_var:/app/var  # named volume: SQLite WAL is unreliable on bind mounts
     ports:
       # localhost only: the API is unauthenticated and spends the Gemini key
       - "127.0.0.1:8000:8000"
-    volumes:
-      - ./src/backend/app:/app
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 15s
+      retries: 5
+
+  web:
+    build:
+      context: ./src/frontend
     environment:
-      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
-      - DEBUG=true
+      API_PROXY_TARGET: http://api:8000
+      VITE_USE_POLLING: "1"
+    volumes:
+      - ./src/frontend:/app
+      - web_node_modules:/app/node_modules  # after dependency changes: docker compose up --build -V web
+    ports:
+      - "127.0.0.1:5173:5173"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  api_var: {}
+  web_node_modules: {}
