@@ -37,6 +37,7 @@ class FakeFactory:
         self.adjudications = list(adjudications or [])
         self.queries = list(queries or [])
         self.structured_calls: list = []
+        self.responders: dict = {}  # schema name -> callable(messages) -> dict, takes precedence over the lists
 
     def profile(self, name: str) -> ModelProfile:
         return ModelProfile(provider="google_genai", model=f"fake-{name}", max_tokens=1024, context_window=32768)
@@ -47,7 +48,9 @@ class FakeFactory:
     def structured(self, name: str, schema, *, seed: int | None = None):
         def call(messages):
             self.structured_calls.append((schema.__name__, messages))
-            if schema.__name__ == "SearchQuery":
+            if schema.__name__ in self.responders:
+                item = self.responders[schema.__name__](messages)
+            elif schema.__name__ == "SearchQuery":
                 item = self.queries.pop(0) if self.queries else "general rules"
                 item = {"query_en": item} if isinstance(item, str) else item
             else:

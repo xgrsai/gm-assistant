@@ -7,7 +7,7 @@ An AI Game Master (Keeper) for tabletop role-playing games, built as the practic
 
 The target method combines retrieval-augmented generation over a game's rules, lore and scenarios with a LoRA fine-tuned language model. Call of Cthulhu 7th edition, with the agent acting as the Keeper, is the example system.
 
-## Status: Phase 2 (RAG)
+## Status: Phase 3 (evaluation harness)
 
 **Works today:**
 
@@ -24,8 +24,14 @@ The target method combines retrieval-augmented generation over a game's rules, l
 - **Streaming over SSE**, with Retry that resumes a failed turn from its last checkpoint without re-rolling dice, and Discard.
 - **Reproducibility hooks:** every campaign freezes an `ExperimentSpec` (hashed, including retrieval settings), prompts are versioned and hashed, and each turn writes a JSONL research record to `artifacts/runs/` (search query, retrieved chunk ids and scores, citations, rolls, usage, timings).
 - A self-written demo scenario, *Тиша на Пекарській / Silence on Pekarska Street* (Lviv, 1927), with a pregenerated investigator, in Ukrainian and English.
+- **Evaluation harness** (`src/backend/evals`, methodology in [`docs/evaluation.md`](docs/evaluation.md)):
+  - gold datasets in `data/eval/coc7e`: rules questions with gold sections, knowledge-conflict probes, adjudication turns with rhetorical-injection variants;
+  - tasks: retrieval (Hit@k, MRR, `min_score` calibration), rules QA with an LLM judge, context adherence under conflicts, adjudication accuracy and injection robustness;
+  - paired statistics (bootstrap CIs, sign-flip and McNemar tests, Holm correction);
+  - frozen RAG contexts shared by all arms, resumable runs bound to a configuration fingerprint;
+  - judge calibration against human labels (Cohen's κ).
 
-**Next phases:** evaluation harness (gold rules questions, retrieval metrics, conflict probes), LoRA fine-tuning of an open model, and the prompt / RAG / FT / RAG+FT comparison. See [`docs/final-architecture.md`](docs/final-architecture.md) (plan), [`docs/critique.md`](docs/critique.md) (review of the plan) and [`docs/api.md`](docs/api.md) (HTTP/SSE contract).
+**Next phases:** LoRA fine-tuning of an open model, then the prompt / RAG / FT / RAG+FT comparison and ablations. See [`docs/final-architecture.md`](docs/final-architecture.md) (plan), [`docs/critique.md`](docs/critique.md) (review of the plan) and [`docs/api.md`](docs/api.md) (HTTP/SSE contract).
 
 ## Tech stack
 
@@ -67,6 +73,18 @@ Prerequisites: [uv](https://docs.astral.sh/uv/), Node.js 20+, Docker Desktop (fo
    ```
 
 5. Open http://localhost:5173. Vite proxies `/api` to the backend.
+
+Evaluation (see [`docs/evaluation.md`](docs/evaluation.md)):
+
+```powershell
+cd src/backend
+uv run python -m evals.datasets                                                    # validate gold data
+uv run python -m evals.run evals/experiments/phase3-gemini.yaml --dry-run          # planned LLM calls
+uv run python -m evals.run evals/experiments/phase3-gemini.yaml --tasks retrieval --query-modes en,uk
+uv run python -m evals.run evals/experiments/phase3-local-qwen.yaml --no-judge     # local generation
+```
+
+Reports are written to `artifacts/eval/runs/<run>/report.md`.
 
 Tests and lint (no Qdrant, Ollama or Gemini needed; they use in-memory Qdrant and fake models):
 

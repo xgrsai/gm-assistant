@@ -38,8 +38,23 @@ class Retriever:
                                                  match("metadata.source_type", source_type),
                                                  match("metadata.visibility", visibility)]))
             found.extend(res.points)
+        return self._hits(found)
+
+    async def rank(self, query: str, spec: RetrievalSpec, *, game_system: str, limit: int = 10,
+                   visibility: str = "public") -> list[dict]:
+        """One ranked list over all source types, without quotas or min_score (for retrieval evaluation)."""
+        vector = await self.embedders[spec.embedder].aembed_query(query)
+        res = await self.client.query_points(
+            collection_name=spec.collection, query=vector, limit=limit, with_payload=True,
+            search_params=models.SearchParams(exact=spec.exact),
+            query_filter=models.Filter(must=[match("metadata.game_system", game_system),
+                                             match("metadata.visibility", visibility)]))
+        return self._hits(res.points)
+
+    @staticmethod
+    def _hits(points) -> list[dict]:
         hits = []
-        for i, p in enumerate(found, start=1):
+        for i, p in enumerate(points, start=1):
             meta = p.payload["metadata"]
             text = p.payload["page_content"]
             hits.append({

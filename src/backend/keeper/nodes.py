@@ -69,6 +69,51 @@ def assert_ends_with_human(msgs: list[AnyMessage]) -> None:
         raise ValueError("last message must be a player turn (Gemini >= 3.6 rejects model prefill)")
 
 
+# Shared by the graph nodes and the evaluation harness, so evals measure exactly the production logic.
+
+def player_turn(text: str) -> str:
+    """Player text is passed as data, never as instructions (defence against rhetorical injection)."""
+    return "<player_turn>\n" + text + "\n</player_turn>"
+
+async def search_query(deps: Deps, spec, scenario: dict, messages: list[AnyMessage]) -> tuple[str, list[str]]:
+    """English standalone search query for the last player turn; falls back to the raw text on parse errors."""
+    llm = deps.llms.structured(spec.aux, SearchQuery, seed=spec.seed)
+    system = deps.prompts.render(spec.analyze_prompt_version, scenario=scenario, recent=transcript(messages[:-1]))
+    player = messages[-1].text
+    try:
+        q: SearchQuery = await llm.ainvoke([SystemMessage(system), HumanMessage(player_turn(player))])
+        query = q.query_en.strip()
+    except (OutputParserException, ValidationError):
+        query = ""
+    return (query, []) if query else (player, ["analyze_parse_error"])
+
+
+async def adjudicate_turn(deps: Deps, spec, scenario: dict, investigator: dict, roll_log: list[dict],
+                          messages: list[AnyMessage], rules_hits: list[dict]) -> tuple[dict, list[str]]:
+    profile = spec.aux if spec.adjudicator == "aux" else spec.generator
+    llm = deps.llms.structured(profile, Adjudication, seed=spec.seed)
+    system = deps.prompts.render(
+        spec.adjudicate_prompt_version,
+        scenario=scenario,
+        sheet=rules.sheet_names(investigator),
+        last_roll=rules.last_player_roll(roll_log),
+        recent=transcript(messages[:-1]),
+        use_rag=spec.use_rag,
+        rules_hits=rules_hits,
+    )
+    player = messages[-1].text
+    try:
+        adj: Adjudication = await llm.ainvoke([SystemMessage(system), HumanMessage(player_turn(player))])
+    except (OutputParserException, ValidationError):  # transport errors propagate to the RetryPolicy
+        return {"kind": "in_fiction", "needs_roll": False, "roll_type": "none"}, ["adjudication_parse_error"]
+    data = adj.model_dump()
+    if data["kind"] != "in_fiction" or data["roll_type"] == "none":
+        data["needs_roll"] = False
+    if not data["needs_roll"]:
+        data["roll_type"] = "none"
+    return data, []
+
+
 class Nodes:
     def __init__(self, deps: Deps):
         self.d = deps
@@ -95,23 +140,15 @@ class Nodes:
 
     async def analyze(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
         runtime.stream_writer({"type": "progress", "payload": {"node": "analyze"}})
-        spec = runtime.context.spec
-        llm = self.d.llms.structured(spec.aux, SearchQuery, seed=spec.seed)
-        system = self.d.prompts.render(spec.analyze_prompt_version, scenario=state["scenario"],
-                                       recent=transcript(state["messages"][:-1]))
-        player = state["messages"][-1].text
-        try:
-            q: SearchQuery = await llm.ainvoke(
-                [SystemMessage(system), HumanMessage(f"<player_turn>\n{player}\n</player_turn>")])
-            query = q.query_en.strip()
-        except (OutputParserException, ValidationError):
-            query = ""
-        if not query:  # still retrieve something: fall back to the raw player text
-            return {"search_query": player, "errors": [*state.get("errors", []), "analyze_parse_error"]}
-        return {"search_query": query}
+        if state.get("forced_hits") is not None:  # eval: frozen context, no query needed
+            return {"search_query": ""}
+        query, errors = await search_query(self.d, runtime.context.spec, state["scenario"], state["messages"])
+        return {"search_query": query, "errors": [*state.get("errors", []), *errors]}
 
     async def retrieve(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
         runtime.stream_writer({"type": "progress", "payload": {"node": "retrieve"}})
+        if (forced := state.get("forced_hits")) is not None:
+            return {"rules_hits": forced, "forced_hits": None}
         if self.d.retriever is None:
             raise RuntimeError("this arm uses RAG but no retriever is configured")
         hits = await self.d.retriever.search(state["search_query"], runtime.context.spec.retrieval,
@@ -120,32 +157,12 @@ class Nodes:
 
     async def adjudicate(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
         runtime.stream_writer({"type": "progress", "payload": {"node": "adjudicate"}})
-        spec = runtime.context.spec
-        profile = spec.aux if spec.adjudicator == "aux" else spec.generator
-        llm = self.d.llms.structured(profile, Adjudication, seed=spec.seed)
-        roll_log = state.get("roll_log") or []
-        system = self.d.prompts.render(
-            spec.adjudicate_prompt_version,
-            scenario=state["scenario"],
-            sheet=rules.sheet_names(state["investigator"]),
-            last_roll=rules.last_player_roll(roll_log),
-            recent=transcript(state["messages"][:-1]),
-            use_rag=spec.use_rag,
-            rules_hits=state.get("rules_hits") or [],
-        )
-        player = state["messages"][-1].text
-        try:
-            adj: Adjudication = await llm.ainvoke(
-                [SystemMessage(system), HumanMessage(f"<player_turn>\n{player}\n</player_turn>")])
-        except (OutputParserException, ValidationError):  # transport errors propagate to the RetryPolicy
-            return {"adjudication": {"kind": "in_fiction", "needs_roll": False, "roll_type": "none"},
-                    "errors": [*state.get("errors", []), "adjudication_parse_error"]}
-        data = adj.model_dump()
-        if data["kind"] != "in_fiction" or data["roll_type"] == "none":
-            data["needs_roll"] = False
-        if not data["needs_roll"]:
-            data["roll_type"] = "none"
-        return {"adjudication": data}
+        if forced := state.get("forced_kind"):  # eval: e.g. rules questions skip the adjudication LLM
+            return {"adjudication": {"kind": forced, "needs_roll": False, "roll_type": "none"}, "forced_kind": None}
+        data, errors = await adjudicate_turn(self.d, runtime.context.spec, state["scenario"], state["investigator"],
+                                             state.get("roll_log") or [], state["messages"],
+                                             state.get("rules_hits") or [])
+        return {"adjudication": data, "errors": [*state.get("errors", []), *errors]}
 
     async def mechanics(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
         runtime.stream_writer({"type": "progress", "payload": {"node": "mechanics"}})
