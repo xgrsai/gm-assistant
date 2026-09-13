@@ -3,7 +3,7 @@ services:
     build:
       context: ./src/frontend
     ports:
-      - "5173:5173"
+      - "127.0.0.1:5173:5173"
     volumes:
       - ./src/frontend:/app
       - /app/node_modules
@@ -16,7 +16,8 @@ services:
     build:
       context: ./src/backend
     ports:
-      - "8000:8000"
+      # localhost only: the API is unauthenticated and spends the Gemini key
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./src/backend/app:/app
     environment:

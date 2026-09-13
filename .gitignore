@@ -14,8 +14,9 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+# anchored to the repo root: unanchored `lib/` also swallowed src/frontend/src/lib/
+/lib/
+/lib64/
 parts/
 sdist/
 var/
@@ -216,3 +217,35 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---------------------------------------------------------------------------
+# Project-specific
+# ---------------------------------------------------------------------------
+
+# Local env overrides (.env itself is ignored above; .env.example stays tracked)
+.env.local
+.env.*.local
+
+# Node / Vite
+node_modules/
+npm-debug.log*
+.vite/
+src/frontend/dist/
+
+# Claude Code: shared config in .claude/ is committed, personal files are not
+.claude/settings.local.json
+.claude/worktrees/
+CLAUDE.local.md
+
+# Copyrighted RPG corpus, derived datasets, run outputs, model weights.
+# Rulebook text (Chaosium etc.) must never be committed to this public repo.
+/data/private/
+/artifacts/
+/adapters/
+/models/
+*.gguf
+*.safetensors
+
+# OS
+.DS_Store
+Thumbs.db
