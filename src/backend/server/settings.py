@@ -7,7 +7,9 @@ from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parents[1]
-REPO_ROOT = BACKEND_DIR.parents[1]
+# In the repo: <root>/src/backend. In the Docker image the backend is /app with no repo around it,
+# so fall back to BACKEND_DIR (compose sets DATA_DIR / ARTIFACTS_DIR explicitly there).
+REPO_ROOT = BACKEND_DIR.parents[1] if len(BACKEND_DIR.parents) >= 2 else BACKEND_DIR
 
 
 class Settings(BaseSettings):
