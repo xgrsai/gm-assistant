@@ -20,11 +20,12 @@ class Settings(BaseSettings):
     )
 
     google_api_key: SecretStr | None = None
-    default_arm: str = "play-gemini"
+    default_arm: str = "play-gemini-rag"
     google_rpm: int = 10
     model_timeout_s: float = 120.0
     ollama_base_url: str = "http://localhost:11434"
     vllm_base_url: str | None = None
+    qdrant_url: str = "http://localhost:6333"
 
     checkpoint_path: Path = BACKEND_DIR / "var" / "checkpoints.db"
     app_db_path: Path = BACKEND_DIR / "var" / "app.db"

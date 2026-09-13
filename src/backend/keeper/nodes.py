@@ -1,4 +1,8 @@
-"""Graph nodes. The LLM decides what to roll (adjudicate) and how to tell it (narrate); code rolls (mechanics)."""
+"""Graph nodes.
+
+RAG arms: analyze (English search query) -> retrieve (Qdrant) -> adjudicate -> [mechanics] -> narrate.
+Prompt-only arms skip analyze/retrieve. The LLM decides what to roll and how to tell it; code rolls the dice.
+"""
 
 from __future__ import annotations
 
@@ -9,8 +13,10 @@ from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import AIMessage, AnyMessage, HumanMessage, SystemMessage
 from langchain_core.messages.utils import count_tokens_approximately, trim_messages
 from langgraph.runtime import Runtime
+from langgraph.types import Command
 from pydantic import BaseModel, Field, ValidationError
 
+from . import citations
 from .game.coc7e import rules
 from .spec import KeeperContext
 from .state import KeeperState
@@ -36,6 +42,10 @@ class Adjudication(BaseModel):
     sanity_loss: str | None = Field(None, description="Sanity loss in X/Y notation such as '0/1D6', or null")
     is_push: bool = False
     reason: str = ""
+
+
+class SearchQuery(BaseModel):
+    query_en: str = Field(description="Standalone English search query for the rules and setting knowledge base")
 
 
 class EmptyGeneration(RuntimeError):
@@ -73,12 +83,40 @@ class Nodes:
             "investigator": pack.investigator(language, b.get("investigator_id")),
             "messages": [AIMessage(content=scenario["opening"], id=f"opening-{runtime.context.campaign_id}")],
             "roll_log": [],
+            "citation_log": [],
             "bootstrap": None,
         }
 
-    async def prepare_turn(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
+    async def prepare_turn(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> Command:
         assert_ends_with_human(state.get("messages", []))
-        return {"adjudication": None, "turn_rolls": [], "errors": []}
+        reset = {"search_query": "", "rules_hits": [], "adjudication": None, "turn_rolls": [], "errors": []}
+        # Routing depends on the run context (the arm), which conditional-edge routers do not receive.
+        return Command(update=reset, goto="analyze" if runtime.context.spec.use_rag else "adjudicate")
+
+    async def analyze(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
+        runtime.stream_writer({"type": "progress", "payload": {"node": "analyze"}})
+        spec = runtime.context.spec
+        llm = self.d.llms.structured(spec.aux, SearchQuery, seed=spec.seed)
+        system = self.d.prompts.render(spec.analyze_prompt_version, scenario=state["scenario"],
+                                       recent=transcript(state["messages"][:-1]))
+        player = state["messages"][-1].text
+        try:
+            q: SearchQuery = await llm.ainvoke(
+                [SystemMessage(system), HumanMessage(f"<player_turn>\n{player}\n</player_turn>")])
+            query = q.query_en.strip()
+        except (OutputParserException, ValidationError):
+            query = ""
+        if not query:  # still retrieve something: fall back to the raw player text
+            return {"search_query": player, "errors": [*state.get("errors", []), "analyze_parse_error"]}
+        return {"search_query": query}
+
+    async def retrieve(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
+        runtime.stream_writer({"type": "progress", "payload": {"node": "retrieve"}})
+        if self.d.retriever is None:
+            raise RuntimeError("this arm uses RAG but no retriever is configured")
+        hits = await self.d.retriever.search(state["search_query"], runtime.context.spec.retrieval,
+                                             game_system=state["scenario"].get("game_system", "coc7e"))
+        return {"rules_hits": hits}
 
     async def adjudicate(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
         runtime.stream_writer({"type": "progress", "payload": {"node": "adjudicate"}})
@@ -92,6 +130,8 @@ class Nodes:
             sheet=rules.sheet_names(state["investigator"]),
             last_roll=rules.last_player_roll(roll_log),
             recent=transcript(state["messages"][:-1]),
+            use_rag=spec.use_rag,
+            rules_hits=state.get("rules_hits") or [],
         )
         player = state["messages"][-1].text
         try:
@@ -133,7 +173,7 @@ class Nodes:
             rolls=state.get("turn_rolls") or [],
             errors=state.get("errors") or [],
             use_rag=spec.use_rag,
-            rules_hits=[],
+            rules_hits=state.get("rules_hits") or [],
         )
         profile = self.d.llms.profile(spec.generator)
         counter = partial(count_tokens_approximately, chars_per_token=CHARS_PER_TOKEN.get(language, 3.0))
@@ -148,4 +188,9 @@ class Nodes:
         msg = await llm.ainvoke([SystemMessage(system), *history])
         if not msg.text.strip():
             raise EmptyGeneration(str(msg.response_metadata.get("finish_reason")))
-        return {"messages": [msg]}  # the original message object keeps Gemini thought signatures
+        update: dict = {"messages": [msg]}  # the original message object keeps Gemini thought signatures
+        if spec.use_rag:
+            valid, invalid = citations.validate(msg.text, state.get("rules_hits") or [])
+            update["citation_log"] = [{"turn_no": turn_number(state["messages"]), "citations": valid,
+                                       "invalid_markers": invalid}]
+        return update

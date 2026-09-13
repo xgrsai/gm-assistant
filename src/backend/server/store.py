@@ -46,9 +46,17 @@ class Campaign:
     updated_at: str
 
     def public(self) -> dict:
-        return {"id": self.id, "title": self.title, "scenario_id": self.scenario_id,
-                "scenario_title": self.scenario_title, "language": self.language, "arm": self.spec.arm,
-                "created_at": self.created_at, "updated_at": self.updated_at}
+        return {
+            "id": self.id,
+            "title": self.title,
+            "scenario_id": self.scenario_id,
+            "scenario_title": self.scenario_title,
+            "language": self.language,
+            "arm": self.spec.arm,
+            "use_rag": self.spec.use_rag,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }
 
 
 class CampaignStore:
@@ -67,21 +75,47 @@ class CampaignStore:
 
     @staticmethod
     def _row(row: aiosqlite.Row) -> Campaign:
-        return Campaign(id=row["id"], title=row["title"], scenario_id=row["scenario_id"],
-                        scenario_title=row["scenario_title"], language=row["language"],
-                        spec=ExperimentSpec.model_validate_json(row["spec_json"]),
-                        created_at=row["created_at"], updated_at=row["updated_at"])
+        return Campaign(
+            id=row["id"],
+            title=row["title"],
+            scenario_id=row["scenario_id"],
+            scenario_title=row["scenario_title"],
+            language=row["language"],
+            spec=ExperimentSpec.model_validate_json(row["spec_json"]),
+            created_at=row["created_at"],
+            updated_at=row["updated_at"],
+        )
 
-    async def create(self, *, title: str, scenario_id: str, scenario_title: str, language: str,
-                     spec: ExperimentSpec) -> Campaign:
+    async def create(
+        self, *, title: str, scenario_id: str, scenario_title: str, language: str, spec: ExperimentSpec
+    ) -> Campaign:
         now = _now()
-        c = Campaign(id=uuid.uuid4().hex, title=title, scenario_id=scenario_id, scenario_title=scenario_title,
-                     language=language, spec=spec, created_at=now, updated_at=now)
+        c = Campaign(
+            id=uuid.uuid4().hex,
+            title=title,
+            scenario_id=scenario_id,
+            scenario_title=scenario_title,
+            language=language,
+            spec=spec,
+            created_at=now,
+            updated_at=now,
+        )
         await self.db.execute(
             "INSERT INTO campaigns (id, title, scenario_id, scenario_title, language, arm, spec_json, spec_hash,"
             " created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (c.id, c.title, c.scenario_id, c.scenario_title, c.language, spec.arm, spec.model_dump_json(),
-             spec.spec_hash(), now, now))
+            (
+                c.id,
+                c.title,
+                c.scenario_id,
+                c.scenario_title,
+                c.language,
+                spec.arm,
+                spec.model_dump_json(),
+                spec.spec_hash(),
+                now,
+                now,
+            ),
+        )
         await self.db.commit()
         return c
 

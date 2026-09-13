@@ -11,6 +11,11 @@ services:
       CHECKPOINT_PATH: /app/var/checkpoints.db
       APP_DB_PATH: /app/var/app.db
       WATCHFILES_FORCE_POLLING: "true"
+      QDRANT_URL: http://qdrant:6333
+      # Ollama runs natively on the host (Windows app); containers reach it through the host gateway.
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: ["uvicorn", "server.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
     volumes:
       - ./src/backend/server:/app/server
@@ -27,6 +32,15 @@ services:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
       interval: 15s
       retries: 5
+    depends_on:
+      - qdrant
+
+  qdrant:
+    image: qdrant/qdrant:v1.19.1
+    volumes:
+      - qdrant_data:/qdrant/storage
+    ports:
+      - "127.0.0.1:6333:6333"  # REST API + dashboard at http://localhost:6333/dashboard
 
   web:
     build:
@@ -44,5 +58,6 @@ services:
         condition: service_healthy
 
 volumes:
+  qdrant_data: {}
   api_var: {}
   web_node_modules: {}

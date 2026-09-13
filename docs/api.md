@@ -1,4 +1,4 @@
-# HTTP API (Phase 1 MVP)
+# HTTP API (Phase 2: RAG)
 
 Base path: `/api`. In development the Vite dev server proxies `/api` to the backend (`http://localhost:8000`), so the frontend always uses relative URLs and there is no CORS.
 
@@ -36,7 +36,8 @@ The server owns the conversation. The client never sends history — only the te
   "scenario_id": "demo-haunt",
   "scenario_title": "Тиша на Пекарській",
   "language": "uk",
-  "arm": "play-gemini",
+  "arm": "play-gemini-rag",
+  "use_rag": true,
   "created_at": "2026-09-13T12:00:00Z",
   "updated_at": "2026-09-13T12:05:00Z"
 }
@@ -84,24 +85,41 @@ The server owns the conversation. The client never sends history — only the te
 }
 ```
 
+### Citation
+
+Retrieved knowledge-base chunk that the Keeper cited with a `[R<marker>]` marker in its text.
+
+```json
+{
+  "marker": 2,                         // matches "[R2]" in the Keeper text
+  "chunk_id": "6f1c...",
+  "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+  "section": "Sanity > Losing Sanity",   // heading path inside the source
+  "source_type": "rules",              // rules | lore
+  "score": 0.71,                       // cosine similarity
+  "excerpt": "When an investigator faces ..."   // first ~300 characters of the chunk
+}
+```
+
 ### Message
 
 ```json
 {"id": "h-6c1e...", "role": "player", "text": "Я оглядаю кімнату."}
-{"id": "run-...", "role": "keeper", "text": "Пил лежить ...", "rolls": [ /* roll records made in this turn */ ]}
+{"id": "run-...", "role": "keeper", "text": "Пил лежить ... [R1]", "rolls": [ /* roll records made in this turn */ ],
+ "citations": [ /* Citation, only markers that were actually retrieved */ ], "invalid_markers": [ /* e.g. [7] if the text cites [R7] that was not retrieved */ ]}
 ```
 
-The first message of every campaign is the scenario opening (`role: "keeper"`, no rolls).
+The first message of every campaign is the scenario opening (`role: "keeper"`, no rolls, no citations). In campaigns with `use_rag: false` `citations` and `invalid_markers` are always empty.
 
 ## Endpoints
 
 | Method & path | Response |
 |---|---|
 | `GET /api/health` | `{"status": "ok"}` |
-| `GET /api/meta` | `{"version", "default_arm", "generator_model"}` |
+| `GET /api/meta` | `{"version", "default_arm", "generator_model", "arms": [{"id": "play-gemini-rag", "use_rag": true, "generator_model": "gemini-3.8-flash"}, ...]}` |
 | `GET /api/scenarios` | `{"items": [{"id", "title": {"uk","en"}, "era": {"uk","en"}, "blurb": {"uk","en"}}]}` |
 | `GET /api/campaigns` | `{"items": [Campaign]}` newest first |
-| `POST /api/campaigns` | body `{"title": 1..120 chars, "scenario_id": "demo-haunt", "language": "uk"\|"en"}` → `201 Campaign`. Creates the thread and writes the opening message (no LLM call). |
+| `POST /api/campaigns` | body `{"title": 1..120 chars, "scenario_id": "demo-haunt", "language": "uk"\|"en", "arm"?: one of meta.arms[].id}` → `201 Campaign`. `arm` defaults to `default_arm`; unknown arm → `422 {"detail": {"code": "unknown_arm"}}`. The arm is frozen for the campaign's lifetime. Creates the thread and writes the opening message (no LLM call). |
 | `GET /api/campaigns/{id}` | `{...Campaign, "investigator": Investigator}` |
 | `GET /api/campaigns/{id}/messages` | `{"items": [Message], "incomplete": bool, "investigator": Investigator}` — `incomplete` means the last turn failed and needs `retry` or `discard` |
 | `DELETE /api/campaigns/{id}` | `204` |
@@ -115,7 +133,7 @@ The first message of every campaign is the scenario opening (`role: "keeper"`, n
 
 | event | data | notes |
 |---|---|---|
-| `progress` | `{"node": "adjudicate" \| "mechanics" \| "narrate"}` | a pipeline stage finished/started — for a status indicator |
+| `progress` | `{"node": "analyze" \| "retrieve" \| "adjudicate" \| "mechanics" \| "narrate"}` | a pipeline stage started — for a status indicator. `analyze` (search query) and `retrieve` (knowledge-base search) appear only in RAG campaigns |
 | `roll` | Roll record | 0..n per turn, before narration tokens |
 | `token` | `{"text": "..."}` | narration text chunk; append to the Keeper bubble |
 | `done` | `{"message": Message, "investigator": Investigator}` | final Keeper message (replace the streamed bubble with it) and the updated sheet |

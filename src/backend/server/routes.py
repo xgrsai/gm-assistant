@@ -22,7 +22,7 @@ from .store import Campaign
 router = APIRouter()
 log = logging.getLogger("gm.turns")
 
-TURN_NODES = {"prepare_turn", "adjudicate", "mechanics", "narrate"}
+TURN_NODES = {"prepare_turn", "analyze", "retrieve", "adjudicate", "mechanics", "narrate"}
 
 
 # ---------------------------------------------------------------------------------------------- helpers
@@ -33,17 +33,20 @@ def thread(campaign_id: str) -> dict:
 
 
 def serialize_messages(values: dict) -> list[dict]:
-    """Player/Keeper messages; each Keeper reply carries the rolls made in its turn."""
+    """Player/Keeper messages; each Keeper reply carries the rolls and citations of its turn."""
     by_turn: dict[int, list[dict]] = {}
     for rec in values.get("roll_log") or []:
         by_turn.setdefault(rec.get("turn_no", 0), []).append(rec)
+    cites = {rec["turn_no"]: rec for rec in values.get("citation_log") or []}
     items, turn = [], 0
     for m in values.get("messages") or []:
         if m.type == "human":
             turn += 1
             items.append({"id": m.id, "role": "player", "text": m.text})
         else:
-            items.append({"id": m.id, "role": "keeper", "text": m.text, "rolls": by_turn.get(turn, []) if turn else []})
+            c = cites.get(turn, {}) if turn else {}
+            items.append({"id": m.id, "role": "keeper", "text": m.text, "rolls": by_turn.get(turn, []) if turn else [],
+                          "citations": c.get("citations", []), "invalid_markers": c.get("invalid_markers", [])})
     return items
 
 
@@ -76,8 +79,10 @@ async def health() -> dict:
 async def meta(request: Request) -> dict:
     deps = request.app.state.deps
     spec = deps.experiments.resolve()
+    arms = [{"id": a.arm, "use_rag": a.use_rag, "generator_model": deps.llms.profile(a.generator).model}
+            for a in deps.experiments.arms.values()]
     return {"version": request.app.version, "default_arm": spec.arm,
-            "generator_model": deps.llms.profile(spec.generator).model}
+            "generator_model": deps.llms.profile(spec.generator).model, "arms": arms}
 
 
 @router.get("/scenarios")
@@ -92,6 +97,7 @@ class CampaignIn(BaseModel):
     title: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=120)]
     scenario_id: Annotated[str, StringConstraints(pattern=r"^[a-z0-9-]{1,64}$")] = "demo-haunt"
     language: Literal["uk", "en"] = "uk"
+    arm: Annotated[str, StringConstraints(max_length=64)] | None = None
 
 
 @router.get("/campaigns")
@@ -106,7 +112,9 @@ async def create_campaign(body: CampaignIn, request: Request) -> dict:
         pack = st.deps.scenarios.load(body.scenario_id)
     except KeyError:
         raise HTTPException(422, detail={"code": "unknown_scenario", "retryable": False}) from None
-    spec = st.deps.experiments.resolve()
+    if body.arm is not None and body.arm not in st.deps.experiments.arms:
+        raise HTTPException(422, detail={"code": "unknown_arm", "retryable": False})
+    spec = st.deps.experiments.resolve(body.arm)
     campaign = await st.store.create(title=body.title, scenario_id=pack.id,
                                      scenario_title=pack.localized(pack.title, body.language),
                                      language=body.language, spec=spec)
@@ -231,6 +239,11 @@ def write_runlog(deps, campaign: Campaign, values: dict, usage: UsageMetadataCal
             "player_text": player.text if player else None,
             "keeper_text": last.text if last is not None and last.type == "ai" else None,
             "finish_reason": (last.response_metadata or {}).get("finish_reason") if last is not None else None,
+            "search_query": values.get("search_query") if spec.use_rag else None,
+            "rules_hits": [{k: h.get(k) for k in ("marker", "chunk_id", "score", "source_type", "section")}
+                           for h in values.get("rules_hits") or []] if spec.use_rag else [],
+            "citations": next((c for c in reversed(values.get("citation_log") or [])
+                               if c.get("turn_no") == sum(1 for m in msgs if m.type == "human")), None),
             "adjudication": values.get("adjudication"), "rolls": values.get("turn_rolls") or [],
             "errors": values.get("errors") or [], "usage": usage.usage_metadata, "timings_ms": timings,
         })

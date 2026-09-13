@@ -7,11 +7,14 @@ import ErrorBanner from './components/ErrorBanner'
 import InvestigatorPanel from './components/InvestigatorPanel'
 import NewCampaignDialog from './components/NewCampaignDialog'
 import EmptyState from './components/EmptyState'
+import RagBadge from './components/RagBadge'
 import { useCampaigns } from './hooks/useCampaigns'
+import { useMeta } from './hooks/useMeta'
 import { useTurnStream } from './hooks/useTurnStream'
 
 export default function App() {
   const campaigns = useCampaigns()
+  const meta = useMeta()
   const { selected, selectedId, refresh, select } = campaigns
   const turn = useTurnStream(selectedId, { onCampaignMissing: () => refresh() })
 
@@ -88,6 +91,7 @@ export default function App() {
                 </h1>
                 <p className="truncate text-xs text-ash-500">
                   {selected.scenario_title}
+                  {selected.use_rag && <RagBadge className="ml-2 align-[1px]" />}
                   {selected.language && <span className="ml-2 uppercase tracking-widest text-ash-600">{selected.language}</span>}
                 </p>
               </>
@@ -148,7 +152,14 @@ export default function App() {
         )}
       </main>
 
-      <NewCampaignDialog open={dialogOpen} onClose={() => setDialogOpen(false)} onCreate={campaigns.create} />
+      <NewCampaignDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onCreate={campaigns.create}
+        meta={meta.meta}
+        metaStatus={meta.status}
+        onReloadMeta={meta.reload}
+      />
     </div>
   )
 }

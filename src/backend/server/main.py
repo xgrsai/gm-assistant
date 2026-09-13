@@ -10,12 +10,15 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
+from qdrant_client import AsyncQdrantClient
 
 from keeper.deps import Deps
 from keeper.experiments import ExperimentRegistry
 from keeper.graph import build_graph
 from keeper.llm import ModelFactory
 from keeper.prompts import PromptSet
+from keeper.rag.embeddings import build_embeddings, load_profiles
+from keeper.rag.retriever import Retriever
 from keeper.runlog import RunLog
 from keeper.scenarios import ScenarioRepo
 
@@ -23,7 +26,7 @@ from .routes import router
 from .settings import REPO_ROOT, Settings, get_settings
 from .store import CampaignStore
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 log = logging.getLogger("gm")
 
 
@@ -45,10 +48,33 @@ def build_deps(s: Settings) -> Deps:
     for name in {spec.generator, spec.aux}:  # fail fast instead of on the first turn
         if llms.profile(name).provider == "google_genai" and not s.google_api_key:
             raise RuntimeError(f"GOOGLE_API_KEY is required by model profile {name!r} of arm {spec.arm!r}")
+    retriever = None
+    if any(a.use_rag for a in experiments.arms.values()):
+        profiles = load_profiles(s.config_dir / "embedders.yaml")
+        retriever = Retriever(AsyncQdrantClient(url=s.qdrant_url),
+                              {n: build_embeddings(p, ollama_url=s.ollama_base_url) for n, p in profiles.items()},
+                              {n: p.dim for n, p in profiles.items()})
     return Deps(llms=llms, prompts=PromptSet(), scenarios=ScenarioRepo(s.data_dir / "scenarios"),
-                experiments=experiments,
+                experiments=experiments, retriever=retriever,
                 runlog=RunLog(s.artifacts_dir / "runs", git_sha=s.git_sha or detect_git_sha(),
                               enabled=s.runlog_enabled))
+
+
+async def verify_retrieval(d: Deps) -> None:
+    """Every RAG arm needs an existing collection and a reachable embedder: fail at startup, not mid-game."""
+    # dedupe by value: RetrievalSpec holds a dict (quotas), so it is not hashable
+    rag_arms = [a for a in d.experiments.arms.values() if a.use_rag]
+    specs = list({a.retrieval.model_dump_json(): a.retrieval for a in rag_arms}.values())
+    if specs and d.retriever is None:
+        raise RuntimeError("RAG arms are defined but no retriever is configured")
+    for spec in specs:
+        try:
+            await d.retriever.verify(spec)
+        except RuntimeError:
+            raise
+        except Exception as e:
+            raise RuntimeError(f"knowledge base unavailable for collection {spec.collection!r} "
+                               f"(is Qdrant running and is Ollama serving the embedder?): {e!r}") from e
 
 
 @asynccontextmanager
@@ -68,6 +94,9 @@ def create_app(settings: Settings | None = None, deps: Deps | None = None) -> Fa
         logging.basicConfig(level=s.log_level, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
         d = deps or build_deps(s)
         async with AsyncExitStack() as stack:
+            if d.retriever is not None:
+                stack.push_async_callback(d.retriever.client.close)
+                await verify_retrieval(d)
             saver = await stack.enter_async_context(open_checkpointer(s.checkpoint_path))
             app.state.store = await stack.enter_async_context(CampaignStore.open(s.app_db_path))
             app.state.checkpointer = saver

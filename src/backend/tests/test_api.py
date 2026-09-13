@@ -114,7 +114,7 @@ def test_turn_with_roll_streams_events(make_client, tmp_path):
     msgs = c.get(f"/api/campaigns/{cid}/messages").json()["items"]
     assert [m["role"] for m in msgs] == ["keeper", "player", "keeper"] and msgs[2]["rolls"] == [roll]
     # the adjudicator saw the player's text wrapped as data
-    assert "<player_turn>" in fake.structured_calls[0][1].content
+    assert "<player_turn>" in fake.structured_calls[0][1][1].content
     # one research record per turn
     lines = (tmp_path / "artifacts" / "runs").glob("*.jsonl")
     record = json.loads(next(lines).read_text(encoding="utf-8").splitlines()[-1])

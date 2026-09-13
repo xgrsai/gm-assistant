@@ -1,12 +1,25 @@
 # Arms used by the interactive app. Thesis matrices (prompt / RAG / FT / RAG+FT) get their own files later.
+# A campaign freezes its arm at creation; changing an arm here does not affect existing campaigns' specs,
+# but prompt templates are shared, so bump prompt versions instead of editing a template in place.
 fixed:
   aux: gemini-aux
   adjudicator: aux
-  prompt_version: keeper-v1
-  adjudicate_prompt_version: adjudicate-v1
+  prompt_version: keeper-v2
+  adjudicate_prompt_version: adjudicate-v2
+  analyze_prompt_version: analyze-v1
   history_max_tokens: 6000
+  retrieval:
+    collection: coc7e__nomic15__c1000o200
+    embedder: nomic15
+    quotas: {rules: 4, lore: 1}
+    exact: true
+    min_score: 0.55   # tuned on a handful of queries (nomic v1.5 cosine); calibrate in Phase 3
 
 arms:
+  - arm: play-gemini-rag
+    generator: gemini-flash
+    use_rag: true
+
   - arm: play-gemini
     generator: gemini-flash
     use_rag: false

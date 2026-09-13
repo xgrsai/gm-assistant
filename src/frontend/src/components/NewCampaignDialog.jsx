@@ -1,15 +1,23 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Loader2, X } from 'lucide-react'
 import { api } from '../api/http.js'
-import { LANGUAGE_LABELS, errorMessage, localized } from '../i18n/uk.js'
+import { LANGUAGE_LABELS, armLabel, errorMessage, localized } from '../i18n/uk.js'
 
 const TITLE_MAX = 120
+
+function defaultArmId(meta) {
+  const arms = meta?.arms ?? []
+  return (arms.some((a) => a.id === meta?.default_arm) ? meta.default_arm : arms[0]?.id) ?? ''
+}
 
 /**
  * Modal built on <dialog> (native focus handling + Esc). Creating a campaign
  * never touches existing ones.
+ *
+ * `meta` (GET /api/meta) supplies the experiment arms; without it the arm is
+ * omitted and the server falls back to its `default_arm`.
  */
-export default function NewCampaignDialog({ open, onClose, onCreate }) {
+export default function NewCampaignDialog({ open, onClose, onCreate, meta, metaStatus = 'ready', onReloadMeta }) {
   const dialogRef = useRef(null)
   const titleRef = useRef(null)
   const ids = useId()
@@ -21,6 +29,9 @@ export default function NewCampaignDialog({ open, onClose, onCreate }) {
   const [scenarioStatus, setScenarioStatus] = useState('idle') // idle | loading | ready | error
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
+  const [armId, setArmId] = useState(() => defaultArmId(meta))
+
+  const arms = meta?.arms ?? []
 
   // Sync the native dialog with `open`.
   useEffect(() => {
@@ -30,12 +41,19 @@ export default function NewCampaignDialog({ open, onClose, onCreate }) {
       setTitle('')
       setSubmitError(null)
       setSubmitting(false)
+      setArmId(defaultArmId(meta))
+      if (metaStatus === 'error') onReloadMeta?.()
       dialog.showModal()
       requestAnimationFrame(() => titleRef.current?.focus())
     } else if (!open && dialog.open) {
       dialog.close()
     }
   }, [open])
+
+  // Arms arrived or changed (e.g. reloaded after `unknown_arm`): keep a still-valid choice.
+  useEffect(() => {
+    setArmId((prev) => (meta?.arms?.some((a) => a.id === prev) ? prev : defaultArmId(meta)))
+  }, [meta])
 
   // Load scenarios each time the dialog opens.
   useEffect(() => {
@@ -58,6 +76,7 @@ export default function NewCampaignDialog({ open, onClose, onCreate }) {
   }, [open])
 
   const scenario = scenarios.find((s) => s.id === scenarioId)
+  const arm = arms.find((a) => a.id === armId)
   const trimmedTitle = title.trim()
   const canSubmit = !submitting && trimmedTitle.length > 0 && trimmedTitle.length <= TITLE_MAX && Boolean(scenarioId)
 
@@ -67,10 +86,11 @@ export default function NewCampaignDialog({ open, onClose, onCreate }) {
     setSubmitting(true)
     setSubmitError(null)
     try {
-      await onCreate({ title: trimmedTitle, scenario_id: scenarioId, language })
+      await onCreate({ title: trimmedTitle, scenario_id: scenarioId, language, arm: arm?.id })
       onClose()
     } catch (err) {
       setSubmitError(err)
+      if (err?.code === 'unknown_arm') onReloadMeta?.()
     } finally {
       setSubmitting(false)
     }
@@ -176,6 +196,59 @@ export default function NewCampaignDialog({ open, onClose, onCreate }) {
               </option>
             ))}
           </select>
+        </div>
+
+        <div>
+          <label htmlFor={`${ids}-arm`} className="mb-1 block text-xs uppercase tracking-widest text-ash-500">
+            Режим Хранителя
+          </label>
+          {arms.length > 0 ? (
+            <>
+              <select
+                id={`${ids}-arm`}
+                value={armId}
+                onChange={(e) => setArmId(e.target.value)}
+                aria-describedby={`${ids}-arm-hint`}
+                className={fieldClass}
+              >
+                {arms.map((a) => (
+                  <option key={a.id} value={a.id}>
+                    {armLabel(a, arms)}
+                  </option>
+                ))}
+              </select>
+              <p id={`${ids}-arm-hint`} className="mt-1.5 text-xs leading-relaxed text-ash-500">
+                {arm?.use_rag
+                  ? 'Хранитель шукає відповіді в базі правил і лору та позначає джерела як [R1].'
+                  : 'Хранитель покладається лише на знання моделі.'}{' '}
+                Режим не можна змінити після створення.
+                {arm?.generator_model && (
+                  <span className="mt-0.5 block font-mono text-[11px] text-ash-600">
+                    {arm.generator_model}
+                    <span className="ml-2 text-ash-700">{arm.id}</span>
+                  </span>
+                )}
+              </p>
+            </>
+          ) : metaStatus === 'loading' ? (
+            <p className="flex items-center gap-2 py-2 text-sm text-ash-500" role="status">
+              <Loader2 size={14} className="animate-spin" aria-hidden /> Завантаження режимів…
+            </p>
+          ) : (
+            <p className="py-2 text-sm italic text-ash-500">
+              {metaStatus === 'error' ? 'Не вдалося завантажити режими — ' : 'Сервер не повідомив режимів — '}
+              буде використано режим за замовчуванням.
+              {metaStatus === 'error' && onReloadMeta && (
+                <button
+                  type="button"
+                  onClick={onReloadMeta}
+                  className="ml-2 not-italic text-ember underline underline-offset-2 hover:text-parchment"
+                >
+                  Оновити
+                </button>
+              )}
+            </p>
+          )}
         </div>
 
         {submitError && (
