@@ -144,14 +144,18 @@ def sanity_check(inv: dict, notation: str, rng: random.Random, cfg: RulesConfig 
     lost = max(0, min(lost, san))
     after = san - lost
     day_start = int(inv.get("san_day_start", san))
-    lost_today = int(inv.get("san_lost_today", 0)) + lost
+    lost_before = int(inv.get("san_lost_today", 0))
+    lost_today = lost_before + lost
+    threshold = max(1, day_start // 5)
     rec = {
         "kind": "sanity", "target": "SAN", "value": san, "difficulty": "regular", "bonus": 0, "penalty": 0,
         "tens": list(d.tens), "units": d.units, "roll": d.result, "level": level.name.lower(),
         "passed": success, "pushed": False, "turn_no": turn_no, "notation": f"{on_success}/{on_failure}",
         "san_loss": lost, "san_after": after,
         "involuntary_action": not success,                              # QSR: Keeper may take an involuntary action
-        "indefinite_insanity": lost_today >= max(1, day_start // 5),    # KRB via secondary sources [medium]
+        # KRB via secondary sources [medium]: 1/5 of the day's starting SAN lost within one game day.
+        # Flagged on the roll that crosses the threshold only, so later rolls that day don't repeat it.
+        "indefinite_insanity": lost_before < threshold <= lost_today,
         "permanent_insanity": after <= 0,
     }
     records = [rec]
@@ -165,6 +169,11 @@ def sanity_check(inv: dict, notation: str, rng: random.Random, cfg: RulesConfig 
     return records, {**inv, "san": after, "san_day_start": day_start, "san_lost_today": lost_today}
 
 
+def start_new_day(inv: dict) -> dict:
+    """A new game day: the indefinite-insanity budget restarts from the current SAN."""
+    return {**inv, "san_day_start": int(inv["san"]), "san_lost_today": 0}
+
+
 def last_player_roll(roll_log: list[dict]) -> dict | None:
     for rec in reversed(roll_log):
         if rec.get("purpose") is None:
@@ -174,6 +183,8 @@ def last_player_roll(roll_log: list[dict]) -> dict | None:
 
 def resolve(inv: dict, adj: dict, roll_log: list[dict], *, seed: int | None, turn_no: int,
             sanity_events: dict[str, str] | None = None, cfg: RulesConfig = DEFAULT_RULES) -> Resolution:
+    if adj.get("new_day"):  # before the roll: a check made "the next morning" belongs to the new day
+        inv = start_new_day(inv)
     out = Resolution(investigator=inv)
     kind = adj.get("roll_type") or "none"
     rng = make_rng(seed, turn_no, 0)  # same seed + turn -> same dice in every arm (paired design)

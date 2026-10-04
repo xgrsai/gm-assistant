@@ -44,6 +44,19 @@ class Adjudication(BaseModel):
     reason: str = ""
 
 
+class AdjudicationV3(Adjudication):
+    new_day: bool = Field(False, description="True only if the player's action moves the story on to a later game day")
+
+
+# Each adjudicate prompt version keeps the schema it was written for, so older campaigns and eval runs
+# send exactly the request they always did.
+ADJUDICATION_SCHEMAS: dict[str, type[Adjudication]] = {"adjudicate-v3": AdjudicationV3}
+
+
+def adjudication_schema(version: str) -> type[Adjudication]:
+    return ADJUDICATION_SCHEMAS.get(version, Adjudication)
+
+
 class SearchQuery(BaseModel):
     query_en: str = Field(description="Standalone English search query for the rules and setting knowledge base")
 
@@ -91,7 +104,7 @@ async def search_query(deps: Deps, spec, scenario: dict, messages: list[AnyMessa
 async def adjudicate_turn(deps: Deps, spec, scenario: dict, investigator: dict, roll_log: list[dict],
                           messages: list[AnyMessage], rules_hits: list[dict]) -> tuple[dict, list[str]]:
     profile = spec.aux if spec.adjudicator == "aux" else spec.generator
-    llm = deps.llms.structured(profile, Adjudication, seed=spec.seed)
+    llm = deps.llms.structured(profile, adjudication_schema(spec.adjudicate_prompt_version), seed=spec.seed)
     system = deps.prompts.render(
         spec.adjudicate_prompt_version,
         scenario=scenario,
@@ -111,6 +124,8 @@ async def adjudicate_turn(deps: Deps, spec, scenario: dict, investigator: dict, 
         data["needs_roll"] = False
     if not data["needs_roll"]:
         data["roll_type"] = "none"
+    if data["kind"] != "in_fiction" and data.get("new_day"):
+        data["new_day"] = False  # out-of-character talk never moves the game clock
     return data, []
 
 

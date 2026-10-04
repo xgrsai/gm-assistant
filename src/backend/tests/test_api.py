@@ -41,10 +41,10 @@ def parse_sse(text: str) -> list[tuple[str, dict]]:
 def make_client(tmp_path):
     clients = []
 
-    def _make(fake: FakeFactory, seed: int | None = 5) -> TestClient:
+    def _make(fake: FakeFactory, seed: int | None = 5, **spec) -> TestClient:
         settings = Settings(_env_file=None, checkpoint_path=tmp_path / "cp.db", app_db_path=tmp_path / "app.db",
                             artifacts_dir=tmp_path / "artifacts", data_dir=REPO_ROOT / "data")
-        arms = {"test": ExperimentSpec(arm="test", generator="gen", aux="aux", seed=seed)}
+        arms = {"test": ExperimentSpec(arm="test", generator="gen", aux="aux", seed=seed, **spec)}
         deps = Deps(llms=fake, prompts=PromptSet(), scenarios=ScenarioRepo(settings.data_dir / "scenarios"),
                     experiments=ExperimentRegistry(arms, "test"), runlog=RunLog(settings.artifacts_dir / "runs"))
         client = TestClient(create_app(settings, deps))
@@ -192,6 +192,33 @@ def test_sanity_event_updates_sheet(make_client):
     san = next(d for e, d in events if e == "roll" and d["kind"] == "sanity")
     assert san["notation"] == "1/1D8"
     assert events[-1][1]["investigator"]["san"] == 60 - san["san_loss"]
+
+
+def test_new_game_day_resets_the_sanity_budget(make_client):
+    lose_6 = {"kind": "in_fiction", "needs_roll": True, "roll_type": "sanity", "sanity_loss": "6/6"}
+    fake = FakeFactory(narrations=["Жах.", "Тиша.", "Знову жах."],
+                       adjudications=[lose_6, {"kind": "in_fiction", "needs_roll": False, "new_day": True},
+                                      lose_6])
+    c = make_client(fake, adjudicate_prompt_version="adjudicate-v3")
+    cid = create(c)["id"]
+    parse_sse(turn(c, cid, "Я дивлюся в темряву склепу").text)
+    events = parse_sse(turn(c, cid, "Я йду спати, а вранці повертаюся").text)
+    assert "roll" not in names(events)  # the new day goes through mechanics without dice
+    assert [d["node"] for e, d in events if e == "progress"] == ["adjudicate", "mechanics", "narrate"]
+    events = parse_sse(turn(c, cid, "Я знову спускаюся в склеп").text)
+    san = next(d for e, d in events if e == "roll" and d["kind"] == "sanity")
+    # 6 + 6 = 12 would reach 60 // 5 within one day; after the night only 6 of 54 // 5 = 10 count
+    assert san["san_loss"] == 6 and not san["indefinite_insanity"]
+    assert {n for n, _ in fake.structured_calls} == {"AdjudicationV3"}
+
+
+def test_out_of_character_talk_never_starts_a_new_day(make_client):
+    fake = FakeFactory(narrations=["Відповідь."],
+                       adjudications=[{"kind": "meta", "needs_roll": False, "new_day": True}])
+    c = make_client(fake, adjudicate_prompt_version="adjudicate-v3")
+    cid = create(c)["id"]
+    events = parse_sse(turn(c, cid, "Скільки триває сесія?").text)
+    assert [d["node"] for e, d in events if e == "progress"] == ["adjudicate", "narrate"]
 
 
 def test_rules_question_and_parse_failure(make_client):

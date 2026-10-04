@@ -5,7 +5,7 @@ fixed:
   aux: gemini-aux
   adjudicator: aux
   prompt_version: keeper-v2
-  adjudicate_prompt_version: adjudicate-v2
+  adjudicate_prompt_version: adjudicate-v3   # v3 adds new_day (game-day boundary for indefinite insanity)
   analyze_prompt_version: analyze-v1
   history_max_tokens: 6000
   retrieval:

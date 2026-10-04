@@ -97,6 +97,59 @@ def test_sanity_loss_bounded(seed):
     assert 0 <= after["san"] <= 3 and records[0]["san_loss"] <= 3
 
 
+LOSE_5 = {"roll_type": "sanity", "sanity_loss": "5/5"}
+NEW_DAY = {"roll_type": "none", "new_day": True}
+
+
+def play(sheet, *adjs, seed=1):
+    """Resolves adjudications on consecutive turns; returns the final sheet and each SAN roll's insanity flag."""
+    flags = []
+    for turn_no, adj in enumerate(adjs, start=1):
+        res = resolve(sheet, adj, [], seed=seed, turn_no=turn_no)
+        sheet = res.investigator
+        flags += [r["indefinite_insanity"] for r in res.records if r["kind"] == "sanity"]
+    return sheet, flags
+
+
+def without_flag(records):
+    return [{k: v for k, v in r.items() if k != "indefinite_insanity"} for r in records]
+
+
+def test_indefinite_insanity_is_counted_per_game_day():
+    # POW 60: 12+ SAN lost in one day is indefinite insanity; 3 x 5 spread over three days is not.
+    sheet, flags = play(inv(), LOSE_5, NEW_DAY, LOSE_5, {**LOSE_5, "new_day": True})
+    assert flags == [False, False, False]
+    assert (sheet["san"], sheet["san_day_start"], sheet["san_lost_today"]) == (45, 50, 5)
+
+
+def test_indefinite_insanity_flags_only_the_crossing_roll():
+    _, flags = play(inv(), LOSE_5, LOSE_5, LOSE_5, LOSE_5)  # 5, 10, 15 (crosses 12), 20 in one day
+    assert flags == [False, False, True, False]
+
+
+def test_new_day_without_roll_resets_the_day_budget():
+    tired = {**inv(), "san": 50, "san_day_start": 60, "san_lost_today": 10}
+    res = resolve(tired, NEW_DAY, [], seed=1, turn_no=5)
+    assert res.records == [] and res.errors == []
+    assert (res.investigator["san_day_start"], res.investigator["san_lost_today"]) == (50, 0)
+
+
+def test_new_day_applies_before_the_roll_and_keeps_the_dice():
+    tired = {**inv(), "san": 50, "san_day_start": 60, "san_lost_today": 10}
+    same_day = resolve(tired, LOSE_5, [], seed=9, turn_no=5)
+    next_day = resolve(tired, {**LOSE_5, "new_day": True}, [], seed=9, turn_no=5)
+    assert same_day.records[0]["indefinite_insanity"]       # 10 + 5 >= 60 // 5
+    assert not next_day.records[0]["indefinite_insanity"]   # 5 < 50 // 5
+    assert without_flag(same_day.records) == without_flag(next_day.records)  # the reset draws no randomness
+
+
+@given(st.lists(st.integers(0, 15), max_size=10), st.integers(0, 1_000))
+def test_indefinite_insanity_at_most_once_per_day(losses, seed):
+    sheet, flags = play(inv(), *({"roll_type": "sanity", "sanity_loss": f"{x}/{x}"} for x in losses), seed=seed)
+    assert sum(flags) <= 1
+    assert any(flags) == (sheet.get("san_lost_today", 0) >= 60 // 5)
+
+
 def test_rule_violation_code():
     try:
         raise RuleViolation("x")

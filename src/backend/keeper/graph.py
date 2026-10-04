@@ -29,7 +29,9 @@ def route_entry(state: KeeperState) -> Literal["seed_campaign", "prepare_turn"]:
 
 
 def route_after_adjudicate(state: KeeperState) -> Literal["mechanics", "narrate"]:
-    return "mechanics" if (state.get("adjudication") or {}).get("needs_roll") else "narrate"
+    adj = state.get("adjudication") or {}
+    # A new game day changes the sheet even without a roll, so it also goes through the rules code.
+    return "mechanics" if adj.get("needs_roll") or adj.get("new_day") else "narrate"
 
 
 def build_graph(deps: Deps) -> StateGraph:

@@ -78,7 +78,8 @@ The server owns the conversation. The client never sends history — only the te
   "san_loss": 3, "san_after": 57,
   "involuntary_action": false,
   "temporary_insanity": false,  // present only when an INT roll was made (loss >= 5)
-  "indefinite_insanity": false,
+  "indefinite_insanity": false, // true only on the roll that makes SAN lost this game day reach 1/5 of
+                                // SAN at the start of the day (a new day is signalled by the adjudicator)
   "permanent_insanity": false,
   // optional:
   "purpose": "temporary_insanity_check"
