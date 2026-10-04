@@ -1,18 +1,36 @@
-import { useCallback, useLayoutEffect, useRef } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import MessageBubble, { KeeperAvatar } from './MessageBubble'
 import RollCard from './RollCard'
+import { rollDurationMs } from '../hooks/useDiceRoll.js'
 import { stageLabel } from '../i18n/uk.js'
 
 const NEAR_BOTTOM_PX = 120
+const ROLL_GAP_MS = 250 // pause between two rolls of the same turn (e.g. SAN, then the INT check)
 
-function RollList({ rolls, animate = true }) {
+const rollKey = (roll, i) => `${roll?.turn_no ?? 't'}-${i}`
+
+/** Live rolls tumble one after another; rolls in the transcript are shown as they landed. */
+function RollList({ rolls, animate = true, live = false, onSettled }) {
   if (!rolls?.length) return null
+  let offset = 0
   return (
     <div className="flex flex-col gap-2 pl-10" role="group" aria-label="Кидки цього ходу">
-      {rolls.map((roll, i) => (
-        <RollCard key={`${roll.turn_no ?? 't'}-${i}`} roll={roll} animate={animate} />
-      ))}
+      {rolls.map((roll, i) => {
+        const key = rollKey(roll, i)
+        const delayMs = offset
+        offset += rollDurationMs(roll) + ROLL_GAP_MS
+        return (
+          <RollCard
+            key={key}
+            roll={roll}
+            animate={animate}
+            live={live}
+            delayMs={delayMs}
+            onSettled={onSettled && (() => onSettled(key))}
+          />
+        )
+      })}
     </div>
   )
 }
@@ -49,6 +67,16 @@ export default function ChatWindow({ campaignId, messages, loading, loadError, o
   const failed = phase === 'failed'
   const showLive = streaming || (failed && (liveRolls.length > 0 || liveText))
 
+  // The Keeper's words wait until the dice have landed: the result comes from the dice, not from the story.
+  const [settledRolls, setSettledRolls] = useState(() => new Set())
+  useEffect(() => setSettledRolls(new Set()), [campaignId])
+  const markSettled = useCallback(
+    (key) => setSettledRolls((prev) => (prev.has(key) ? prev : new Set(prev).add(key))),
+    [],
+  )
+  const rollsSettling = streaming && liveRolls.some((roll, i) => !settledRolls.has(rollKey(roll, i)))
+  const showText = Boolean(liveText) && !rollsSettling
+
   // Jump to the bottom when a campaign opens; afterwards follow new content
   // only if the reader is already near the bottom.
   useLayoutEffect(() => {
@@ -61,7 +89,7 @@ export default function ChatWindow({ campaignId, messages, loading, loadError, o
       return
     }
     if (nearBottomRef.current) el.scrollTop = el.scrollHeight
-  }, [campaignId, loading, messages, liveText, liveRolls.length, stage, phase])
+  }, [campaignId, loading, messages, liveText, liveRolls.length, stage, phase, showText])
 
   // A sent action should always bring the view down.
   const lastMessage = messages[messages.length - 1]
@@ -119,8 +147,8 @@ export default function ChatWindow({ campaignId, messages, loading, loadError, o
 
         {showLive && (
           <div className="flex flex-col gap-3">
-            <RollList rolls={liveRolls} />
-            {liveText ? (
+            <RollList rolls={liveRolls} live onSettled={markSettled} />
+            {showText ? (
               <MessageBubble
                 message={{ role: 'keeper', text: liveText }}
                 streaming={streaming}
@@ -140,7 +168,7 @@ export default function ChatWindow({ campaignId, messages, loading, loadError, o
                 </div>
               )
             )}
-            {streaming && <StageIndicator stage={liveText ? 'narrate' : stage} />}
+            {streaming && <StageIndicator stage={rollsSettling ? 'mechanics' : liveText ? 'narrate' : stage} />}
           </div>
         )}
       </div>

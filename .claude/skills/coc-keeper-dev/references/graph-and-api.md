@@ -45,7 +45,7 @@ Adding a node: async function on `Nodes` (or a shared helper + thin node if eval
 | JSON endpoints | `api/http.js` |
 | turn state machine (stream, retry, discard, errors) | `hooks/useTurnStream.js` |
 | campaigns, meta/arms | `hooks/useCampaigns.js`, `hooks/useMeta.js` |
-| roll records | `components/RollCard.jsx` |
+| roll records | `components/RollCard.jsx`; live rolls tumble first (`hooks/useDiceRoll.js`, visual only — values come from the record) and `ChatWindow` holds the narration until they land; history and Retry never re-roll; `prefers-reduced-motion` or a hidden tab skips the tumble |
 | citations `[R#]`, sources | `markdown/citations.js`, `components/Citations.jsx` |
 | stage labels, error messages | `i18n/uk.js` |
 
