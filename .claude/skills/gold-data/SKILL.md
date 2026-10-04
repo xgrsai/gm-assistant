@@ -28,7 +28,7 @@ Files: `data/eval/coc7e/{rules_qa,conflict_probes,adjudication}.v1.jsonl` plus `
 
 ## Workflow: reviewing the AI-drafted v1
 
-The v1 files are marked DRAFT: the author must review them before thesis runs. Help by going item by item with the checklist, grouping findings as *wrong label*, *ambiguous → fix or drop*, *wording*, *fine*. Present proposed edits as a diff-style list before applying them, since the author owns the labels. When the review is done, change the README status line to reviewed (with date and reviewer) — that is the moment the set becomes frozen.
+The v1 files are marked DRAFT: the author must review them before thesis runs. The author reviews in the review page: `uv run python -m evals.review` (from `src/backend`) writes `artifacts/review/gold-review-coc7e.html` — each item next to its gold-section text, the checklist, verdicts (ok / wording / ambiguous / wrong), notes, corpus search; adjudication is reviewed per group. Verdicts are exported as JSON (keep it as `data/eval/coc7e/review-v1.json`, the methodology record); `uv run python -m evals.review --summary <export.json>` lists every non-ok and stale verdict. Help by going item by item with the checklist, grouping findings as *wrong label*, *ambiguous → fix or drop*, *wording*, *fine*. Present proposed edits as a diff-style list before applying them, since the author owns the labels. When the review is done, change the README status line to reviewed (with date and reviewer) — that is the moment the set becomes frozen.
 
 ## Workflow: creating a new version
 

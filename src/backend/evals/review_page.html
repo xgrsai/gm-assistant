@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Рев'ю золотих даних</title>
+<style>
+:root {
+  --bg: #f6f3ec; --panel: #fffdf8; --ink: #22201b; --muted: #6f685b; --line: #e2dccf; --soft: #efe9dc;
+  --accent: #8a5a2b; --accent-ink: #ffffff; --mark: #ffe27a; --del: #f6d2cf; --ins: #cfeed6;
+  --ok: #2f7d4f; --wording: #2b6cb0; --ambiguous: #b7791f; --wrong: #c53030;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15130f; --panel: #1e1b16; --ink: #ebe5d8; --muted: #a59d8e; --line: #37312a; --soft: #2a251e;
+    --accent: #d9a066; --accent-ink: #1a1408; --mark: #6b5a14; --del: #5b2523; --ins: #1f4a2b;
+    --ok: #5fbf85; --wording: #6ea8e8; --ambiguous: #e0aa4f; --wrong: #f07070;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); display: flex; flex-direction: column;
+  font: 15px/1.55 system-ui, "Segoe UI", Roboto, sans-serif;
+}
+header {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; padding: 10px 16px;
+  border-bottom: 1px solid var(--line); background: var(--panel);
+}
+header h1 { font-size: 17px; margin: 0; }
+.meta { color: var(--muted); font-size: 12px; }
+#progress { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; }
+.bar { width: 80px; height: 6px; background: var(--soft); border-radius: 3px; overflow: hidden;
+  display: inline-block; vertical-align: middle; margin-left: 6px; }
+.bar > span { display: block; height: 100%; background: var(--ok); }
+.issues { color: var(--wrong); }
+.tools { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+#saved { font-size: 12px; color: var(--muted); }
+#saved.warn { color: var(--wrong); font-weight: 600; }
+button, select, input[type=text], input[type=search], textarea {
+  font: inherit; color: inherit; background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+}
+button, select { padding: 4px 10px; cursor: pointer; }
+input[type=text], input[type=search] { padding: 4px 8px; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 1px;
+}
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.layout { flex: 1; min-height: 0; display: grid; grid-template-columns: 330px minmax(0, 1fr); }
+aside { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; background: var(--panel); }
+.tabs { display: flex; border-bottom: 1px solid var(--line); }
+.tabs button { flex: 1; border: 0; border-radius: 0; padding: 9px 4px; background: transparent;
+  border-bottom: 2px solid transparent; font-size: 13px; }
+.tabs button.active { border-bottom-color: var(--accent); font-weight: 600; }
+.filters { display: flex; gap: 6px; padding: 8px; border-bottom: 1px solid var(--line); }
+.filters input { flex: 1; min-width: 0; }
+#count { font-size: 12px; color: var(--muted); padding: 4px 10px; border-bottom: 1px solid var(--line); }
+#list { overflow-y: auto; flex: 1; margin: 0; padding: 0; list-style: none; }
+#list li { padding: 7px 10px; border-bottom: 1px solid var(--line); cursor: pointer;
+  display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 8px; align-items: start; }
+#list li:hover { background: var(--soft); }
+#list li.active { background: var(--soft); box-shadow: inset 3px 0 0 var(--accent); }
+#list li.empty { display: block; color: var(--muted); cursor: default; }
+.id, .unit-id { font: 12px ui-monospace, Consolas, monospace; color: var(--muted); }
+.txt { font-size: 13px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; border: 1.5px solid var(--muted); }
+.dot.ok { background: var(--ok); border-color: var(--ok); }
+.dot.wording { background: var(--wording); border-color: var(--wording); }
+.dot.ambiguous { background: var(--ambiguous); border-color: var(--ambiguous); }
+.dot.wrong { background: var(--wrong); border-color: var(--wrong); }
+.dot.stale { box-shadow: 0 0 0 2px var(--panel), 0 0 0 3.5px var(--wrong); }
+.flag { color: var(--ambiguous); }
+main { overflow-y: auto; min-height: 0; }
+.detail { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 22px; padding: 16px 22px 48px; max-width: 1500px; }
+article { min-width: 0; }
+.head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; }
+.unit-id { font-size: 14px; font-weight: 600; color: var(--ink); margin-right: 4px; }
+.badge { font-size: 12px; padding: 1px 8px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); }
+.badge.inj { color: var(--wrong); }
+h2.q { font-size: 20px; line-height: 1.35; margin: 8px 0 4px; font-weight: 600; }
+p.en { color: var(--muted); margin: 0 0 12px; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 20px 0 6px; }
+blockquote { margin: 0; padding: 8px 12px; border-left: 3px solid var(--line); background: var(--panel); border-radius: 0 6px 6px 0; }
+blockquote.player { border-left-color: var(--accent); }
+ol.facts { margin: 0; padding-left: 22px; }
+ol.facts li { margin: 2px 0; }
+.section { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); margin: 8px 0; overflow: hidden; }
+.section-head { padding: 6px 10px; background: var(--soft); font-size: 13px; }
+.text { white-space: pre-wrap; padding: 10px 12px; font-size: 14px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; }
+del { background: var(--del); text-decoration: line-through; }
+ins { background: var(--ins); text-decoration: none; }
+.edit { outline: 1px dashed var(--muted); outline-offset: 2px; border-radius: 2px; }
+.flagbox, .warnbox, .note { padding: 8px 12px; border-radius: 6px; margin: 8px 0; font-size: 14px; }
+.flagbox { background: color-mix(in srgb, var(--ambiguous) 15%, transparent); }
+.warnbox { background: color-mix(in srgb, var(--wrong) 15%, transparent); }
+.note { background: var(--soft); }
+.facts2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.facts2 > div { border: 1px solid var(--line); border-radius: 8px; padding: 0 12px 4px; background: var(--panel); }
+.variant { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin: 8px 0; background: var(--panel); }
+.variant blockquote { margin: 6px 0; }
+table.kv, table.sheet, table.amb { border-collapse: collapse; font-size: 14px; }
+table.kv th, table.kv td, table.sheet td, table.amb td, table.amb th { border-bottom: 1px solid var(--line); padding: 3px 10px 3px 0; text-align: left; vertical-align: top; }
+table.kv th { font-weight: 500; color: var(--muted); font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+table.sheet td.hit { font-weight: 700; color: var(--accent); }
+.sheet-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0 18px; padding: 8px 0; }
+details { margin: 6px 0; }
+details > summary { cursor: pointer; padding: 4px 0; }
+details.search, details.ctx { border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; background: var(--panel); }
+.corpus-q { width: 100%; margin: 6px 0; }
+details.hit { border-bottom: 1px solid var(--line); margin: 0; }
+.snippet { display: block; font-size: 13px; color: var(--muted); }
+.review { position: sticky; top: 16px; align-self: start; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px; padding: 4px 14px 12px; max-height: calc(100vh - 110px); overflow-y: auto; }
+.review h3:first-child { margin-top: 12px; }
+.checklist { display: flex; flex-direction: column; gap: 4px; }
+label.check { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+label.check input { margin-top: 4px; }
+.verdicts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.verdicts button { text-align: left; padding: 6px 8px; }
+.verdicts kbd { font: 11px ui-monospace, Consolas, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; margin-right: 4px; }
+.verdicts button.on { color: #fff; }
+.verdicts button.ok.on { background: var(--ok); border-color: var(--ok); }
+.verdicts button.wording.on { background: var(--wording); border-color: var(--wording); }
+.verdicts button.ambiguous.on { background: var(--ambiguous); border-color: var(--ambiguous); }
+.verdicts button.wrong.on { background: var(--wrong); border-color: var(--wrong); }
+label.field { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+textarea { padding: 6px 8px; resize: vertical; color: var(--ink); font-size: 14px; }
+.nav { display: flex; gap: 6px; margin-top: 12px; }
+.nav button { flex: 1; font-size: 13px; padding: 5px 4px; }
+.keys { font-size: 12px; color: var(--muted); margin-top: 10px; }
+.ref { padding: 16px 22px 48px; max-width: 1100px; }
+.ref h2 { margin: 0 0 8px; }
+table.amb td:first-child { font-weight: 600; }
+@media (max-width: 1100px) {
+  .detail { grid-template-columns: 1fr; }
+  .review { position: static; max-height: none; }
+}
+@media (max-width: 760px) {
+  body { height: auto; }
+  .layout { grid-template-columns: 1fr; }
+  aside { max-height: 45vh; border-right: 0; border-bottom: 1px solid var(--line); }
+  .detail, .ref { padding: 12px 16px 40px; }
+  .facts2 { grid-template-columns: 1fr; }
+  .tools { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Рев'ю золотих даних</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+  <div id="progress"></div>
+  <div class="tools">
+    <span id="saved"></span>
+    <input type="text" id="reviewer" placeholder="рецензент" size="14" aria-label="Рецензент">
+    <button id="export" class="primary" title="Завантажити вердикти як JSON">Експорт</button>
+    <button id="import-btn" title="Підвантажити раніше експортований JSON">Імпорт</button>
+    <input type="file" id="import" accept="application/json,.json" hidden>
+  </div>
+</header>
+<div class="layout">
+  <aside>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="filters">
+      <input type="search" id="query" placeholder="Пошук: id або текст" aria-label="Пошук пунктів">
+      <select id="filter" aria-label="Фільтр">
+        <option value="all">усі</option>
+        <option value="flagged">⚑ позначені</option>
+        <option value="todo">неперевірені</option>
+        <option value="issues">з проблемами</option>
+        <option value="stale">змінились</option>
+      </select>
+    </div>
+    <div id="count"></div>
+    <ul id="list"></ul>
+  </aside>
+  <main id="detail"></main>
+</div>
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+'use strict';
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const SETS = [
+  { key: 'rules_qa', label: 'Rules QA', short: 'QA' },
+  { key: 'adjudication', label: 'Adjudication', short: 'Adj' },
+  { key: 'conflict_probes', label: 'Conflicts', short: 'CP' },
+];
+const VERDICTS = [
+  { key: 'ok', label: 'Ок', hint: 'мітка правильна, текст нормальний' },
+  { key: 'wording', label: 'Формулювання', hint: 'мітка правильна, текст треба поправити' },
+  { key: 'ambiguous', label: 'Неоднозначно', hint: 'виправити або викинути' },
+  { key: 'wrong', label: 'Хибна мітка', hint: 'очікувана відповідь неправильна' },
+];
+const STORE_KEY = 'gold-review:' + DATA.meta.dataset;
+const SECTIONS = new Map(DATA.sections.map(s => [s.source + '||' + s.section, s]));
+const UNIT_SET = {};
+for (const s of SETS) for (const u of DATA.units[s.key]) UNIT_SET[u.id] = s.key;
+
+const $ = sel => document.querySelector(sel);
+const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ESC[c]);
+const reEscape = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// ---------- state (localStorage; the export file is the durable copy) ----------
+let storageOk = true;
+function readStore(key, fallback) {
+  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+  catch (e) { storageOk = false; return fallback; }
+}
+function writeStore(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { storageOk = false; }
+}
+let state = readStore(STORE_KEY, null) || { reviewer: '', units: {}, dirty: false, exportedAt: null };
+state.units = state.units || {};
+const view = Object.assign({ set: 'rules_qa', id: null, filter: 'all', query: '' }, readStore(STORE_KEY + ':view', {}));
+if (!DATA.units[view.set] && view.set !== 'ref') view.set = 'rules_qa';
+const save = () => { writeStore(STORE_KEY, state); renderStatus(); };
+const saveView = () => writeStore(STORE_KEY + ':view', view);
+
+const rec = id => state.units[id] || null;
+function ensure(u) {
+  if (!state.units[u.id]) state.units[u.id] = { verdict: null, note: '', fix: '', checks: {}, item_hash: u.hash, at: null };
+  return state.units[u.id];
+}
+function touch(u, r) { r.item_hash = u.hash; r.at = new Date().toISOString(); state.dirty = true; save(); }
+const verdictOf = u => (rec(u.id) || {}).verdict || null;
+const isStale = u => { const r = rec(u.id); return Boolean(r && r.verdict && r.item_hash !== u.hash); };
+const verdictLabel = k => (VERDICTS.find(v => v.key === k) || {}).label || k;
+const currentUnit = () => (DATA.units[view.set] || []).find(u => u.id === view.id) || null;
+
+// ---------- text helpers ----------
+function highlight(text, terms) {
+  const html = esc(text);
+  const ts = (terms || []).filter(t => t.length > 1).map(t => reEscape(esc(t)));
+  return ts.length ? html.replace(new RegExp('(' + ts.join('|') + ')', 'gi'), '<mark>$1</mark>') : html;
+}
+function snippet(text, term) {
+  const i = Math.max(0, text.toLowerCase().indexOf(term));
+  const a = Math.max(0, i - 90);
+  return (a > 0 ? '…' : '') + text.slice(a, i + term.length + 110) + '…';
+}
+const sectionText = s => s.chunks.join('\n\n— наступний фрагмент —\n\n');
+function sectionHtml(g, html) {
+  const s = SECTIONS.get(g.source + '||' + g.section);
+  if (!s) return `<p class="warnbox">Секцію не знайдено: ${esc(g.section)}</p>`;
+  return `<div class="section"><div class="section-head"><span class="badge">${esc(s.source_type)}</span>
+    <b>${esc(s.section)}</b> <span class="muted">· ${esc(s.source)}</span></div>
+    <div class="text">${html ?? esc(sectionText(s))}</div></div>`;
+}
+function searchBoxHtml(open) {
+  return `<details class="search"${open ? ' open' : ''}><summary>Пошук по корпусу</summary>
+    <input type="search" class="corpus-q" placeholder="слова через пробіл — секція має містити всі">
+    <div class="corpus-results"></div></details>`;
+}
+function searchResultsHtml(q) {
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return '';
+  const hits = DATA.sections.filter(s => { const t = s.chunks.join(' ').toLowerCase(); return terms.every(x => t.includes(x)); });
+  if (!hits.length) return '<p class="muted">Жодна секція не містить усіх слів.</p>';
+  return `<p class="muted small">Знайдено секцій: ${hits.length}</p>` + hits.map(s => {
+    const text = s.chunks.join(' ');
+    return `<details class="hit"><summary><b>${esc(s.section)}</b> <span class="muted small">${esc(s.source_type)}</span>
+      <span class="snippet">${highlight(snippet(text, terms[0]), terms)}</span></summary>
+      <div class="text">${highlight(sectionText(s), terms)}</div></details>`;
+  }).join('');
+}
+
+// ---------- unit renderers ----------
+function headHtml(u, badges) {
+  const why = DATA.flags[u.id];
+  return `<div class="head"><span class="unit-id">${esc(u.id)}</span>${badges.map(b => `<span class="badge">${esc(b)}</span>`).join('')}</div>
+    ${why ? `<p class="flagbox">⚑ Позначено як сумнівний під час чернетки: ${esc(why)}</p>` : ''}
+    ${isStale(u) ? '<p class="warnbox">Пункт змінився після твого вердикту — переглянь ще раз.</p>' : ''}`;
+}
+
+function qaHtml(u) {
+  const i = u.item;
+  const gold = i.answerable
+    ? `<h3>Ключові факти</h3><ol class="facts">${i.key_facts.map(f => `<li>${esc(f)}</li>`).join('')}</ol>
+       <h3>Gold-секції (${i.gold_sections.length})</h3>${i.gold_sections.map(g => sectionHtml(g)).join('')}`
+    : '<p class="note">Питання без відповіді в корпусі. Перевір пошуком нижче ключові слова питання: корпус не має відповідати навіть частково.</p>';
+  return `${headHtml(u, [i.category, i.query_type, i.answerable ? 'answerable' : 'unanswerable'])}
+    <h2 class="q">${esc(i.question_uk)}</h2><p class="en">${esc(i.question_en)}</p>
+    <h3>Еталонна відповідь</h3><p>${esc(i.reference_answer)}</p>
+    ${gold}${searchBoxHtml(!i.answerable)}`;
+}
+
+function sheetHtml(targets) {
+  const hit = new Set(targets);
+  const row = (k, v) => `<tr><td class="${hit.has(k) ? 'hit' : ''}">${esc(k)}</td><td>${esc(v)}</td></tr>`;
+  const ch = Object.entries(DATA.sheet.characteristics).map(([k, v]) => row(k, v)).join('');
+  const sk = Object.entries(DATA.sheet.skills).sort((a, b) => a[0].localeCompare(b[0])).map(([k, v]) => row(k, v)).join('');
+  return `<div class="sheet-wrap"><table class="sheet">${ch}${row('Luck', DATA.sheet.luck)}${row('SAN', DATA.sheet.san)}</table>
+    <table class="sheet">${sk}</table></div><p class="muted small">Жирним — allowed_targets цієї групи.</p>`;
+}
+
+function expectedHtml(e) {
+  const rows = [
+    ['kind', e.kind], ['needs_roll', e.needs_roll ? 'так' : 'ні'], ['roll_type', e.roll_type],
+    ['allowed_targets', e.allowed_targets.length ? e.allowed_targets.join(', ') : '—'],
+    ['allowed_difficulties', e.allowed_difficulties.length ? e.allowed_difficulties.join(', ') : 'будь-яка'],
+  ];
+  return `<table class="kv">${rows.map(([k, v]) => `<tr><th>${k}</th><td>${esc(v)}</td></tr>`).join('')}</table>
+    ${e.notes ? `<p class="muted">${esc(e.notes)}</p>` : ''}`;
+}
+
+function adjHtml(u) {
+  const clean = u.items.find(i => i.variant === 'clean') || u.items[0];
+  const variants = u.items.filter(i => i !== clean);
+  const r = rec(u.id) || { checks: {} };
+  const e = clean.expected;
+  const events = Object.entries(DATA.scenario.sanity_events || {});
+  return `${headHtml(u, [e.kind, e.roll_type, `варіантів: ${u.items.length}`])}
+    <h3>Сцена — остання репліка Хранителя</h3><blockquote>${esc(clean.scene)}</blockquote>
+    <h3>Хід гравця · чистий · ${esc(clean.id)}</h3><blockquote class="player">${esc(clean.player_text)}</blockquote>
+    <h3>Очікуване рішення</h3>${expectedHtml(e)}
+    <h3>Варіанти з ін'єкціями (${variants.length})</h3>
+    ${variants.map(v => `<div class="variant">
+      <span class="badge inj">${esc(v.injection_type)}</span> <span class="id">${esc(v.id)}</span>
+      ${v.scene !== clean.scene ? `<p class="warnbox">Інша сцена: ${esc(v.scene)}</p>` : ''}
+      <blockquote class="player">${esc(v.player_text)}</blockquote>
+      <label class="check"><input type="checkbox" data-check="variant:${esc(v.id)}"${r.checks['variant:' + v.id] ? ' checked' : ''}>
+        та сама сцена й дія — очікуване рішення тримається</label></div>`).join('')}
+    <h3>Контекст</h3>
+    <details class="ctx"><summary>Аркуш слідчого: ${esc(DATA.sheet.name)}</summary>${sheetHtml(e.allowed_targets)}</details>
+    <details class="ctx"><summary>${esc(DATA.when_to_roll.section)}</summary>${sectionHtml(DATA.when_to_roll)}</details>
+    <details class="ctx"><summary>Нотатки Хранителя (таємниці сценарію «${esc(DATA.scenario.title)}»)</summary>
+      <div class="text">${esc(DATA.scenario.keeper_notes)}</div></details>
+    ${events.length ? `<details class="ctx"><summary>Sanity events сценарію</summary><table class="kv">
+      ${events.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</table></details>` : ''}
+    ${searchBoxHtml(false)}`;
+}
+
+// Word-level diff (LCS) of the edited span, so a one-number change does not strike out a whole sentence.
+function wordDiff(a, b) {
+  const A = a.split(/(\s+)/), B = b.split(/(\s+)/);
+  const L = Array.from({ length: A.length + 1 }, () => new Array(B.length + 1).fill(0));
+  for (let i = A.length - 1; i >= 0; i--) {
+    for (let j = B.length - 1; j >= 0; j--) L[i][j] = A[i] === B[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  }
+  let i = 0, j = 0, html = '';
+  while (i < A.length && j < B.length) {
+    if (A[i] === B[j]) { html += esc(A[i]); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) html += `<del>${esc(A[i++])}</del>`;
+    else html += `<ins>${esc(B[j++])}</ins>`;
+  }
+  while (i < A.length) html += `<del>${esc(A[i++])}</del>`;
+  while (j < B.length) html += `<ins>${esc(B[j++])}</ins>`;
+  return html;
+}
+
+function cpHtml(u) {
+  const p = u.item;
+  const s = SECTIONS.get(p.gold_section.source + '||' + p.gold_section.section);
+  const text = s ? s.chunks[0] : '';
+  const at = text.indexOf(p.find);
+  const diff = at < 0 ? null
+    : esc(text.slice(0, at)) + `<span class="edit" title="межі find → replace">${wordDiff(p.find, p.replace)}</span>`
+      + esc(text.slice(at + p.find.length));
+  const edited = at < 0 ? '' : text.slice(0, at) + p.replace + text.slice(at + p.find.length);
+  return `${headHtml(u, [p.perturbation, p.familiarity])}
+    <h2 class="q">${esc(p.question_uk)}</h2><p class="en">${esc(p.question_en)}</p>
+    <div class="facts2"><div><h3>Оригінальний факт</h3><p>${esc(p.original_fact)}</p></div>
+      <div><h3>Після редагування</h3><p>${esc(p.perturbed_fact)}</p></div></div>
+    <h3>Уривок: що змінено</h3>
+    ${diff === null ? '<p class="warnbox">find не знайдено в тексті секції</p>' : sectionHtml(p.gold_section, diff)}
+    ${diff === null ? '' : `<details class="ctx"><summary>Як його побачить модель</summary><div class="text">${esc(edited)}</div></details>`}
+    ${searchBoxHtml(false)}`;
+}
+
+const CHECKLISTS = {
+  rules_qa: u => u.item.answerable ? [
+    ...u.item.key_facts.map((f, n) => [`fact:${n}`, `Факт ${n + 1} дослівно підтверджений текстом секції`]),
+    ['answer', 'Еталонна відповідь не каже нічого понад корпус'],
+    ['sections', u.item.query_type === 'multi_hop' ? 'Перелічені всі потрібні секції'
+      : 'Одна головна секція (факт-дублікат в іншій — неоднозначність #16)'],
+    ['uk', 'Українське питання = англійському і звучить як репліка гравця в чаті'],
+    ['qtype', 'query_type правильний (paraphrase справді уникає ключових слів секції)'],
+    ['noamb', 'Не спирається на відому неоднозначність корпусу (вкладка «Корпус»)'],
+  ] : [
+    ['unans', 'Корпус справді не відповідає, навіть частково (перевірено пошуком)'],
+    ['answer', 'Еталонна відповідь описує ідеальну поведінку, а не вигадане правило'],
+    ['uk', 'Українське питання = англійському і звучить як репліка гравця в чаті'],
+  ],
+  adjudication: () => [
+    ['clean', 'Чисте рішення однозначне за «When to Roll» і нотатками сценарію'],
+    ['targets', 'allowed_targets: усі розумні назви з аркуша і нічого зайвого'],
+    ['secrets', 'Сцена не розкриває таємниць, яких слідча ще не знайшла'],
+    ['uk', 'Сцена й репліки звучать природно українською'],
+  ],
+  conflict_probes: () => [
+    ['natural', 'Відредагований уривок природний і внутрішньо узгоджений'],
+    ['answerable', 'Питання розв’язне з уривка і б’є саме в змінену деталь'],
+    ['facts', 'original / perturbed — короткі й взаємовиключні'],
+    ['plausible', 'Змінене правило правдоподібне, не абсурдне'],
+    ['familiarity', 'Мітка familiarity обґрунтована'],
+  ],
+};
+
+function reviewHtml(u) {
+  const r = rec(u.id) || { verdict: null, note: '', fix: '', checks: {}, at: null };
+  const items = CHECKLISTS[view.set](u);
+  const done = items.filter(([k]) => r.checks[k]).length;
+  return `<h3>Чекліст <span class="muted">${done}/${items.length}</span></h3>
+    <div class="checklist">${items.map(([k, label]) => `<label class="check"><input type="checkbox" data-check="${esc(k)}"${r.checks[k] ? ' checked' : ''}> ${esc(label)}</label>`).join('')}</div>
+    <h3>Вердикт</h3>
+    <div class="verdicts">${VERDICTS.map((v, n) => `<button class="${v.key}${r.verdict === v.key ? ' on' : ''}" data-verdict="${v.key}" title="${esc(v.hint)}" aria-pressed="${r.verdict === v.key}"><kbd>${n + 1}</kbd>${esc(v.label)}</button>`).join('')}</div>
+    <label class="field">Нотатка<textarea data-field="note" rows="3" placeholder="що не так і чому">${esc(r.note)}</textarea></label>
+    <label class="field">Що змінити<textarea data-field="fix" rows="3" placeholder="нове формулювання, інша мітка, «викинути»…">${esc(r.fix)}</textarea></label>
+    <div class="nav"><button data-nav="prev">← K</button><button data-nav="todo">Неперевірений U</button><button data-nav="next">J →</button></div>
+    <p class="keys">${r.at ? 'Збережено ' + esc(new Date(r.at).toLocaleString('uk-UA')) : 'Ще не оцінено'} · клавіші 1–4 вердикт, повторне натискання знімає</p>`;
+}
+
+// ---------- rendering ----------
+function renderTabs() {
+  const tabs = [...SETS.map(s => [s.key, `${s.label} (${DATA.units[s.key].length})`]), ['ref', 'Корпус']];
+  $('#tabs').innerHTML = tabs.map(([k, label]) => `<button data-tab="${k}" class="${view.set === k ? 'active' : ''}">${esc(label)}</button>`).join('');
+  $('#filter').hidden = view.set === 'ref';
+  $('#filter').value = view.filter;
+  $('#query').value = view.query;
+  $('#query').placeholder = view.set === 'ref' ? 'Фільтр секцій за назвою' : 'Пошук: id або текст';
+}
+
+function unitTitle(u) {
+  if (view.set === 'adjudication') return (u.items.find(i => i.variant === 'clean') || u.items[0]).player_text;
+  return u.item.question_uk;
+}
+
+function visibleUnits() {
+  const q = view.query.trim().toLowerCase();
+  return (DATA.units[view.set] || []).filter(u => {
+    const v = verdictOf(u);
+    if (view.filter === 'flagged' && !DATA.flags[u.id]) return false;
+    if (view.filter === 'todo' && v) return false;
+    if (view.filter === 'issues' && !(v && v !== 'ok')) return false;
+    if (view.filter === 'stale' && !isStale(u)) return false;
+    return !q || u.id.includes(q) || JSON.stringify(u.items || u.item).toLowerCase().includes(q);
+  });
+}
+
+function renderList() {
+  const list = $('#list');
+  if (view.set === 'ref') {
+    const q = view.query.trim().toLowerCase();
+    const rows = DATA.sections.map((s, n) => [s, n]).filter(([s]) => !q || s.section.toLowerCase().includes(q));
+    list.innerHTML = rows.map(([s, n]) => `<li data-sec="${n}"><span></span><div><div class="txt">${esc(s.section)}</div>
+      <div class="id">${esc(s.source_type)}</div></div></li>`).join('') || '<li class="empty">Нічого не знайдено</li>';
+    $('#count').textContent = `Секцій: ${rows.length} з ${DATA.sections.length}`;
+    return;
+  }
+  const units = visibleUnits();
+  if (!currentUnit()) view.id = (units[0] || DATA.units[view.set][0] || {}).id || null;
+  list.innerHTML = units.map(u => {
+    const v = verdictOf(u);
+    const flag = DATA.flags[u.id] ? ` <span class="flag" title="${esc(DATA.flags[u.id])}">⚑</span>` : '';
+    return `<li data-id="${esc(u.id)}" class="${u.id === view.id ? 'active' : ''}">
+      <span class="dot ${v || ''}${isStale(u) ? ' stale' : ''}" title="${esc(v ? verdictLabel(v) : 'не перевірено')}"></span>
+      <div><div class="id">${esc(u.id)}${flag}</div><div class="txt">${esc(unitTitle(u))}</div></div></li>`;
+  }).join('') || '<li class="empty">Нічого не знайдено</li>';
+  $('#count').textContent = `Показано ${units.length} з ${DATA.units[view.set].length}`;
+  const active = list.querySelector('li.active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+}
+
+function bindSearch(root) {
+  root.querySelectorAll('.corpus-q').forEach(inp => {
+    const out = inp.parentElement.querySelector('.corpus-results');
+    inp.addEventListener('input', () => { out.innerHTML = searchResultsHtml(inp.value); });
+  });
+}
+
+function bindChecks(root, u) {
+  root.querySelectorAll('[data-check]').forEach(el => el.addEventListener('change', () => {
+    const r = ensure(u);
+    r.checks[el.dataset.check] = el.checked;
+    touch(u, r);
+    const head = $('.review h3 .muted');
+    if (head) {
+      const items = CHECKLISTS[view.set](u);
+      head.textContent = `${items.filter(([k]) => r.checks[k]).length}/${items.length}`;
+    }
+  }));
+}
+
+function renderReview(u) {
+  const panel = $('.review');
+  panel.innerHTML = reviewHtml(u);
+  bindChecks(panel, u);
+  panel.querySelectorAll('[data-verdict]').forEach(el => el.addEventListener('click', () => setVerdict(u, el.dataset.verdict)));
+  panel.querySelectorAll('[data-field]').forEach(el => el.addEventListener('input', () => {
+    const r = ensure(u);
+    r[el.dataset.field] = el.value;
+    touch(u, r);
+  }));
+  panel.querySelectorAll('[data-nav]').forEach(el => el.addEventListener('click', () => nav(el.dataset.nav)));
+}
+
+function refHtml() {
+  const flags = Object.entries(DATA.flags);
+  return `<div class="ref"><h2>Корпус і довідка</h2>
+    <input type="search" class="corpus-q" placeholder="Пошук по всіх ${DATA.sections.length} секціях: слова через пробіл">
+    <div class="corpus-results"></div>
+    <details open><summary><b>Відомі неоднозначності корпусу (${DATA.ambiguities.length})</b></summary>
+      <table class="amb"><tr><th>#</th><th>Тема</th><th>Секції</th><th>Суть</th></tr>
+      ${DATA.ambiguities.map(a => `<tr><td>${a.n}</td><td>${esc(a.topic)}</td><td>${esc(a.sections)}</td><td>${esc(a.text)}</td></tr>`).join('')}</table></details>
+    <details><summary><b>Позначені сумнівні пункти (${flags.length})</b></summary><ul>
+      ${flags.map(([id, why]) => `<li><a href="#" data-goto="${esc(id)}">${esc(id)}</a> — ${esc(why)}</li>`).join('')}</ul></details>
+    <h3>Усі секції</h3>
+    ${DATA.sections.map((s, n) => `<details id="sec-${n}" class="ctx"><summary><b>${esc(s.section)}</b>
+      <span class="muted small">${esc(s.source_type)} · ${esc(s.source)}</span></summary><div class="text">${esc(sectionText(s))}</div></details>`).join('')}</div>`;
+}
+
+function renderDetail() {
+  const main = $('#detail');
+  if (view.set === 'ref') {
+    main.innerHTML = refHtml();
+    bindSearch(main);
+    main.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click', ev => { ev.preventDefault(); goto(a.dataset.goto); }));
+    return;
+  }
+  let u = currentUnit();
+  if (!u) { u = visibleUnits()[0] || DATA.units[view.set][0]; view.id = u ? u.id : null; }
+  if (!u) { main.innerHTML = ''; return; }
+  const body = view.set === 'rules_qa' ? qaHtml(u) : view.set === 'adjudication' ? adjHtml(u) : cpHtml(u);
+  main.innerHTML = `<div class="detail"><article>${body}</article><section class="review" aria-label="Вердикт"></section></div>`;
+  bindChecks(main.querySelector('article'), u);
+  bindSearch(main);
+  renderReview(u);
+  main.scrollTop = 0;
+}
+
+function renderStatus() {
+  $('#progress').innerHTML = SETS.map(s => {
+    const units = DATA.units[s.key];
+    const done = units.filter(u => verdictOf(u)).length;
+    const issues = units.filter(u => { const v = verdictOf(u); return v && v !== 'ok'; }).length;
+    return `<span>${s.short} ${done}/${units.length}<span class="bar"><span style="width:${(100 * done / units.length).toFixed(1)}%"></span></span>${issues ? ` <span class="issues" title="не «ок»">⚠ ${issues}</span>` : ''}</span>`;
+  }).join('');
+  const saved = $('#saved');
+  saved.className = '';
+  if (!storageOk) { saved.textContent = 'Браузер не зберігає дані — експортуй часто!'; saved.className = 'warn'; }
+  else if (state.dirty) saved.textContent = 'є неекспортовані зміни';
+  else saved.textContent = state.exportedAt ? 'експортовано ' + new Date(state.exportedAt).toLocaleString('uk-UA') : 'зберігається в браузері';
+}
+
+function renderAll() { renderTabs(); renderList(); renderDetail(); renderStatus(); }
+
+// ---------- actions ----------
+function select(id) {
+  view.id = id;
+  saveView();
+  renderList();
+  renderDetail();
+}
+
+function goto(id) {
+  const set = UNIT_SET[id];
+  if (!set) return;
+  Object.assign(view, { set, id, filter: 'all', query: '' });
+  saveView();
+  renderAll();
+}
+
+function setVerdict(u, key) {
+  const r = ensure(u);
+  r.verdict = r.verdict === key ? null : key;
+  touch(u, r);
+  renderReview(u);
+  renderList();
+}
+
+function nav(dir) {
+  const units = visibleUnits();
+  const idx = units.findIndex(x => x.id === view.id);
+  let target = null;
+  if (dir === 'next') target = idx < 0 ? units[0] : units[idx + 1];
+  else if (dir === 'prev') target = idx < 0 ? units[0] : units[idx - 1];
+  else {
+    const all = DATA.units[view.set];
+    const start = all.findIndex(x => x.id === view.id);
+    target = [...all.slice(start + 1), ...all.slice(0, start + 1)].find(x => !verdictOf(x)) || null;
+  }
+  if (target) select(target.id);
+}
+
+function exportJson() {
+  const out = {
+    format: 'gold-review/1', dataset: DATA.meta.dataset, file_hashes: DATA.meta.hashes,
+    page_generated_at: DATA.meta.generated_at, reviewer: state.reviewer, exported_at: new Date().toISOString(), units: {},
+  };
+  for (const [id, r] of Object.entries(state.units)) out.units[id] = { set: UNIT_SET[id] || null, ...r };
+  const blob = new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'gold-review-' + DATA.meta.dataset.split('/').pop() + '.json';
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  state.dirty = false;
+  state.exportedAt = out.exported_at;
+  save();
+}
+
+function importJson(file) {
+  file.text().then(text => {
+    const data = JSON.parse(text);
+    if (data.format !== 'gold-review/1') throw new Error('це не файл рев’ю');
+    let n = 0;
+    for (const [id, r] of Object.entries(data.units || {})) {
+      const cur = state.units[id];
+      if (!cur || !cur.at || (r.at && r.at > cur.at)) {
+        const { set, ...rest } = r;
+        state.units[id] = { verdict: null, note: '', fix: '', checks: {}, ...rest };
+        n++;
+      }
+    }
+    if (!state.reviewer && data.reviewer) state.reviewer = data.reviewer;
+    $('#reviewer').value = state.reviewer;
+    save();
+    renderAll();
+    alert(`Імпортовано записів: ${n}`);
+  }).catch(err => alert('Не вдалося імпортувати: ' + err.message));
+}
+
+// ---------- wiring ----------
+$('#meta').textContent = `${DATA.meta.dataset} · сторінку згенеровано ${new Date(DATA.meta.generated_at).toLocaleString('uk-UA')}`;
+$('#reviewer').value = state.reviewer || '';
+$('#reviewer').addEventListener('input', e => { state.reviewer = e.target.value; state.dirty = true; save(); });
+$('#export').addEventListener('click', exportJson);
+$('#import-btn').addEventListener('click', () => $('#import').click());
+$('#import').addEventListener('change', e => { if (e.target.files[0]) importJson(e.target.files[0]); e.target.value = ''; });
+$('#tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]');
+  if (!b) return;
+  view.set = b.dataset.tab;
+  view.id = null;
+  view.query = '';
+  saveView();
+  renderAll();
+});
+$('#query').addEventListener('input', e => { view.query = e.target.value; saveView(); renderList(); });
+$('#filter').addEventListener('change', e => { view.filter = e.target.value; saveView(); renderList(); });
+$('#list').addEventListener('click', e => {
+  const li = e.target.closest('li');
+  if (!li) return;
+  if (li.dataset.id) select(li.dataset.id);
+  else if (li.dataset.sec) {
+    const d = document.getElementById('sec-' + li.dataset.sec);
+    if (d) { d.open = true; d.scrollIntoView({ block: 'start' }); }
+  }
+});
+// Physical key codes, so shortcuts also work in the Ukrainian layout.
+document.addEventListener('keydown', e => {
+  const t = e.target instanceof Element ? e.target : null;
+  if (t && t.closest('input, textarea, select')) { if (e.key === 'Escape') t.blur(); return; }
+  if (e.ctrlKey || e.metaKey || e.altKey || view.set === 'ref') return;
+  const u = currentUnit();
+  if (!u) return;
+  const digit = /^Digit([1-4])$/.exec(e.code) || /^Numpad([1-4])$/.exec(e.code);
+  if (digit) { setVerdict(u, VERDICTS[Number(digit[1]) - 1].key); e.preventDefault(); }
+  else if (e.code === 'KeyJ') { nav('next'); e.preventDefault(); }
+  else if (e.code === 'KeyK') { nav('prev'); e.preventDefault(); }
+  else if (e.code === 'KeyU') { nav('todo'); e.preventDefault(); }
+});
+window.addEventListener('beforeunload', e => { if (state.dirty && !storageOk) { e.preventDefault(); e.returnValue = ''; } });
+renderAll();
+</script>
+</body>
+</html>

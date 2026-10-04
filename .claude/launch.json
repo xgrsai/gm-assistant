@@ -12,6 +12,13 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "src/frontend", "run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "gold review page",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "--directory", "src/backend", "python", "-m", "http.server", "8765", "--bind", "127.0.0.1",
+                      "--directory", "../../artifacts/review"],
+      "port": 8765
     }
   ]
 }

@@ -103,6 +103,11 @@ taken from Chaosium books or published scenarios.
 
 ## Review checklist (before freezing)
 
+Review tool: `cd src/backend; uv run python -m evals.review` builds `artifacts/review/gold-review-coc7e.html`
+(open it in a browser; verdicts stay in the browser until exported as JSON). Save the export as `review-v1.json` in
+this directory; `uv run python -m evals.review --summary ../../data/eval/coc7e/review-v1.json` summarises it.
+
+
 - [ ] Rules QA: each `key_fact` is literally supported by its gold section; `reference_answer` says nothing the
       corpus does not.
 - [ ] Rules QA: `gold_sections` is complete for multi-hop items and minimal for the others; the Ukrainian question
