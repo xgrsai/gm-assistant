@@ -1,6 +1,6 @@
 # Gold evaluation datasets — Call of Cthulhu 7e (v1)
 
-> **STATUS: DRAFT v1 — authored with AI assistance; every item must be reviewed by the author before the set is frozen for thesis experiments (freezing = the file hashes recorded in the eval run config).**
+> **STATUS: v1, reviewed (not yet frozen).** Authored with AI assistance. On 2026-10-10 every item was reviewed against the checklist below in a separate LLM pass (Claude), at the author's request; the 33 resulting edits (Ukrainian wording, 3 ambiguous items rewritten, key facts the question does not ask for removed, one reference answer) were approved by the author and applied in place on 2026-10-12. Verdicts and notes: `review-v1.json`. The set is frozen once its file hashes are recorded in the eval run config.
 
 These files are the measuring instrument for the prompt-only vs RAG (and later fine-tuned) Keeper comparison.
 Schemas, loading, hashing and validation live in `src/backend/evals/datasets.py` (pydantic models `RulesQAItem`,

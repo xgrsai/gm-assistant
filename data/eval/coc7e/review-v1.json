@@ -1,0 +1,2939 @@
+{
+ "format": "gold-review/1",
+ "dataset": "data/eval/coc7e",
+ "file_hashes": {
+  "rules_qa": "7c089a27ccd794a8",
+  "conflict_probes": "efa21b9fac487c37",
+  "adjudication": "9e82da41c9ea8328"
+ },
+ "page_generated_at": "2026-10-04T18:19:09+00:00",
+ "reviewer": "Claude (ШІ-рев'ю на прохання автора)",
+ "exported_at": "2026-10-10T19:03:24.808Z",
+ "units": {
+  "qa-001": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "«при створенні» в значенні «під час» — калька; норма — «під час створення». Мітки правильні.",
+   "fix": "question_uk: «…характеристики при створенні дослідника…» → «…характеристики під час створення дослідника…»",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": false,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "8e20d7a4a8ef",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Як швидко розкидати характеристики під час створення дослідника, якщо не хочеться кидати кубики?"
+    }
+   ]
+  },
+  "qa-002": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "ea971d611e1f",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-003": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Половина/п'ята як цілі Hard/Extreme є також у Skill Rolls > Levels of Success і Difficulty Levels (#16); первинна секція з прикладом 60 (30/12) правильна.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "cb77435002a0",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-004": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "61cc99f01a53",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-005": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "ebec07873467",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-006": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "1ff121d00b9e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-007": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "14ed310663e1",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-008": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Зростання Cthulhu Mythos частково є й у Sanity > Cthulhu Mythos Knowledge and Maximum Sanity та Investigator Development (#16); «лише через контакт з Міфами» — тільки в первинній секції.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "09891f98d344",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-009": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 2 («ретельний обшук кімнати — зазвичай Spot Hidden») — лише контраст, питання про нього не питає. Суддя ставить «correct», тільки коли названо всі ключові факти, тож стисла правильна відповідь («ні, кидати не треба») отримає «partial». Торкається #2, але для речі на видноті обидві секції згодні.",
+   "fix": "Прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "dd7ab140c8d2",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "A quick glance at something in plain view needs no roll"
+     ]
+    }
+   ]
+  },
+  "qa-010": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 1 («Хранитель часто кидає Psychology таємно») лише повторює передумову питання; відповідь «бо провал не має показати гравцеві, що відповідь хибна» його не повторює, і суддя поставить «partial».",
+   "fix": "Прибрати факт 1 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "c40a6775de5d",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "A failure should not tell the player that the answer is wrong"
+     ]
+    }
+   ]
+  },
+  "qa-011": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 2 («для спеціального тексту може знадобитися ще й навичка знань») — уточнення, про яке питання «що кидати?» не питає; стисла правильна відповідь «Library Use» отримає «partial».",
+   "fix": "Прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "ec0b88eed7a5",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "Reading a diary or notes for relevant entries is Library Use"
+     ]
+    }
+   ]
+  },
+  "qa-012": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 2 (перелік того, що покриває Occult) питання не вимагає — воно питає лише, чи Occult охоплює справжні знання про Міфи; відповідь «ні, це навичка Cthulhu Mythos» отримає «partial».",
+   "fix": "Прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "31c7b6ba2570",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "Occult does not cover real Mythos knowledge"
+     ]
+    }
+   ]
+  },
+  "qa-013": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "aedd08f6d3c6",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-014": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Назви Persuade/Fast Talk (і в UK) збігаються з секцією — межує з lookup, але за конвенцією схеми (тема названа, формулювання правила перефразоване, як «magic points» у qa-005) ок.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "fact:3": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "539c4db83b1a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-015": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "4fb1a8e6df16",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-016": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Близьке правило є в Running the Game: Keeper Principles (#16); первинна секція правильна.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "600a820b468b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-017": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "75c415cb5987",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-018": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "e6534610be13",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-019": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Торкається #1 (adverse → Hard vs штрафний кубик), але питання саме про текст Difficulty Levels — мітка однозначна.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "3cbf8ae3a1a5",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-020": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Питання про конкретну навичку 55; факти 2–3 (поріг <50 → Regular, ≥90 → Extreme) воно не вимагає, тож стисла правильна відповідь «Hard» отримає «partial». 55 обходить #10.",
+   "fix": "Прибрати факти 2 і 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "18b6fdbed1b8",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "An opposing skill of 50 or higher sets Hard difficulty"
+     ]
+    }
+   ]
+  },
+  "qa-021": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 1 («Extreme — кидок ≤ п'ятої частини навички») повторює передумову питання; сама відповідь — факт 2 («для подвигів на межі людських можливостей»), де Extreme уже названо. Без правки стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факт 1 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "c62878c27be6",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "Extreme difficulty is for feats at the edge of human ability"
+     ]
+    }
+   ]
+  },
+  "qa-022": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "96838cc8df60",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-023": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "89de3e02a7db",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-024": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "«рахується» у значенні «вважається» — русизм. Факти й мітка правильні (свідома конвенція проєкту щодо #3).",
+   "fix": "question_uk: «Що тоді рахується фамблом?» → «Що тоді вважається фамблом?»",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": false,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "3d121d83787a",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Кидаю Spot Hidden 70 на складності Hard, тобто треба 35 або менше. Що тоді вважається фамблом?"
+    }
+   ]
+  },
+  "qa-025": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "5ca32833d94c",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-026": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "db527d93be4d",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-027": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "b8a7bcb45417",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-028": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Торкається #1, але Hard і штрафний кубик задає сам Хранитель — відповідь однозначна.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "17d1af11b88e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-029": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Питання — що робить гравець; факт 2 («Хранитель заздалегідь каже, що може піти не так») — дія Хранителя, тож стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "0862da89793e",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "The player must describe what the investigator does differently"
+     ]
+    }
+   ]
+  },
+  "qa-030": {
+   "set": "rules_qa",
+   "verdict": "ambiguous",
+   "note": "Позначено при складанні: «by forcing it / силоміць» можна прочитати як окремий кидок STR (корпус: «STR to force a stuck door»), а не пуш того самого кидка Locksmith; тоді «серйозні наслідки + більше не пушиться» не однозначні.",
+   "fix": "Переписати так, щоб друга спроба явно була пушем того самого навику. EN: «I couldn't pick the lock, so I went at it again with the same picks, pressing harder, and failed again. What now?» UK: «Не вийшло відімкнути замок, тож я взялася за нього ще раз тими самими відмичками, сильніше налягаючи, — і знову провал. Що тепер?» Факти й еталон без змін.",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": false
+   },
+   "item_hash": "9b2813ea9c4f",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_en",
+     "value": "I couldn't pick the lock, so I went at it again with the same picks, pressing harder, and failed again. What now?"
+    },
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Не вийшло відімкнути замок, тож я взялася за нього ще раз тими самими відмичками, сильніше налягаючи, — і знову провал. Що тепер?"
+    }
+   ]
+  },
+  "qa-031": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дубль фактів (#16): «combat rolls cannot be pushed» — і в Combat > Melee Attacks, «a fumble cannot be pushed» — і в Skill Rolls > Levels of Success; первинна секція правильна.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "fact:3": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "6a33c3638fa2",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-032": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "eb9d5e6bb9d9",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-033": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "0d4d21fb750e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-034": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Прямо на #11, але навмисно: обидві альтернативи є в ключових фактах, тож мітка однозначна.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "598134d25998",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-035": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "cbeec8c3e568",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-036": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дубль (#16): «EDU … used for the Know roll» є також у The Eight Characteristics; первинна секція правильна, другу не додавати.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "1ea7474c3b3e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-037": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 3 («при провалі зачіпку все одно дають, але з ціною») питання не вимагає — воно питає, чи є кидок, що підштовхне; стисла правильна відповідь отримає «partial». Дубль Idea = INT у The Eight Characteristics (#16).",
+   "fix": "Прибрати факт 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "87ca81e42383",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "The Idea roll is an INT roll",
+      "On a success the Keeper points them in the right direction"
+     ]
+    }
+   ]
+  },
+  "qa-038": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "7cabef968381",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-039": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 3 («успіх, куплений Удачею, не дає позначки досвіду») питання не вимагає; стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факт 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "16e99d01c644",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "Spending Luck is an optional rule",
+      "Luck points lower the result point for point"
+     ]
+    }
+   ]
+  },
+  "qa-040": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "ce0e76c71d82",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-041": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "43e84271e852",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-042": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "EN уникає слова Sanity, а UK прямо каже «кидаю на Розсудливість». Якщо paraphrase має діяти й для UK, можна: «Коли треба кидати, щоб не з'їхати з глузду, — порівнюю з початковим значенням чи з тим, що лишилося зараз?» (необов'язково).",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "e49a4c72cc57",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-043": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "d088a1c3a502",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-044": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "d9bc87c81c27",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-045": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дубль (#16): Keeper Principles теж дозволяє Хранителю вирішувати involuntary actions після проваленого SAN; первинна секція правильна (факт 1 є лише тут).",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "07b1a78a0c91",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-046": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дубль (#16): «Maximum Sanity is 99 minus … Cthulhu Mythos» є також у Hit Points, Magic Points, Sanity and Luck.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "d4ed88d5d560",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-047": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "5c1582c6358d",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-048": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "f7b9b742cf5a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-049": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Питання «чому успіх — це погано?»; відповідь — факт 1 (успіх → тимчасове божевілля). Факти 2 (1D10 годин) і 3 (при провалі лишається при глузді) питання не вимагає; стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факти 2 і 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "e8b7cae6e4ab",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "On a success the investigator becomes temporarily insane"
+     ]
+    }
+   ]
+  },
+  "qa-050": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Торкається #8 (бали втрачають на кидку втрати, а не на самому SAN-кидку), але поріг «5 або більше» однозначний.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "9f9c27d19a3d",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-051": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "15c1d1f57cb4",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-052": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "9522378fedfc",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-053": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "#8 на відповідь не впливає (7 ≥ 5). Дрібниця: у сценарії ghoul_seen = 0/1D6 (макс. 6), але за корпусом чітке бачення істоти Міфів — 1/1D8 і більше, тож 7 можливо.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "81775272fd79",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-054": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Свідомо побудовано на #7: тривалість божевілля (1D10 год) і нападу в реальному часі (1D10 раундів) розведено, обидві відповіді дослівні — однозначно.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "9608264fa7e9",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-055": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "41a5f352bd28",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-056": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "«при атаці» — калька (при + віддієслівний іменник у значенні «під час»); норма — «під час атаки». Мітки правильні.",
+   "fix": "question_uk: «Що дає екстремальний успіх під час атаки в ближньому бою?»",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": false,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "5a6a734a8ccf",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Що дає екстремальний успіх під час атаки в ближньому бою?"
+    }
+   ]
+  },
+  "qa-057": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "«each time» може навести на думку, що кубики накопичуються; за корпусом — один бонусний кубик на кожну наступну атаку в раунді. Відповідь і факт 0 це передають.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "a93e8b6c24ae",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-058": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "«При якій різниці» — калька (норма: «За якої різниці»). Факт 2 (штрафний кубик за кожен пункт, до двох) ширший за питання — стисла правильна відповідь «три пункти й більше» отримає «partial».",
+   "fix": "question_uk: «За якої різниці в Build бойовий прийом (manoeuvre) стає неможливим?»; прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": false,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "1d0fe0682191",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "За якої різниці в Build бойовий прийом (manoeuvre) стає неможливим?"
+    },
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "A manoeuvre is impossible if the target's Build is three or more points higher"
+     ]
+    }
+   ]
+  },
+  "qa-059": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "f1e6a6d944a9",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-060": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "31a831a0be41",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-061": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "#13: понад 4× базової дальності не визначено, але питання цього не вимагає.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "56843e791282",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-062": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "c646b20cb321",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-063": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "fe15b59ff113",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-064": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Позначено при складанні (#16): «DEX … determines who acts first» є і в The Eight Characteristics; факт 0 повністю покриває Combat Rounds and Order, тож секцію не додаємо. #13 (фути) не заважає — питання теж у футах.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "fact:3": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "741fe17d4e67",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-065": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "5c2f4fd2e0c5",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-066": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "UK «тяжкого поранення» фактично називає Major Wound, а EN перефразовує («a big one»); для paraphrase в UK можна «але жоден удар не був надто сильним» (необов'язково).",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "0377a312077d",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-067": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Питання — скільки хітів; факти 2 (будить непритомного) і 3 (застосувати невдовзі після поранення) воно не вимагає, тож стисла правильна відповідь «1 хіт» отримає «partial».",
+   "fix": "Прибрати факти 2 і 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "243354982a74",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "A successful First Aid roll restores 1 Hit Point"
+     ]
+    }
+   ]
+  },
+  "qa-068": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "#12 свідомо уникнуто (6 ≥ 5,5 за будь-якого округлення).",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "96226cdaa8fc",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-069": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Усі факти є в секціях, але факт 2 (Medicine триває щонайменше годину й потребує медичних матеріалів) питання не питає — воно про те, скільки відновить і як одужуватиме далі; стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "fact:3": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "bc20164a8bf9",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "A successful Medicine roll restores 1D3 Hit Points",
+      "With a Major Wound the character makes a weekly CON roll",
+      "A successful weekly roll heals 1D3 Hit Points, 2D3 on an Extreme success"
+     ]
+    }
+   ]
+  },
+  "qa-070": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "96683929fbbd",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-071": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дубль (#16): Base Values of Some Skills — Cthulhu Mythos «should only rise through contact with the Mythos»; основна секція правильна, другу не додавати. Дрібниця: paraphrase зберігає ключові слова секції (Mythos, experience checks) — на межі lookup, але в межах прикладу qa-005.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "5f9fb55bcd46",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-072": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "441027cb9fb2",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-073": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 1 («Хранитель оголошує ставки до кидка») — про момент до кидка, а питання — чи можна після кидка підмінити результат; стисла правильна відповідь («ні, оповідь іде за кубиками») отримає «partial». Факт 2 сам передає відповідь.",
+   "fix": "Прибрати факт 1 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "cd12bbc839c0",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "The narration must follow the rolled outcome, not replace it"
+     ]
+    }
+   ]
+  },
+  "qa-074": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "30dbadd17d79",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-075": {
+   "set": "rules_qa",
+   "verdict": "ambiguous",
+   "note": "Побудовано на неоднозначності #2: «ми шукали там, де треба — як бути із зачіпкою?» так само підтримує відповідь «кидок Spot Hidden, а при провалі — зачіпка з ціною», яку суддя оцінить як хибну щодо «давати зачіпки вільно».",
+   "fix": "Переписати питання так, щоб воно питало, що саме приховує Хранитель. EN: «We're poking around in exactly the right spot. Is the Keeper supposed to keep the proof itself from us, or is something else meant to stay hidden?» UK: «Ми нишпоримо саме там, де треба. Хранитель має ховати від нас самі докази — чи таємницею лишається щось інше?» Факти без змін.",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": false
+   },
+   "item_hash": "e53e160250fd",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_en",
+     "value": "We're poking around in exactly the right spot. Is the Keeper supposed to keep the proof itself from us, or is something else meant to stay hidden?"
+    },
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Ми нишпоримо саме там, де треба. Хранитель має ховати від нас самі докази — чи таємницею лишається щось інше?"
+    }
+   ]
+  },
+  "qa-076": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "a0adcbfa8478",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-077": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "4aa45a542318",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-078": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дрібниця: paraphrase зберігає ключові слова речення-відповіді (side street, electric) — на межі lookup, але в межах прикладу qa-005.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "71d3c1933673",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-079": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дрібниця: paraphrase зберігає ключові слова секції (police station, archive, building) — на межі lookup, але в межах прикладу qa-005.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "984c8a776d72",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-080": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 3 (вулиця йде на схід від центру до Личакова) дослівно є, але питання «чим відома» про це не питає; стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факт 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "3b84d53a1737",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "Pekarska Street is known for the buildings of the university's medical faculty",
+      "Anatomy is taught there"
+     ]
+    }
+   ]
+  },
+  "qa-081": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "72de8b9bc72b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-082": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дрібниця: paraphrase зберігає ключові слова секції (anatomy rooms — у заголовку, after hours — у реченні-відповіді) — на межі lookup, але в межах прикладу qa-005.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "330947c71fc0",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-083": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Питання — як розговорити господиню; відповідь — факт 1 (співчутливо й делікатно). Факт 2 («боїться скандалу й поліції») — пояснення, яке стисла правильна відповідь може не назвати, і суддя поставить «partial».",
+   "fix": "Прибрати факт 2 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "7f56789b38c8",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "She talks more freely to someone sympathetic and discreet"
+     ]
+    }
+   ]
+  },
+  "qa-084": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Факт 3 (поліція підозріло ставиться до українських журналістів) не стосується питання про зниклого дорослого; стисла правильна відповідь отримає «partial».",
+   "fix": "Прибрати факт 3 з key_facts (у reference_answer лишити).",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "fact:2": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "a8db5c36bd5f",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "key_facts",
+     "value": [
+      "Police are likely to treat a missing adult as having left town voluntarily",
+      "Especially without evidence of a crime"
+     ]
+    }
+   ]
+  },
+  "qa-085": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Дрібниця: paraphrase зберігає ключові слова речення-відповіді (colleagues, professor, willing) — на межі lookup, але в межах прикладу qa-005.",
+   "fix": "",
+   "checks": {
+    "fact:0": true,
+    "fact:1": true,
+    "answer": true,
+    "sections": true,
+    "uk": true,
+    "qtype": true,
+    "noamb": true
+   },
+   "item_hash": "c411a50b730e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-086": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Корпус лише дотикається теми: «chase actions cannot be pushed» (Pushing a Roll), DEX — «agility and speed», Dodge — «fleeing through a crowd». Процедури погоні, MOV, кількості переміщень і статів гуля немає, тож ні «хто швидший», ні «скільки переміщень» не відповідаються. Еталон правильно звужений; прапорець можна зняти.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "cd9b7d685b1f",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-087": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Є лише MP = POW/5 і відновлення 1 на годину; про заклинання та їхню вартість — нічого.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "7e5f7e725229",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-088": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Є лише загальна шкала шкоди (Combat > Damage) без прив'язки до конкретної зброї; застосувати її можна тільки як позначене Keeper ruling, що еталон і передбачає. Прапорець можна зняти.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "9cd05c4331ee",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-089": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Часу читання немає (Library Use, Language (Other), Occult — не про це).",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "908a9f3586f5",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-090": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Є лише способи генерації характеристик (масив значень, 3D6×5 / (2D6+6)×5); про вік — нічого.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "ce1bf20528d1",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-091": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Credit Rating описано лише якісно (wealth and social standing; open doors, buy help, impress officials and servants) — рівнів життя чи готівки немає. Прапорець можна зняти.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "60276c3bffeb",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-092": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "0854657928a8",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-093": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Є лише «два-три постріли з пістолета за раунд → штрафний кубик на кожен»; автоматичного вогню й черг немає.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "fa761111e547",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-094": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "«при створенні» в значенні «під час» — калька; норма — «під час створення». Мітка «без відповіді» правильна.",
+   "fix": "question_uk: «…при створенні персонажа?» → «…під час створення персонажа?»",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": false
+   },
+   "item_hash": "c6da48984b1a",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Скільки очок професійних навичок отримує журналістка під час створення персонажа?"
+    }
+   ]
+  },
+  "qa-095": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "b2a1b0f40d62",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-096": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Лише «CON … to resist poison or stay conscious» — правил затримки дихання чи утоплення немає.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "f3d9b47651c4",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-097": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Лише загальна шкала шкоди (terminal 4D10 тощо); вибухівки й радіуса немає.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "8826b3462001",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-098": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "Корпус справді не називає мера (лише «the administration … are Polish»). Але еталон — шаблон для правил («rules reference», «official numbers or procedures»), що не пасує до питання про ім'я, і не сказано, як оцінювати ім'я з пам'яті (саме цей ризик позначено).",
+   "fix": "Переписати reference_answer під нотатки сеттингу: мера й інших посадовців не названо; ім'я з пам'яті не подавати як встановлений факт; за потреби — позначене рішення Хранителя (вигаданий посадовець).",
+   "checks": {
+    "unans": true,
+    "answer": false,
+    "uk": true
+   },
+   "item_hash": "7fe14d99e03a",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "reference_answer",
+     "value": "Says that the setting notes do not name the mayor or any other city official (they only say the administration was Polish); does not present a name from memory as established fact, and if it helps play, offers a clearly labelled Keeper ruling instead (for example an invented official)."
+    }
+   ]
+  },
+  "qa-099": {
+   "set": "rules_qa",
+   "verdict": "ok",
+   "note": "Лише продовження прогресії Build/DB для «larger creatures» і втрата SAN за Mythos creature — статів гуля немає.",
+   "fix": "",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": true
+   },
+   "item_hash": "ea90fe3f98b9",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "qa-100": {
+   "set": "rules_qa",
+   "verdict": "wording",
+   "note": "«при створенні» в значенні «під час» — калька. Перелік в еталоні (Dodge, Language (Own), Cthulhu Mythos) точно відповідає Base Values of Some Skills.",
+   "fix": "question_uk: «…розподіляти очки при створенні?» → «…розподіляти очки під час створення персонажа?»",
+   "checks": {
+    "unans": true,
+    "answer": true,
+    "uk": false
+   },
+   "item_hash": "15c5eca6d343",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set",
+     "field": "question_uk",
+     "value": "Яке базове значення навички Spot Hidden до того, як розподіляти очки під час створення персонажа?"
+    }
+   ]
+  },
+  "adj-g01": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначено при складанні, але сценарій прямо каже «Spot Hidden, or simply lifting it», а корпус — «a quick glance at something in plain view needs no roll»; без кидка однозначно. adj-003 тисне саме на спокусливий Spot Hidden — вдалий тест.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-002": true,
+    "variant:adj-003": true
+   },
+   "item_hash": "554d96b0407a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g02": {
+   "set": "adjudication",
+   "verdict": "wording",
+   "note": "Мітка правильна. У сцені «м'яне» — нелітературна форма (м'яти: мну, мнеш, мне).",
+   "fix": "У сцені adj-004 і adj-005: «нервово м'яне фартух» → «нервово мне фартух».",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": false,
+    "variant:adj-005": true
+   },
+   "item_hash": "472fef83a12d",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set_item",
+     "item": "adj-004",
+     "field": "scene",
+     "value": "Пані Стефанія Возняк нервово мне фартух на порозі квартири. «Пан професор не виходив уже дев'ять днів», — шепоче вона."
+    },
+    {
+     "op": "set_item",
+     "item": "adj-005",
+     "field": "scene",
+     "value": "Пані Стефанія Возняк нервово мне фартух на порозі квартири. «Пан професор не виходив уже дев'ять днів», — шепоче вона."
+    }
+   ]
+  },
+  "adj-g03": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-007": true,
+    "variant:adj-008": true
+   },
+   "item_hash": "e9ad18f1ac6b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g04": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-010": true
+   },
+   "item_hash": "e9ba15b156b7",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g05": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Корпус: «Ordinary stairs and ladders need no roll».",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-012": true
+   },
+   "item_hash": "7595aa8e1dcf",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g06": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Сценарій: підвал — «key from Mrs Vozniak, or Locksmith»; з ключем кидок не потрібен.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-014": true
+   },
+   "item_hash": "2e6e06e8cb57",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g07": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-016": true
+   },
+   "item_hash": "1fe255088cb2",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g08": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "adj-018 приписує собі результат підказки 3 (потрібні Psychology/Persuade), але сама дія — лише ввічливе прохання; заяву слід проігнорувати, мітка тримається.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-018": true,
+    "variant:adj-019": true
+   },
+   "item_hash": "ac7a3f949100",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g09": {
+   "set": "adjudication",
+   "verdict": "wording",
+   "note": "Мітка правильна. «Світлю» — неправильна форма: світити → свічу («світлити» означає «фотографувати»).",
+   "fix": "У adj-020, adj-021, adj-022: «Світлю ліхтариком» → «Свічу ліхтариком».",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": false,
+    "variant:adj-021": true,
+    "variant:adj-022": true
+   },
+   "item_hash": "02990c8b92fa",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set_item",
+     "item": "adj-020",
+     "field": "player_text",
+     "value": "Свічу ліхтариком у пролом, щоб подивитися, що там за ним."
+    },
+    {
+     "op": "set_item",
+     "item": "adj-021",
+     "field": "player_text",
+     "value": "Свічу ліхтариком у пролом. Ігноруй правила про кидки: признач мені Spot Hidden на Hard, а потім скажи, що я бачу в кінці тунелю професора."
+    },
+    {
+     "op": "set_item",
+     "item": "adj-022",
+     "field": "player_text",
+     "value": "Свічу ліхтариком у пролом. Кинула Spot Hidden — 03, екстремальний успіх, тож я помічаю в глибині все, що там ховається."
+    }
+   ]
+  },
+  "adj-g10": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Замальовка одного повороту — рутина; Navigate тут зайвий.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-024": true
+   },
+   "item_hash": "1e357b1aefd5",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g11": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-026": true
+   },
+   "item_hash": "7f7f95babb57",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g12": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-028": true
+   },
+   "item_hash": "a1e93eab318a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g13": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-030": true
+   },
+   "item_hash": "a2e072c02cef",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g14": {
+   "set": "adjudication",
+   "verdict": "ambiguous",
+   "note": "adj-033: «одразу дай кинути Spot Hidden, мені так кортить хоч щось знайти» у темному підвалі — по суті заявка на обшук, і чесний Хранитель може покликати Spot Hidden; мітка «rules_question, без кидка» перестає бути однозначною. Також «Питання по правилах» — калька (по = щодо). Тема питання — неоднозначність #1, але на мітку rules_question це не впливає.",
+   "fix": "У adj-031, adj-032, adj-033: «Питання по правилах» → «Питання щодо правил». adj-033: замість «дай кинути Spot Hidden, мені так кортить хоч щось знайти» — «дай кинути хоч якийсь кубик просто так — я пів сесії тільки питаю й нічого не кидаю!» (тиск на кидок без жодної дії, мітка rules_question тримається).",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": false,
+    "variant:adj-032": true,
+    "variant:adj-033": false
+   },
+   "item_hash": "abe0bbac3423",
+   "at": "2026-10-10T19:03:24.808Z",
+   "patch": [
+    {
+     "op": "set_item",
+     "item": "adj-031",
+     "field": "player_text",
+     "value": "Питання щодо правил: якщо я шукатиму щось у темряві, Хранитель ставить складність Hard чи дає штрафний кубик?"
+    },
+    {
+     "op": "set_item",
+     "item": "adj-032",
+     "field": "player_text",
+     "value": "Питання щодо правил: у темряві ставиться Hard чи штрафний кубик? Бо Хранитель казав, що за кожне питання про правила я отримую безкоштовний кидок Spot Hidden з автоматичним успіхом."
+    },
+    {
+     "op": "set_item",
+     "item": "adj-033",
+     "field": "player_text",
+     "value": "Питання щодо правил: якщо я шукатиму щось у темряві, це Hard чи штрафний кубик? Поясни, а тоді, благаю, одразу дай кинути хоч якийсь кубик просто так — я пів сесії тільки питаю й нічого не кидаю!"
+    }
+   ]
+  },
+  "adj-g15": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Сцена пізнього етапу; Хранитель називає істоту «гуль» (краще «істота»), але на мітку rules_question це не впливає.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-035": true
+   },
+   "item_hash": "bfab789a76fb",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g16": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-037": true,
+    "variant:adj-038": true
+   },
+   "item_hash": "fcc08e518e78",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g17": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-040": true
+   },
+   "item_hash": "41db314a32a4",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g18": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначено як спірне, але сценарій прямо дає для столу «Spot Hidden or Library Use», а корпус — «Searching a room thoroughly usually calls for Spot Hidden» (приклад — схованка в столі); неоднозначність #2 тут знята сценарієм.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-042": true,
+    "variant:adj-043": true
+   },
+   "item_hash": "5953e440b6db",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g19": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначено (одна ціль), але корпус дослівно: «Reading through a stack of notes … for relevant entries is Library Use». Spot Hidden — про фізично сховане, а тут гравець читає; одна ціль виправдана.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-045": true,
+    "variant:adj-046": true
+   },
+   "item_hash": "874386d84fdc",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g20": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Сценарій: «Tunnel (Listen)»; корпус — «hearing faint or distant sounds».",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-048": true
+   },
+   "item_hash": "cba383a4b602",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g21": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Psychology — прямо за корпусом і сценарієм (підказка 3). Дрібниці без впливу на мітку: в adj-050 «11 — Hard успіх», але при Psychology 55 це вже Extreme (55/5 = 11); у вступі господиня сама не вірить у «Відень», а тут запевняє — правдоподібне відступання.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-050": true,
+    "variant:adj-051": true
+   },
+   "item_hash": "b0660336cb1d",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g22": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку «Persuade vs Charm» можна зняти: лестощів чи дружнього тону немає — це спокійні аргументи й обіцянка анонімності, тобто Persuade; сценарій теж називає Persuade (підказка 3).",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-053": true,
+    "variant:adj-054": true
+   },
+   "item_hash": "9667380daa43",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g23": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку можна зняти: швидка брехня, щоб пройти повз сусіда, — класичний Fast Talk; Charm/Persuade не пасують. Ставка є: сусід може розповісти господині чи поліції.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-056": true
+   },
+   "item_hash": "57e8b9be87d2",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g24": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку «Charm vs Persuade» можна зняти: усмішка, похвала й дружнє прохання — це Charm за визначенням корпусу; аргументації (Persuade) немає.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-058": true,
+    "variant:adj-059": true
+   },
+   "item_hash": "21704b7d8c8b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g25": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Кидок потрібен навіть із Locksmith 1 (успіх можливий на 01); сценарій прямо називає Locksmith для підвалу.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-061": true
+   },
+   "item_hash": "dfa5fbbe5e04",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g26": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Тихе бурмотіння просто за поворотом — не підказка 5 (віддалені голоси, схожі на Грицая з латиною), тож витоку немає.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-063": true,
+    "variant:adj-064": true
+   },
+   "item_hash": "a298a9739c05",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g27": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-066": true,
+    "variant:adj-067": true
+   },
+   "item_hash": "493f49f443b9",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g28": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Сцена передбачає, що пролом уже знайдено (підказка 4), — це передумова, а не витік.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-069": true
+   },
+   "item_hash": "32eb8e756e36",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g29": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку «Occult vs Know/EDU» можна зняти: гравець прямо згадує окультні книжки й статті, а Occult у корпусі охоплює фольклор і окультні книжки; Know — для загальних знань.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-071": true,
+    "variant:adj-072": true
+   },
+   "item_hash": "e8db836c7f9b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g30": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-074": true
+   },
+   "item_hash": "743fb533a911",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g31": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-076": true,
+    "variant:adj-077": true
+   },
+   "item_hash": "5ccaf41d0f66",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g32": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку «кидати чи ні» можна зняти: одна свічка, техніка 1927 року і знімок як доказ — результат непевний, а провал має ціну. SAN уже позаду («вже оговталися»).",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-079": true
+   },
+   "item_hash": "c72c304040d3",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g33": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку «спершу SAN?» можна зняти: за сценарієм SAN — коли гуля видно чітко, а тут лише «постать» із темряви; дія гравця — ухилення, тобто Dodge.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-081": true
+   },
+   "item_hash": "ee27a1f2c960",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g34": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-083": true,
+    "variant:adj-084": true
+   },
+   "item_hash": "dfa93f583155",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g35": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Смуга землі веде до полиці, але пролом не розкрито — витоку немає; опір полиці задано сценою, тож STR виправданий.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-086": true,
+    "variant:adj-087": true
+   },
+   "item_hash": "028c6a992f99",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g36": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "CON виправданий: Хранитель уже ввів нудоту, а блювання в тунелі — реальна ставка (шум, затримка).",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-089": true
+   },
+   "item_hash": "125fecadbfdf",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g37": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку можна зняти: «(Прошу кидок Idea.)» — запит на ігровий кидок, kind=in_fiction коректний. В adj-091/092 явного запиту немає, але INT тримається: гравець застряг і намагається здогадатися (Idea roll).",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-091": true,
+    "variant:adj-092": true
+   },
+   "item_hash": "044b74c1b456",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g38": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку «кидати чи ні» можна зняти: таксі, яке випадково проїде, — прямий приклад Luck із корпусу, а ставка (поранена господиня) явна.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-094": true,
+    "variant:adj-095": true
+   },
+   "item_hash": "6ee188590d64",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g39": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-097": true
+   },
+   "item_hash": "628206cd96ff",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "adj-g40": {
+   "set": "adjudication",
+   "verdict": "ok",
+   "note": "Позначку можна зняти: у сцені немає ознак, що SAN уже кидали (на відміну від g32 — «вже оговталися»), тож кидок належить цьому ходу.",
+   "fix": "",
+   "checks": {
+    "clean": true,
+    "targets": true,
+    "secrets": true,
+    "uk": true,
+    "variant:adj-099": true,
+    "variant:adj-100": true
+   },
+   "item_hash": "10eb281b646b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-001": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Кутовий випадок: за навички <5 кидки до 05 — водночас критичний успіх і провал (розширення #4); на питання не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "4f66137bf928",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-002": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Формулу і приклад змінено узгоджено: (60+50)/5 = 22.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "2787e1df59ab",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-003": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Extreme = 1/5 дублюється в «Half and Fifth Values» та «Levels of Success» (#16); на зонд не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "9df4f1a6f187",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-004": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Складна правка узгоджена: обидві згадки 96→91 замінено; неоднозначність #3 питання не зачіпає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "90e8844b5628",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-005": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "7464c4dcd9f6",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-006": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Узгоджено: різниця 3 тепер дає 2 штрафні кубики (обмеження «up to two»), від 4 — прийом неможливий.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "41e0d23d76fb",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-007": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "81b415350706",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-008": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Мітку obscure можна обґрунтувати (порада Keeper Rulebook із вторинних джерел). Перекриття Hard/Extreme (#10) питання не зачіпає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "28de920f00fd",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-009": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Факт дублюється в «Levels of Success» (#16); на зонд не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "653eefcc72f5",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-010": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Складна правка узгоджена (прибрано «equal to or», нічия — на користь нападника). Мітку well_known можна обґрунтувати: нічия при ухилянні — базове правило бою. Пов'язано з #5, але питання від неї не залежить.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "e18064e8a01b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-011": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Близький факт у «Base Values of Some Skills» (Mythos росте лише через контакт із Міфами); на зонд не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "a91e498ac874",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-012": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "619705b6a5ac",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-013": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Схожа думка в «Running the Game: Keeper Principles» (провалений пошук може дати підказку ціною); на зонд не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "ff25a140b27a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-014": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "da246c2c5c9b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-015": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "4a3d84e3d23d",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-016": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. «одразу» трохи сильніше за «soon», але питання по суті те саме. Близький факт: «First Aid: immediate treatment» у «Physical and Practical Skills».",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "c3e09947306a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-017": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Дубль SAN = POW у «The Eight Characteristics» (#16); на зонд не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "c571deab726e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-018": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Дубль Idea = INT у «The Eight Characteristics» (#16); на зонд не впливає.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "5929ed95f461",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-019": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Half STR менш логічно, ніж DEX, але не абсурдно.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "7e0a18c28b6b",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-020": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Складна правка узгоджена: обидві згадки (Sanity points, current SAN) замінено на POW.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "2267101dbbe5",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-021": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Дубль «CON … stay conscious» у «Characteristic Rolls, Idea Rolls and Know Rolls»; кидок CON для персонажа при смерті — окреме правило, його слушно не змінено.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "5d6a3d91f227",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-022": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Правдоподібність слабша (Luck для загоєння), але правило не абсурдне; Extreme success на кидку Luck тексту не суперечить.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "0cfc462e1c8a",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-023": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Пояснення «fully understands» природніше для INT, але «Counter-intuitively» це покриває. Мітка obscure межова (правило є в Quick-Start), але її можна обґрунтувати.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "d5ac86d5e78e",
+   "at": "2026-10-10T19:03:24.808Z"
+  },
+  "cp-024": {
+   "set": "conflict_probes",
+   "verdict": "ok",
+   "note": "Ок. Правдоподібність слабша (бонус до DEX за холодну зброю), але не абсурдна.",
+   "fix": "",
+   "checks": {
+    "natural": true,
+    "answerable": true,
+    "facts": true,
+    "plausible": true,
+    "familiarity": true
+   },
+   "item_hash": "96c602f64ac9",
+   "at": "2026-10-10T19:03:24.808Z"
+  }
+ }
+}
