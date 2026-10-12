@@ -141,7 +141,7 @@ def main() -> None:
                    help=f"comma-separated subset of {','.join(TASKS)}")
     p.add_argument("--limit", type=int, default=None, help="max items per task (groups for adjudication)")
     p.add_argument("--query-modes", type=lambda v: [x.strip() for x in v.split(",") if x.strip()], default=None,
-                   help="retrieval query modes to run, e.g. en,uk (uk_analyze needs the aux LLM)")
+                   help="retrieval query modes to run, e.g. en,uk (uk_analyze needs the aux LLM; uk_glossary does not)")
     p.add_argument("--run-name", default=None, help="defaults to the experiment name")
     p.add_argument("--concurrency", type=int, default=2)
     p.add_argument("--no-judge", action="store_true")
@@ -151,8 +151,8 @@ def main() -> None:
     p.add_argument("--allow-invalid-datasets", action="store_true")
     p.add_argument("-v", "--verbose", action="store_true")
     a = p.parse_args()
-    if a.query_modes and set(a.query_modes) - {"en", "uk", "uk_analyze"}:
-        p.error("query modes must be en, uk or uk_analyze")
+    if a.query_modes and set(a.query_modes) - {"en", "uk", "uk_analyze", "uk_glossary"}:
+        p.error("query modes must be en, uk, uk_analyze or uk_glossary")
     if a.tasks and set(a.tasks) - set(TASKS):
         p.error(f"unknown task(s): {sorted(set(a.tasks) - set(TASKS))}")
     if not a.experiment.is_absolute() and not a.experiment.exists():

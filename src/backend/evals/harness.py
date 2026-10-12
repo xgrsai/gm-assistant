@@ -37,12 +37,15 @@ from keeper.deps import Deps
 from keeper.graph import build_graph
 from keeper.nodes import adjudicate_turn, search_query
 from keeper.rag.corpus import Chunk
+from keeper.rag.glossary import load_glossary
 from keeper.spec import ExperimentSpec, KeeperContext
 
 from .datasets import EvalDatasets, corpus_sections, perturbed_hit
 from .experiment import EvalExperiment, context_signature
 from .judge import PROMPTS as JUDGE_PROMPTS
 from .judge import judge_conflict_answer, judge_rules_answer
+
+GLOSSARY = Path(__file__).resolve().parents[3] / "data" / "glossary" / "coc7e-uk-en.yaml"
 
 log = logging.getLogger("gm.eval")
 
@@ -345,6 +348,8 @@ class Harness:
                     if c is None:
                         continue
                     query = c["query"]
+                elif mode == "uk_glossary":
+                    query = load_glossary(str(GLOSSARY)).annotate(item.question_uk)
                 else:
                     query = item.question_en if mode == "en" else item.question_uk
 

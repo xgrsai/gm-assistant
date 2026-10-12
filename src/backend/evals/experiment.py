@@ -20,8 +20,9 @@ class RetrievalTaskCfg(_Cfg):
     limit: int | None = None
     k: int = 10
     # en: question_en as the query; uk: raw Ukrainian question; uk_analyze: the analyze node's query for the
-    # Ukrainian question (one aux LLM call per item, cached in the frozen contexts)
-    query_modes: list[Literal["en", "uk", "uk_analyze"]] = ["en", "uk"]
+    # Ukrainian question (one aux LLM call per item, cached in the frozen contexts); uk_glossary: the Ukrainian
+    # question with the English names of glossary terms appended (keeper.rag.glossary, no LLM call)
+    query_modes: list[Literal["en", "uk", "uk_analyze", "uk_glossary"]] = ["en", "uk"]
     threshold_grid: list[float] = Field(default_factory=lambda: [round(0.40 + i * 0.01, 2) for i in range(41)])
 
 

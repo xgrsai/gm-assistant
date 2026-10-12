@@ -7,3 +7,15 @@ nomic15:
   dim: 768
   query_prefix: "search_query: "
   document_prefix: "search_document: "
+
+bgem3:
+  provider: ollama
+  model: bge-m3                # BGE-M3, multilingual (100+ languages incl. Ukrainian), 1024 dims; no task prefixes
+  dim: 1024
+
+nomic2moe:
+  provider: ollama
+  model: nomic-embed-text-v2-moe   # multilingual (~100 languages) successor of nomic15, MoE 475M (305M active), 768 dims
+  dim: 768
+  query_prefix: "search_query: "
+  document_prefix: "search_document: "

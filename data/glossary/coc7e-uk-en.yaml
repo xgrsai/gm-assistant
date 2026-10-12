@@ -1,0 +1,138 @@
+# Ukrainian -> English glossary of Call of Cthulhu 7e game terms, for query term normalization before retrieval.
+# Built once from the knowledge base's own terminology (section headings, skill and characteristic names of
+# data/open/coc7e and the demo investigator sheet), with common Ukrainian renderings of each term.
+# It was written before the uk_glossary retrieval run and is not tuned on its results.
+#
+# Each entry: en = the term as it appears in the knowledge base; uk = regular expressions over Ukrainian text
+# (case-insensitive; each pattern is anchored at a word start; \w* absorbs inflection; ['’ʼ] = apostrophe variants).
+# A query is annotated by appending the English terms of all matched entries, e.g.
+#   "Що дає екстремальний успіх під час атаки?" -> "Що дає екстремальний успіх під час атаки? (Extreme success, attack)"
+
+terms:
+  # characteristics and derived attributes
+  - {en: characteristics, uk: ['характеристик\w*']}
+  - {en: STR, uk: ['сил[аиіуою]\b(?!\w* волі)']}
+  - {en: CON, uk: ['витривал\w*']}
+  - {en: SIZ, uk: ['розмір\w*']}
+  - {en: DEX, uk: ['спритн\w*(?! рук)']}
+  - {en: APP, uk: ['зовнішн\w*', 'привабл\w*']}
+  - {en: INT, uk: ['інтелект\w*']}
+  - {en: POW, uk: ['сил\w* волі', 'вол[яії]\b']}
+  - {en: EDU, uk: ['освіт\w*']}
+  - {en: half, uk: ['половин\w*']}
+  - {en: fifth, uk: ['п[''’ʼ]?ят\w* частин\w*']}
+  - {en: Hit Points, uk: ['хіт\w*', 'очк\w* здоров\w*', 'здоров[''’ʼ]\w*']}
+  - {en: Magic Points, uk: ['магічн\w* очк\w*', 'очк\w* магії', 'ман[аиуі]\b']}
+  - {en: Sanity, uk: ['розсуд\w*', 'глузд\w*', 'психічн\w* здоров\w*']}
+  - {en: Luck, uk: ['удач\w*', 'везінн\w*', 'пощаст\w*']}
+  - {en: Damage Bonus, uk: ['бонус\w* (до )?шкод\w*']}
+  - {en: Build, uk: ['статур\w*', 'комплекці\w*']}
+  - {en: base value, uk: ['базов\w* значенн\w*']}
+  - {en: occupation, uk: ['професі\w*']}
+
+  # skill rolls
+  - {en: percentile dice, uk: ['відсотков\w* куб\w*', 'к100', 'd100']}
+  - {en: difficulty, uk: ['складн\w*']}
+  - {en: Regular success, uk: ['звичайн\w* успіх\w*']}
+  - {en: Extreme success, uk: ['екстремальн\w*']}
+  - {en: critical success, uk: ['критичн\w*', 'крит\b']}
+  - {en: fumble, uk: ['фамбл\w*', 'катастрофічн\w* провал\w*']}
+  - {en: bonus die, uk: ['бонусн\w* куб\w*', 'бонусн\w* кост\w*']}
+  - {en: penalty die, uk: ['штрафн\w* куб\w*', 'штрафн\w* кост\w*']}
+  - {en: push, uk: ['пуш\w*', 'повторн\w* кид\w*', 'перекину\w*', 'перекида\w*', 'ще раз кину\w*']}
+  - {en: opposed roll, uk: ['протидійн\w*', 'зустрічн\w* кид\w*', 'протистоян\w*', 'протиді\w*']}
+  - {en: experience check, uk: ['досвід\w*', 'прокачк\w*', 'прокача\w*', 'розвит\w*']}
+
+  # skills (names as on the investigator sheet)
+  - {en: Spot Hidden, uk: ['помі[тч]\w*', 'прихован\w* пошук\w*', 'розгледі\w*', 'обшук\w*', 'обшу[кш]\w*']}
+  - {en: Listen, uk: ['прислуха\w*', 'слуха\w*', 'почу[тв]\w*', 'чу(ю|ти|є|ла|в)\b']}
+  - {en: Library Use, uk: ['бібліотек\w*', 'архів\w*', 'щоденник\w*', 'нотат\w*', 'запис\w*']}
+  - {en: Psychology, uk: ['психолог\w*', 'бреш\w*', 'брех\w*']}
+  - {en: Persuade, uk: ['переконат\w*', 'переконув\w*', 'переконан\w*', 'умовит\w*', 'умовля\w*']}
+  - {en: Fast Talk, uk: ['забалак\w*', 'обдур\w*', 'облапош\w*', 'збреха\w*']}
+  - {en: Charm, uk: ['зачаров\w*', 'зачарув\w*', 'чарівн\w*', 'шарм\w*', 'сподоба\w*']}
+  - {en: Intimidate, uk: ['залякат\w*', 'залякув\w*', 'погрож\w*', 'погроз\w*']}
+  - {en: Credit Rating, uk: ['кредитн\w* рейтинг\w*', 'статк\w*', 'багатств\w*', 'готівк\w*']}
+  - {en: Locksmith, uk: ['замок\w*', 'замк\w*', 'відмичк\w*', 'відімкн\w*', 'відмика\w*']}
+  - {en: Stealth, uk: ['крадьк\w*', 'скрада\w*', 'підкра\w*', 'непомітн\w*']}
+  - {en: Climb, uk: ['лізт\w*', 'лізу\w*', 'видер\w*', 'залізт\w*', 'полізт\w*']}
+  - {en: Jump, uk: ['стриб\w*', 'перестриб\w*']}
+  - {en: Swim, uk: ['плав\w*', 'пливт\w*', 'плисти', 'пливу\w*']}
+  - {en: Throw, uk: ['метну\w*', 'метат\w*', 'жбурн\w*', 'жбурля\w*']}
+  - {en: Dodge, uk: ['ухил\w*', 'відскоч\w*', 'ухиля\w*']}
+  - {en: Fighting (Brawl), uk: ['бійк\w*', 'кулак\w*', 'бит\w*ся', 'вдар\w*', 'удар\w*']}
+  - {en: Firearms, uk: ['вогнепальн\w*', 'стріл\w*', 'пістолет\w*', 'револьвер\w*', 'рушниц\w*', 'постріл\w*']}
+  - {en: First Aid, uk: ['перш\w* допомог\w*', 'перев[''’ʼ]?яз\w*', 'бинт\w*']}
+  - {en: Medicine, uk: ['медицин\w*', 'лікар\w*', 'лікув\w*']}
+  - {en: Occult, uk: ['окульт\w*', 'езотер\w*', 'магі[яїю]\b', 'спіритизм\w*', 'відьм\w*']}
+  - {en: Cthulhu Mythos, uk: ['міф\w*']}
+  - {en: History, uk: ['історі\w*']}
+  - {en: Archaeology, uk: ['археолог\w*']}
+  - {en: Anthropology, uk: ['антрополог\w*']}
+  - {en: Language (Other), uk: ['іноземн\w* мов\w*', 'німецьк\w*', 'латин\w*']}
+  - {en: Navigate, uk: ['орієнту\w*', 'навіга\w*']}
+  - {en: Track, uk: ['вистеж\w*', 'по слідах']}
+  - {en: Mechanical Repair, uk: ['полагод\w*', 'ремонт\w*']}
+  - {en: Drive Auto, uk: ['кермо\w*', 'автомобіл\w*', 'машин\w*']}
+  - {en: Disguise, uk: ['маскув\w*', 'перевдяг\w*', 'грим\w*']}
+  - {en: Sleight of Hand, uk: ['спритн\w* рук\w*', 'поцупи\w*']}
+  - {en: Appraise, uk: ['оцін\w* (вартіст\w*|цін\w*)']}
+  - {en: Art/Craft (Photography), uk: ['фот\w*']}
+  - {en: Idea roll, uk: ['іде[яїюй]\b']}
+  - {en: Know roll, uk: ['загальн\w* знан\w*']}
+  - {en: clue, uk: ['зачіпк\w*', 'підказк\w*', 'доказ\w*', 'підказа\w*']}
+
+  # luck
+  - {en: spending Luck, uk: ['спали\w* удач\w*', 'витрат\w* удач\w*', 'спалю\w* удач\w*']}
+
+  # sanity and insanity
+  - {en: Sanity roll, uk: ['кид\w* (на )?розсуд\w*']}
+  - {en: Sanity loss, uk: ['втрат\w* розсуд\w*', 'втрача\w* розсуд\w*']}
+  - {en: insanity, uk: ['божевіл\w*', 'збожевол\w*', 'з[''’ʼ]?їха\w*', 'не при собі']}
+  - {en: temporary insanity, uk: ['тимчасов\w* божевіл\w*']}
+  - {en: indefinite insanity, uk: ['тривал\w* божевіл\w*', 'невизначен\w* божевіл\w*']}
+  - {en: permanent insanity, uk: ['постійн\w* божевіл\w*', 'назавжди']}
+  - {en: bout of madness, uk: ['напад\w* божевіл\w*', 'напад\w* безуму']}
+  - {en: involuntary action, uk: ['мимовільн\w*', 'мимоволі']}
+  - {en: phobia, uk: ['фобі\w*']}
+  - {en: recovering Sanity, uk: ['відновл\w* розсуд\w*', 'повернут\w* розсуд\w*']}
+  - {en: maximum Sanity, uk: ['максимальн\w* розсуд\w*']}
+
+  # combat
+  - {en: combat, uk: ['бій\b', 'бою\b', 'боєм\b', 'бойов\w*', 'сутичк\w*']}
+  - {en: combat round, uk: ['раунд\w*']}
+  - {en: melee, uk: ['ближн\w* бо\w*', 'холодн\w* зброє\w*']}
+  - {en: attack, uk: ['атак\w*', 'напада\w*', 'напад\b']}
+  - {en: outnumbered, uk: ['кількох суперник\w*', 'кількох ворог\w*', 'оточ\w*']}
+  - {en: fighting manoeuvre, uk: ['прийом\w*', 'маневр\w*']}
+  - {en: impale, uk: ['протик\w*', 'проштрикн\w*', 'колюч\w*', 'ніж\b', 'нож\w*', 'спис\w*']}
+  - {en: damage, uk: ['шкод\w*', 'урон\w*', 'пошкодж\w*']}
+  - {en: range, uk: ['дальн\w*', 'відстан\w*']}
+  - {en: DEX order, uk: ['хто ходить першим', 'черговіст\w*', 'ініціатив\w*']}
+
+  # hit points, wounds and healing
+  - {en: Major Wound, uk: ['тяжк\w* ран\w*', 'серйозн\w* поран\w*', 'тяжк\w* поран\w*']}
+  - {en: wound, uk: ['ран[аиуі]\b', 'поран\w*']}
+  - {en: dying, uk: ['помира\w*', 'смерт\w*', 'вмира\w*']}
+  - {en: unconscious, uk: ['непритом\w*', 'знепритом\w*', 'при тямі']}
+  - {en: healing, uk: ['одуж\w*', 'загоє\w*', 'загою\w*', 'відновлю\w* хіт\w*', 'зцілен\w*']}
+
+  # keeper and play
+  - {en: Keeper, uk: ['хранител\w*', 'ведуч\w*']}
+  - {en: investigator, uk: ['дослідни[кц]\w*', 'слідч\w*', 'героїн\w*', 'персонаж\w*']}
+  - {en: roll, uk: ['кид\w*', 'кину\w*']}
+
+  # setting (Lviv 1927)
+  - {en: Lviv, uk: ['львів\w*', 'місто', 'міст[аі]\b']}
+  - {en: police, uk: ['поліці\w*', 'поліцейськ\w*']}
+  - {en: newspaper, uk: ['газет\w*', 'журналіст\w*', 'пресу?\b']}
+  - {en: landlady, uk: ['господин\w*', 'двірник\w*']}
+  - {en: tenement house, uk: ['кам[''’ʼ]?яниц\w*']}
+  - {en: university, uk: ['університет\w*', 'викладач\w*', 'професор\w*']}
+  - {en: Pekarska Street, uk: ['пекарськ\w*']}
+  - {en: Lychakiv, uk: ['личаків\w*']}
+  - {en: cemetery, uk: ['цвинтар\w*', 'кладовищ\w*']}
+  - {en: mayor, uk: ['мер\b', 'міськ\w* голов\w*']}
+  - {en: beneath the old city, uk: ['підземел\w*', 'катакомб\w*', 'під містом', 'підвал\w*', 'тунел\w*']}
+  - {en: anatomy, uk: ['анатомі\w*', 'медичн\w* факультет\w*']}
+  - {en: missing person, uk: ['зник\w*', 'зникнен\w*']}
