@@ -42,3 +42,14 @@ gemma4-base-ollama:
   num_ctx: 16384
   context_window: 16384
   quant: ollama-default
+
+# Lighter profile of the same local model for the analyze node (query rewriting) on a CPU-only machine:
+# a short context window keeps prompt processing fast; temperature 0 makes rewrites reproducible.
+qwen25-3b-ollama-aux:
+  provider: ollama
+  model: "qwen2.5:3b"
+  temperature: 0.0
+  max_tokens: 256
+  num_ctx: 4096
+  context_window: 4096
+  quant: ollama-default

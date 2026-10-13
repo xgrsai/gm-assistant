@@ -1,0 +1,45 @@
+# Retrieval ablation: the analyze node's query rewriting (uk_analyze) done by a small local model instead of Gemini.
+# Same corpus, embedder (nomic15), prompts and gold set as phase3-gemini; only the aux model differs.
+# No API quota needed:
+#   ollama pull qwen2.5:3b
+#   uv run python -m evals.run evals/experiments/phase3-qwen-rewrite.yaml --tasks retrieval --query-modes en,uk,uk_analyze --concurrency 1
+name: phase3-qwen-rewrite
+description: query rewriting (uk_analyze) by local qwen2.5:3b, retrieval only
+scenario_id: demo-haunt
+dataset_dir: eval/coc7e
+corpus_dirs: [open/coc7e]
+seeds: [11]
+judge: gemini-judge
+
+fixed:
+  aux: qwen25-3b-ollama-aux
+  adjudicator: aux
+  prompt_version: keeper-v2
+  adjudicate_prompt_version: adjudicate-v2
+  analyze_prompt_version: analyze-v1
+  history_max_tokens: 6000
+  retrieval:
+    collection: coc7e__nomic15__c1000o200
+    embedder: nomic15
+    quotas: {rules: 4, lore: 1}
+    exact: true
+    min_score: 0.55
+
+arms:
+  - arm: prompt
+    generator: gemini-flash
+    use_rag: false
+  - arm: rag
+    generator: gemini-flash
+    use_rag: true
+
+tasks:
+  retrieval:
+    k: 10
+    query_modes: [en, uk, uk_analyze]
+  rules_qa:
+    languages: [uk]
+  conflict_probes:
+    languages: [uk]
+    conditions: [perturbed, original, no_context]
+  adjudication: {}
