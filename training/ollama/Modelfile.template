@@ -1,0 +1,11 @@
+# Keeper narrator = qwen2.5:3b + the Phase 4 LoRA adapter (SFT v1).
+#
+# Copy this file next to the adapter, as adapters/keeper-qwen25-3b-sft-v1/Modelfile (git-ignored), then:
+#   cd adapters/keeper-qwen25-3b-sft-v1
+#   ollama create keeper-qwen25-3b:sft-v1 -f Modelfile
+#
+# FROM must be the same tag the base arms use: the adapter is applied on top of the very same Q4_K_M blob, so base
+# and fine-tuned runs differ only by the adapter. Do not set TEMPLATE / SYSTEM / PARAMETER here: the template is
+# inherited from the base, and the app sends the Keeper system prompt and the sampling options with every request.
+FROM qwen2.5:3b
+ADAPTER ./adapter.gguf

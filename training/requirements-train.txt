@@ -1,0 +1,14 @@
+# Training environment for training/train_unsloth.py (Colab / Kaggle, one NVIDIA T4). NOT the backend's environment.
+#
+# unsloth 2026.10.2 requires trl<=1.13.0 and peft>=0.18 (unsloth 2026.9.4 required trl<=0.24.0, so it cannot be
+# combined with trl 1.13.0: do not downgrade unsloth). The script targets TRL 1.13.
+#
+# torch, transformers, bitsandbytes, accelerate and datasets are deliberately left to the Colab/Kaggle image and to
+# unsloth's own dependency resolution. Every run writes the versions it actually used to train_meta.json
+# ("versions"); after the first successful run pin torch / transformers / bitsandbytes here from that file.
+#
+#   pip install -r training/requirements-train.txt
+unsloth==2026.10.2
+unsloth_zoo==2026.10.2
+trl==1.13.0
+peft==0.20.0

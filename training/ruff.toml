@@ -1,0 +1,2 @@
+# Same lint rules as the backend (src/backend/pyproject.toml); this directory sits outside it.
+extend = "../src/backend/pyproject.toml"
