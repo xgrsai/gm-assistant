@@ -22,7 +22,7 @@ class Glossary:
                         for e in entries]
 
     @classmethod
-    def load(cls, path: Path) -> "Glossary":
+    def load(cls, path: Path) -> Glossary:
         return cls(yaml.safe_load(path.read_text(encoding="utf-8"))["terms"])
 
     def terms(self, text: str) -> list[str]:
