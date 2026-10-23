@@ -1,0 +1,239 @@
+# Original training scenario written for the Phase 4 SFT data (not derived from any published adventure).
+# Licensed with the repository code (MIT). Game terms follow Call of Cthulhu 7th edition conventions.
+id: train-pharmacy
+game_system: coc7e
+
+title:
+  uk: Сині краплі
+  en: The Blue Drops
+
+era:
+  uk: Львів, грудень 1927
+  en: Lviv, December 1927
+
+blurb:
+  uk: >-
+    Після синіх крапель з аптеки «Під Білим Пеліканом» двоє хворих померли уві сні, а
+    провізор клянеться, що такої мікстури ніколи не готував.
+  en: >-
+    After taking a blue tincture from the "White Pelican" pharmacy, two patients have died in
+    their sleep, and the pharmacist swears he never compounded it.
+
+opening:
+  uk: |
+    Грудневі сутінки лягають на старі стіни кам'яниці, а газові ліхтарі ледь пробивають мокрий
+    туман. Над дверима аптеки «Під Білим Пеліканом» розгойдується на ланцюжку різьблений птах
+    із золотим дзьобом. Провізор Теофіл Савіцький відчиняє вам сам. Руки в нього тремтять.
+    «Двоє моїх клієнтів померли цього тижня, — шепоче він. — Поліція вже питала про отруту. Я
+    присягаюся: ту синю мікстуру я не готував».
+
+    У приміщенні пахне м'ятою, камфорою й чимось старим та солодкавим. На полиці серед білих
+    слоїків стоїть малий синій флакон із підписом, зробленим давнім, дрібним почерком. Крізь
+    підлогу ледь чутно, ніби хтось у підвалі пересуває скляне начиння.
+
+    Що ви робите?
+  en: |
+    December dusk settles on the old tenement walls, and the gas lamps barely pierce the wet fog.
+    Above the pharmacy door, a carved bird with a golden beak swings on its chain: the White
+    Pelican. Pharmacist Teofil Sawicki opens the door himself. His hands are trembling. "Two of
+    my customers died this week," he whispers. "The police have already asked about poison. I swear
+    I never compounded that blue tincture."
+
+    The shop smells of mint, camphor and something old and sweetish. Among the white jars on the
+    shelf stands a small blue bottle with a label written in a fine, ancient hand. Through the
+    floor, faintly, comes the sound of someone in the cellar moving glassware.
+
+    What do you do?
+
+keeper_notes: |
+  TRUTH: The pharmacy stands on the ground floor of an old tenement a few streets from the Market Square.
+  Its previous owner, Salomon Rappaport, died in 1924. His daughter Ester died of croup in 1899 at the age of
+  seven; ever since he tried to compound a remedy that would have saved her, filling notebooks in German
+  with Hebrew marginal notes. His grief did not leave the cellar laboratory when he died. At night his
+  spirit moves the sleeping apprentice Yuriy Lysiak, 19, who lives in the back room and sleepwalks, and
+  makes him compound "the blue drops": a syrup with foxglove extract, poppy and a blue dye, from
+  Rappaport's last, flawed recipe. Yuriy remembers nothing but wakes with blue stains on his fingers and
+  sells the flasks in the morning as "the old house recipe" to the poor and the sleepless. The drops
+  calm the heart and bring dreams of a child coughing; taken in more than two doses they stop the heart.
+  Two customers have died (widow Helena Zaleska and the cab driver Ivan Prytula); the third, Mrs Adela
+  Szymon, is sinking. The pharmacist Sawicki (the new owner since 1925) is innocent but hides that his
+  apprentice walks at night, fearing to lose the pharmacy. The spirit is grieving, not malicious: it can
+  frighten (cold, shattering glass, a small voice), but harms only through the drops, unless its
+  work is interrupted violently, when the cellar turns hostile. Mundane crime red herring: the police
+  and the family of the dead suspect Sawicki of a deliberate poisoning for money, and the dead man's
+  nephew is pressing for arrest.
+
+  PEOPLE:
+  - Teofil Sawicki, 45, pharmacist and owner. Fussy, honest, afraid; stammers when lying.
+  - Yuriy Lysiak, 19, apprentice. Pleasant, tired, ashamed of sleepwalking; a good source of kindly
+    information once he trusts someone.
+  - Hnat Lutsyk, 62, tenement caretaker (dvirnyk). Keeps the keys to the courtyard and cellar; knows
+    who comes and goes; gossips for a small coin or a cigarette; saw a light in the cellar window.
+  - Sergeant Bronislaw Dudek, State Police. Officious and quick to conclude; will arrest Sawicki unless
+    given a better explanation with evidence.
+  - Mrs Adela Szymon, 70, a patient in a nearby flat. Still alive and sinking; she tells of dreams of a girl
+    with a cough; a doctor's care could save her.
+  - Father Vasyl Kolodiy, 58, Greek Catholic priest of the parish church nearby. Practical; hears the story
+    without scorn, offers a blessing, not a solution.
+
+  LOCATIONS: the shop front and counter, the back room where Yuriy sleeps, the courtyard and the caretaker's
+  lodge, the cellar laboratory (locked, behind a brick arch), the flat of Mrs Szymon, the police
+  station, the Jewish cemetery with Ester's grave.
+
+  CLUES (reveal only when earned):
+  1. The blue flask (Science (Pharmacy) or Medicine): foxglove extract, poppy and a sweet syrup in a
+     proportion no modern pharmacopoeia lists; Hard to identify the dye. The label's handwriting matches
+     the old house ledgers.
+  2. Yuriy's fingers and bed (Spot Hidden, Psychology, or First Aid): blue stains, cold feet, damp
+     pyjamas; he admits sleepwalking when approached kindly.
+  3. Caretaker Lutsyk (Persuade, Charm or a small gift): saw a pale light in the cellar window at about three
+     in the morning for weeks; the old owner kept the cellar key on a nail in his own bedroom, now nailed up.
+  4. Cellar door (Locksmith, key from Lutsyk, or Persuade Sawicki): inside, a laboratory frozen in 1899
+     style; a wet circle on the floor, a stool set for a small child, and a notebook open on a table.
+  5. Rappaport's notebooks (Library Use plus Language (Other: German); Hebrew notes need Language (Other:
+     Hebrew), Hard): the recipe, with a final entry for Ester, "for my girl, once more".
+  6. Mrs Szymon's flat (Medicine or First Aid, Hard): heart slowing from foxglove; she can be saved if
+     the drops stop and she is treated within a day or two.
+  7. The dead (Persuade, Credit Rating, or a favour at the police station): both ordered "the blue drops
+     from the old recipe" by name; both received them from Yuriy's hand.
+  8. Jewish cemetery (Library Use for the register, Spot Hidden): the stone of Ester Rappaport with a
+     carved lamb; her father's stone beside it. A visit at dusk may bring the spirit's presence.
+  9. Cellar at night (Listen): glass moving and a tiny voice counting drops; the cold deepens.
+
+  THREAT & PACING: Begin with the mundane suspicion of poison and the police pressure; allow two or three
+  scenes of ordinary investigation before the first sign that something is wrong in the cellar. The
+  spirit reacts to the notebooks being taken, to hostile acts and to the apprentice being woken violently.
+  If the investigators remain in the cellar through the night, glassware rattles and the cold bites;
+  the spirit pleads with Yuriy's lips ("Ester will not breathe"). It never wants to kill.
+
+  ENDINGS: (a) The investigators tell the spirit what happened to Ester (Persuade, Psychology or Language
+  (Other: Hebrew) for a prayer at the grave) and burn the flawed recipe: the cellar goes quiet; Yuriy no
+  longer sleepwalks. (b) The notebooks are destroyed without comfort: the cellar turns hostile and the
+  drops reappear. (c) The investigators save Mrs Szymon, but Sergeant Dudek arrests Sawicki on
+  suspicion unless evidence is brought: the pharmacy closes.
+
+  SANITY TRIGGERS (use the key in sanity_events): child_voice = hearing the small counting voice (clue 9);
+  frozen_laboratory = entering the cellar laboratory (clue 4); glass_shatters = the glassware bursting
+  when the spirit is crossed; spirit_speaks = the spirit speaking through Yuriy's lips; hostile_cellar =
+  the cellar turning hostile after the notebooks are destroyed without comfort.
+
+sanity_events:
+  child_voice: "0/1D3"
+  frozen_laboratory: "0/1D2"
+  glass_shatters: "0/1D4"
+  spirit_speaks: "1/1D6"
+  hostile_cellar: "1/1D8"
+
+investigators:
+  - id: hanna-melnyk
+    name:
+      uk: Ганна Мельник
+      en: Hanna Melnyk
+    occupation:
+      uk: Дільнична лікарка
+      en: District physician
+    age: 40
+    characteristics: {STR: 40, CON: 60, SIZ: 50, DEX: 50, APP: 50, INT: 70, POW: 60, EDU: 80}
+    luck: 55
+    skills:
+      Accounting: 10
+      Anthropology: 1
+      Appraise: 5
+      Archaeology: 1
+      "Art/Craft (Watercolour)": 25
+      Charm: 30
+      Climb: 20
+      Credit Rating: 55
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 25
+      Drive Auto: 25
+      Electrical Repair: 10
+      Fast Talk: 15
+      "Fighting (Brawl)": 25
+      "Firearms (Handgun)": 20
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 65
+      History: 25
+      Intimidate: 15
+      Jump: 20
+      "Language (Other: German)": 55
+      "Language (Other: Latin)": 50
+      "Language (Other: Polish)": 60
+      "Language (Own: Ukrainian)": 80
+      Law: 10
+      Library Use: 50
+      Listen: 45
+      Locksmith: 1
+      Mechanical Repair: 10
+      Medicine: 70
+      Natural World: 30
+      Navigate: 10
+      Occult: 10
+      Persuade: 45
+      Psychology: 55
+      "Science (Biology)": 40
+      "Science (Pharmacy)": 50
+      Sleight of Hand: 10
+      Spot Hidden: 50
+      Stealth: 20
+      Swim: 20
+      Throw: 20
+      Track: 10
+
+  - id: ephraim-landau
+    name:
+      uk: Ефраїм Ландау
+      en: Ephraim Landau
+    occupation:
+      uk: Антиквар і букініст
+      en: Antiquarian and bookseller
+    age: 52
+    characteristics: {STR: 50, CON: 40, SIZ: 50, DEX: 50, APP: 60, INT: 70, POW: 60, EDU: 80}
+    luck: 60
+    skills:
+      Accounting: 35
+      Anthropology: 15
+      Appraise: 65
+      Archaeology: 20
+      "Art/Craft (Bookbinding)": 40
+      Charm: 30
+      Climb: 20
+      Credit Rating: 45
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 25
+      Drive Auto: 20
+      Electrical Repair: 10
+      Fast Talk: 30
+      "Fighting (Brawl)": 25
+      "Firearms (Handgun)": 20
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 30
+      History: 55
+      Intimidate: 15
+      Jump: 20
+      "Language (Other: German)": 65
+      "Language (Other: Hebrew)": 60
+      "Language (Other: Latin)": 40
+      "Language (Other: Polish)": 70
+      "Language (Other: Ukrainian)": 50
+      "Language (Own: Yiddish)": 80
+      Law: 10
+      Library Use: 70
+      Listen: 35
+      Locksmith: 1
+      Mechanical Repair: 10
+      Medicine: 1
+      Natural World: 10
+      Navigate: 10
+      Occult: 45
+      Persuade: 50
+      Psychology: 40
+      "Science (Chemistry)": 1
+      Sleight of Hand: 10
+      Spot Hidden: 45
+      Stealth: 20
+      Swim: 20
+      Throw: 20
+      Track: 10

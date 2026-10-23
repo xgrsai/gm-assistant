@@ -1,0 +1,241 @@
+# Original training scenario written for the Phase 4 SFT data (not derived from any published adventure).
+# Licensed with the repository code (MIT). Game terms follow Call of Cthulhu 7th edition conventions.
+id: train-printing-house
+game_system: coc7e
+
+title:
+  uk: Останній набір
+  en: The Last Forme
+
+era:
+  uk: Львів, лютий 1927
+  en: Lviv, February 1927
+
+blurb:
+  uk: >-
+    З невеликої друкарні поблизу Ринку зник складач, який саме набирав замовлення для
+    доброчинного товариства. Майстер твердить, що набір на столі читати не слід.
+  en: >-
+    A typesetter has vanished from a small printing house near the Market Square while setting an
+    order for a charitable society. The master printer insists that nobody should read the type
+    left on the stone.
+
+opening:
+  uk: |
+    Лютневий вечір, сніг упереміш із дощем. У вузькому подвір'ї за Ринком ледь світиться вікно
+    друкарні «Гнатюк і Син», а над брамою на вітрі рипить жерстяна вивіска. Майстер Корнило Гнатюк
+    чекає на вас біля дверей і мне в руках картуз. «Данило Рудик, мій складач, не з'являється вже
+    третій день, — тихо каже він. — Поліція махнула рукою: борги, мовляв, утік від кредиторів. Але
+    його піджак висить на цвяху, а обід у бляшанці лишився нетронутий».
+
+    Усередині пахне свинцем, олійною фарбою і вологим папером. Друкарський верстат мовчить, у
+    набірних касах розсипані літери, а на кам'яному столі лежить незавершена друкарська форма —
+    рядки набрані так щільно й рівно, що погляд мимоволі сповзає по них донизу. Поруч стоїть
+    гасова лампа, ще тепла на дотик.
+
+    Що ви робите?
+  en: |
+    A February evening, snow mixed with rain. In a narrow courtyard behind the Market Square, the
+    window of the "Hnatiuk and Son" printing house glows faintly, and a tin sign creaks above the
+    gate. Master printer Kornylo Hnatiuk waits at the door, crumpling a cap in his hands. "Danylo
+    Rudyk, my typesetter, has not turned up for three days," he says quietly. "The police shrugged
+    it off: debts, they say, he ran from his creditors. But his jacket still hangs on its nail,
+    and his lunch tin sits untouched."
+
+    Inside it smells of lead, linseed ink and damp paper. The press is silent, type lies scattered
+    in the cases, and on the stone table stands an unfinished printing forme, its lines set so
+    tightly and evenly that the eye slides down them without meaning to. Beside it stands an oil
+    lamp, still warm to the touch.
+
+    What do you do?
+
+keeper_notes: |
+  TRUTH: The "Society of the Quiet Hour" (a charity and reading circle, rooms on the first floor of a
+  tenement on a side street off Halytska Street, above a closed bookshop) is a small cult led by the notary
+  Eugeniusz Stadnyk, 56. Its members believe that a vast Listener sleeps in the silence between
+  sounds and that a litany, printed exactly 300 times and read aloud together at midnight, will let
+  it hear them and grant them "perfect quiet" (in truth: it will take their minds). The last line of
+  the litany must be set in type by an uninitiated hand, and the setter is the sacrifice. The cult
+  commissioned the printing house for the 300 cards and fed the work to Danylo Rudyk, the best
+  compositor in the shop. Three nights ago Rudyk set the last line and read it. Kuczera, the cult's
+  enforcer, collected him that night "for a friendly supper"; he is now held half-conscious in the
+  chapel cellar under the Society's rooms and keeps whispering the line. The rite is set for midnight
+  on Saturday, three nights from now. The forme on the stone still holds the last line; if the type
+  is pied (scattered) the rite fails until Stadnyk can have it set again, which takes him days. The
+  cult will therefore try to recover or destroy the forme. The police theory (gambling debts) is a
+  mundane red herring: Rudyk owed money, but it was paid off a week ago by an anonymous benefactor
+  (Stadnyk, to keep him calm and in the shop).
+
+  PEOPLE:
+  - Kornylo Hnatiuk, 60, master printer. Honest, tired, ashamed that he took the order for the gold
+    paid in advance. Hides nothing, but did not read the cards ("a printer reads for typos only").
+  - Petryk Bilyk, 14, apprentice. Saw a tall man with a flattened nose come at night; is afraid he
+    will be blamed. Talks to anyone who treats him kindly.
+  - Eugeniusz Stadnyk, notary and cult leader. Polite, soft-spoken, wears grey gloves. Presents the
+    Society as a charity for widows. Never loses his temper in public.
+  - Marian Kuczera, 35, former wrestler, enforcer. Fights dirty, does not talk.
+  - Commissar Wawrzyniec Brzozowski, State Police. Closed the file as a debt flight; irritated by
+    meddling but fair if shown real evidence.
+  - Mendel Rubin, owner of the café where compositors drink; knew Rudyk's debts and who cleared them.
+
+  LOCATIONS: the composing room (forme, cases, stone), the press room and paper store, the apprentice's
+  attic over the shop, the Rubin café two courtyards away, the police station, the Society's rooms and
+  the cellar chapel beneath them.
+
+  CLUES (reveal only when earned):
+  1. Forme on the stone (Spot Hidden): the last line is set in a hand-cut typeface that is not in any
+     of Hnatiuk's cases; it has no word breaks. Anyone who reads it aloud triggers the sanity event
+     litany_line (see sanity_events). Occult (Hard) recognises the shape of a litany, not its meaning.
+  2. Lunch tin and jacket (Spot Hidden): in the jacket a folded invitation to a "friendly supper" on
+     the Society's letterhead, signed only "E.S.", and a chalk smear on the sleeve.
+  3. Petryk (Charm or Persuade; Psychology to see he is holding back): a tall man with a flattened nose
+     came by night, spoke quietly with Rudyk and walked out with him. Petryk heard the word "Society".
+  4. Order book (Library Use or Accounting): an order for 300 prayer cards for the "T-vo Tykhoi Hodyny",
+     care of Notary E. Stadnyk, paid in gold in advance, delivery Saturday evening.
+  5. Stockroom (Spot Hidden): 290 finished cards in a crate; the ornament is a closed eye inside a
+     circle. Occult (Regular) or Library Use in the Dilo newspaper archive links the motif to a
+     society dissolved in 1913 after a death in its rooms.
+  6. Café Rubin (Psychology, Persuade or a small bribe): Rudyk's debts were cleared a week ago by a
+     stranger in grey gloves; two men at a back table mention "Saturday" and "the quiet" (Listen).
+  7. Commissar Brzozowski (Persuade, Credit Rating, or hard evidence): the Society is registered as
+     a charity at its address; its patrons include respectable names; he will not search without proof.
+  8. Society rooms (Fast Talk, Charm, or Stealth plus Locksmith at night): a pleasant reading room
+     with a member register; a locked door behind the stair leads down to the cellar.
+  9. Cellar chapel (Listen on the stair: a murmur): a chalk circle, a table of candle stubs and a cot where
+     Rudyk lies feverish, whispering the line. He recognises friends only after a Psychology or First
+     Aid effort; he must not hear the line spoken near him again.
+
+  THREAT & PACING: Start with mundane traces (lamp, jacket, debts), then the cult's pressure: a
+  polite visit from Stadnyk to Hnatiuk offering to buy back the forme and the unfinished work, then
+  Kuczera shadowing the investigators (Spot Hidden to notice). Wait until the investigators have
+  looked at clue 1 and 2 before the cult makes a move on the forme (a night break-in at the shop,
+  Stealth versus Listen). Kuczera fights to stop interference but flees if Stadnyk is exposed or the
+  police arrive. On Saturday at midnight the litany is read aloud in the cellar by some twenty
+  members (mostly middle-aged and timid people; the danger is the sound, not their muscle).
+  Escalate by sound and silence: the street goes unnaturally quiet near the Society's rooms.
+
+  ENDINGS: (a) Scatter the type of the forme or break up the rite before midnight: Rudyk is saved, the cult scatters,
+  Stadnyk disappears or is arrested if evidence reaches Brzozowski. (b) Free Rudyk but leave the forme:
+  the rite is read and a great hush falls; each reader is left deaf to all but one sound (a lasting
+  SAN loss for investigators who hear it, see rite_heard). (c) Do nothing: the cult takes Rudyk and
+  the neighbourhood sleeps badly for a month. Rudyk, saved, never sets type again.
+
+  SANITY TRIGGERS (use the key in sanity_events): litany_line = reading the last line aloud (clue 1);
+  chalk_circle = first sight of the chalk circle and candle stubs in the cellar; rudyk_whispering =
+  hearing Rudyk murmur the line (clue 9); hush_falls = the street going silent on Saturday near the
+  Society's rooms; rite_heard = being in earshot when the litany is read at midnight.
+
+sanity_events:
+  litany_line: "0/1D4"
+  chalk_circle: "0/1D3"
+  rudyk_whispering: "0/1D4"
+  hush_falls: "1/1D6"
+  rite_heard: "1/1D8"
+
+investigators:
+  - id: ivanna-pavliv
+    name:
+      uk: Іванна Павлів
+      en: Ivanna Pavliv
+    occupation:
+      uk: Коректорка у видавництві
+      en: Proofreader at a publishing house
+    age: 31
+    characteristics: {STR: 40, CON: 50, SIZ: 50, DEX: 50, APP: 60, INT: 80, POW: 60, EDU: 70}
+    luck: 60
+    skills:
+      Accounting: 10
+      Anthropology: 1
+      Appraise: 15
+      Archaeology: 1
+      "Art/Craft (Typography)": 40
+      Charm: 25
+      Climb: 20
+      Credit Rating: 25
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 25
+      Drive Auto: 20
+      Electrical Repair: 10
+      Fast Talk: 30
+      "Fighting (Brawl)": 25
+      "Firearms (Handgun)": 20
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 35
+      History: 30
+      Intimidate: 15
+      Jump: 20
+      "Language (Other: German)": 50
+      "Language (Other: Polish)": 55
+      "Language (Own: Ukrainian)": 70
+      Law: 15
+      Library Use: 65
+      Listen: 40
+      Locksmith: 1
+      Mechanical Repair: 10
+      Medicine: 1
+      Natural World: 10
+      Navigate: 10
+      Occult: 25
+      Persuade: 40
+      Psychology: 50
+      "Science (Chemistry)": 1
+      Sleight of Hand: 10
+      Spot Hidden: 60
+      Stealth: 25
+      Swim: 20
+      Throw: 20
+      Track: 10
+
+  - id: teodor-yurchenko
+    name:
+      uk: Теодор Юрченко
+      en: Teodor Yurchenko
+    occupation:
+      uk: Колишній детектив поліції, приватний слідчий
+      en: Former police detective, private inquiry agent
+    age: 42
+    characteristics: {STR: 70, CON: 60, SIZ: 60, DEX: 40, APP: 50, INT: 80, POW: 50, EDU: 50}
+    luck: 50
+    skills:
+      Accounting: 5
+      Anthropology: 1
+      Appraise: 10
+      Archaeology: 1
+      "Art/Craft (Photography)": 15
+      Charm: 20
+      Climb: 30
+      Credit Rating: 30
+      Cthulhu Mythos: 0
+      Disguise: 25
+      Dodge: 20
+      Drive Auto: 30
+      Electrical Repair: 10
+      Fast Talk: 40
+      "Fighting (Brawl)": 60
+      "Firearms (Handgun)": 55
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 40
+      History: 5
+      Intimidate: 45
+      Jump: 20
+      "Language (Other: Polish)": 40
+      "Language (Own: Ukrainian)": 50
+      Law: 45
+      Library Use: 30
+      Listen: 45
+      Locksmith: 20
+      Mechanical Repair: 10
+      Medicine: 1
+      Natural World: 10
+      Navigate: 10
+      Occult: 5
+      Persuade: 40
+      Psychology: 55
+      "Science (Chemistry)": 1
+      Sleight of Hand: 10
+      Spot Hidden: 55
+      Stealth: 40
+      Swim: 20
+      Throw: 25
+      Track: 40

@@ -1,0 +1,235 @@
+# Original training scenario written for the Phase 4 SFT data (not derived from any published adventure).
+# Licensed with the repository code (MIT). Game terms follow Call of Cthulhu 7th edition conventions.
+id: train-observatory
+game_system: coc7e
+
+title:
+  uk: Рахунок зірки
+  en: The Count of the Star
+
+era:
+  uk: Львів, січень 1927
+  en: Lviv, January 1927
+
+blurb:
+  uk: >-
+    Астроном-аматор четверту ніч не виходить із купола обсерваторії, а його помічниця
+    безперестану лічить уголос. Сторож просить, щоб хтось поглянув на це до п'ятниці.
+  en: >-
+    An amateur astronomer has not left his observatory dome for four nights, and his assistant
+    counts aloud without pause. The caretaker begs someone to look into it before Friday.
+
+opening:
+  uk: |
+    Січневий мороз скував дорогу на пагорб, і сніг рипить під підошвами так голосно, що, здається,
+    його чути в усьому місті. Біля чавунної брами обсерваторії Товариства любителів астрономії вас
+    чекає сторож Роман Остапюк із ліхтарем. «Пан доктор Гребовський четверту ніч не злазить
+    із купола, — каже він, ховаючи погляд. — А панна Круківна сидить на сходах і лічить. Нічого
+    більше не робить, тільки лічить. Я питав, їла вона чи ні, а вона мені: сто сорок три».
+
+    Над брамою на тлі чорного неба ледь мерехтять зорі, надто яскраві навіть для морозної ночі.
+    З купола долинає тихе, рівне цокання, схоже на годинник, що відлічує щось дуже довге.
+
+    Що ви робите?
+  en: |
+    The January frost has locked the road up the hill, and the snow squeaks underfoot so loudly
+    that it seems to carry across the whole city. At the cast-iron gate of the Amateur Astronomers'
+    Society observatory, the caretaker Roman Ostapiuk waits for you with a lantern. "Dr Hrabowski
+    has not come down from the dome for four nights," he says, avoiding your eyes. "And Miss Kruk
+    sits on the stairs and counts. Nothing else, only counts. I asked if she had eaten, and she
+    told me: one hundred and forty-three."
+
+    Above the gate, against the black sky, the stars flicker faintly, too bright for such a cold
+    night. From the dome comes a soft, even ticking, like a clock counting down something very long.
+
+    What do you do?
+
+keeper_notes: |
+  TRUTH: Dr Emil Hrabowski, 51, a physician and amateur astronomer who funds the Society's instruments,
+  has recorded for eleven months the light of a faint variable star the Society catalogued as "the
+  Lamplighter". Its pulses never repeat and never stop growing in length. He built a clockwork
+  chronograph that prints each pulse as a tick on a paper tape, and found that anyone who follows the
+  tape and counts in step with it starts to "know the next number" before it arrives. The counting
+  is not a message but a measuring: the thing behind the star slowly learns the shape of a human mind
+  by making it count. Hrabowski, then his assistant Marysia Kruk (22, student), then the night
+  caretaker's brother-in-law have fallen into step. At the star's maximum on Friday night (at
+  about two in the morning) the count reaches a figure after which the counters stop breathing and lie
+  down with frost on their lips and a tiny light mirrored in their eyes. The two now counting are near the
+  end; Marysia has about two nights, Hrabowski less. The counting spreads by attention: whoever
+  watches the tape or listens to the ticking for long begins to count unconsciously. The cure is to break
+  the rhythm: stop the chronograph, destroy the tape, cover the lens, and interrupt each counter by shock,
+  pain or an argument that demands their full attention. The star itself cannot be harmed.
+
+  PEOPLE:
+  - Dr Emil Hrabowski, 51, in the dome. Hollow-eyed, polite, certain that he is on the threshold of a
+    great discovery. Counts under his breath; answers questions in sudden clear moments.
+  - Marysia Kruk, 22, astronomy student, on the stairs. Counts aloud, eats if fed by hand, flinches
+    from loud noise. Her mother lives in a tenement flat in the old town.
+  - Roman Ostapiuk, 48, caretaker, former front-line soldier. Brave in a straight fight, helpless
+    here. Keeps all the keys.
+  - Adolf Weiss, 60, banker and secretary of the Society. Wants no scandal; fears the Society will be
+    closed; offers money to keep quiet and a plausible lie ("nervous exhaustion").
+  - Professor Ignacy Lewicki, 59, University physicist. Sceptical, generous with calculation, willing to
+    check the tape's numbers; becomes fascinated and in danger if he studies it too long.
+  - Pani Genowefa Kruk, 52, Marysia's mother; knows her daughter wrote letters about "a pattern in the light".
+
+  LOCATIONS: the iron gate and keeper's lodge, the stairs of the tower (Marysia), the dome with the refractor
+  and the chronograph, the plate store and darkroom, the Society's small library, the Kruk flat, the
+  physics institute of the University.
+
+  CLUES (reveal only when earned):
+  1. Stairs (Psychology, Medicine or First Aid): Marysia is exhausted, not mad; she responds to touch and
+     to her name for a moment. Listen picks up the ticking and a faint pulse of her lips.
+  2. Lodge (Persuade, Charm or Psychology on Ostapiuk): since Monday the clock in the lodge runs a little
+     fast and the dog will not go up the hill.
+  3. Plate store (Spot Hidden, Library Use): eleven months of glass plates and tapes in numbered boxes;
+     the later ones show the Lamplighter getting brighter by tiny steps. Hrabowski's lab notebook
+     (Library Use, Hard if read quickly) records the first "unconscious count" on 3 March.
+  4. Chronograph in the dome (Mechanical Repair, Electrical Repair, or Science (Physics or Mathematics)):
+     the tape pulls a long spiral of ticks; the count so far is large and grows by a figure each night.
+  5. Reading the tape or listening too long (no roll to read; POW to resist): the investigator starts
+     to count (see counting_pull).
+  6. Weiss (Fast Talk, Persuade or Credit Rating): admits that two members were told to stay
+     away after "feeling dizzy"; he has hidden a similar letter from a third.
+  7. Professor Lewicki (Persuade or Library Use at the physics institute): helps with Science (Physics)
+     or (Astronomy) rolls; confirms that the pulses follow no known stellar mechanism; warns that
+     he lost track of time for an hour while reading the tape.
+  8. Kruk flat (Persuade): letters in which Marysia says she "can hear the star count back".
+  9. The peak (Friday, about two in the morning): the star at maximum in the dome opening; looking at it
+     directly triggers star_looks_back; the counters stand up.
+
+  THREAT & PACING: Start in the cold with the eerie ticking and Ostapiuk's fear. Do not show a monster:
+  the horror is the numbers, the tape, the frost and the feeling of being measured. Each night in the
+  game the count grows; mention the time as Thursday evening, Friday dusk, Friday midnight. A long stay in
+  the dome costs a POW roll to resist the count; failing it makes the investigator lose a turn counting
+  until shaken awake. Hrabowski becomes aggressive only if the tape is taken from him ("You do not
+  understand, it is half read"). Marysia needs a Hard Psychology or Persuade roll, or a sharp shock, to wake.
+
+  ENDINGS: (a) The chronograph is stopped and the tape destroyed before two on Friday night: the counters
+  wake; Hrabowski loses his memory of the year, Marysia suffers nightmares; the star still pulses, but no
+  one counts. (b) The count is interrupted only for one of them: the other dies in peace on the stairs.
+  (c) Nothing is done: both are found at dawn; the Society is closed and the tape is bought by a collector.
+
+  SANITY TRIGGERS (use the key in sanity_events): counting_pull = catching oneself counting in step
+  with the ticking (clue 5); frost_on_lips = touching or seeing a counter's frosted lips; tape_spiral =
+  following the long spiral on the tape (clue 4); star_looks_back = looking at the star at its
+  maximum (clue 9); count_completed = witnessing a counter reach the final figure.
+
+sanity_events:
+  counting_pull: "0/1D3"
+  frost_on_lips: "0/1D4"
+  tape_spiral: "0/1D4"
+  star_looks_back: "1/1D8"
+  count_completed: "1D3/1D10"
+
+investigators:
+  - id: zofia-karpinska
+    name:
+      uk: Зофія Карпінська
+      en: Zofia Karpinska
+    occupation:
+      uk: Асистентка кафедри фізики
+      en: Assistant at the physics department
+    age: 34
+    characteristics: {STR: 50, CON: 50, SIZ: 40, DEX: 60, APP: 50, INT: 80, POW: 60, EDU: 70}
+    luck: 55
+    skills:
+      Accounting: 5
+      Anthropology: 1
+      Appraise: 5
+      Archaeology: 1
+      "Art/Craft (Draughtsmanship)": 30
+      Charm: 25
+      Climb: 30
+      Credit Rating: 35
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 30
+      Drive Auto: 20
+      Electrical Repair: 40
+      Fast Talk: 15
+      "Fighting (Brawl)": 25
+      "Firearms (Handgun)": 20
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 30
+      History: 15
+      Intimidate: 15
+      Jump: 20
+      "Language (Other: French)": 40
+      "Language (Other: German)": 55
+      "Language (Own: Polish)": 70
+      Law: 5
+      Library Use: 60
+      Listen: 40
+      Locksmith: 1
+      Mechanical Repair: 30
+      Medicine: 1
+      Natural World: 10
+      Navigate: 40
+      Occult: 5
+      Persuade: 35
+      Psychology: 30
+      "Science (Astronomy)": 55
+      "Science (Mathematics)": 60
+      "Science (Physics)": 65
+      Sleight of Hand: 10
+      Spot Hidden: 55
+      Stealth: 20
+      Swim: 20
+      Throw: 20
+      Track: 10
+
+  - id: josyp-fuchs
+    name:
+      uk: Йосип Фукс
+      en: Josyp Fuchs
+    occupation:
+      uk: Фоторепортер
+      en: Press photographer
+    age: 36
+    characteristics: {STR: 50, CON: 60, SIZ: 50, DEX: 70, APP: 50, INT: 80, POW: 40, EDU: 60}
+    luck: 50
+    skills:
+      Accounting: 5
+      Anthropology: 1
+      Appraise: 10
+      Archaeology: 1
+      "Art/Craft (Photography)": 65
+      Charm: 40
+      Climb: 40
+      Credit Rating: 25
+      Cthulhu Mythos: 0
+      Disguise: 15
+      Dodge: 35
+      Drive Auto: 35
+      Electrical Repair: 35
+      Fast Talk: 50
+      "Fighting (Brawl)": 40
+      "Firearms (Handgun)": 20
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 30
+      History: 5
+      Intimidate: 15
+      Jump: 30
+      "Language (Other: German)": 40
+      "Language (Other: Polish)": 55
+      "Language (Other: Ukrainian)": 50
+      "Language (Own: Yiddish)": 60
+      Law: 5
+      Library Use: 35
+      Listen: 40
+      Locksmith: 1
+      Mechanical Repair: 30
+      Medicine: 1
+      Natural World: 10
+      Navigate: 10
+      Occult: 5
+      Persuade: 35
+      Psychology: 40
+      "Science (Chemistry)": 30
+      Sleight of Hand: 30
+      Spot Hidden: 65
+      Stealth: 45
+      Swim: 20
+      Throw: 20
+      Track: 10

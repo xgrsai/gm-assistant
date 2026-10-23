@@ -1,0 +1,233 @@
+# Original training scenario written for the Phase 4 SFT data (not derived from any published adventure).
+# Licensed with the repository code (MIT). Game terms follow Call of Cthulhu 7th edition conventions.
+id: train-railway-yard
+game_system: coc7e
+
+title:
+  uk: Нічний маневровий
+  en: The Night Shunter
+
+era:
+  uk: Львів, жовтень 1927
+  en: Lviv, October 1927
+
+blurb:
+  uk: >-
+    На товарній станції знайшли мертвим нічного сторожа, а залізничники кажуть, що
+    на глухій колії блукає примарний маневровий із ліхтарем.
+  en: >-
+    A night watchman has been found dead in the freight yard, and the railwaymen say a ghostly
+    shunter with a lantern walks the dead siding.
+
+opening:
+  uk: |
+    Жовтневий ранок на товарній станції: туман стелиться між вагонами, паровози важко відсапують,
+    а десь удалині дзвонить стрілочник. Начальник станції пан Тадеуш Врона зустрічає вас біля
+    диспетчерської, не випускаючи з рук потертої течки. «Нічного сторожа Гриня Жука знайшли
+    під вагоном на глухій колії, — каже він. — Лікар написав: нещасний випадок. А мої люди
+    шепочуться про привида з ліхтарем, і ніхто не хоче виходити в нічну зміну».
+
+    Над коліями пахне вугільним димом, мастилом і сирою глиною. За кам'яним складом, де кінчаються
+    рейки, чорніють порожні вагони й зарослі бур'яном вантажні платформи. Біля одного з вагонів
+    на гравії досі видно темну пляму.
+
+    Що ви робите?
+  en: |
+    An October morning at the freight yard: fog lies between the wagons, locomotives wheeze heavily,
+    and somewhere far off a pointsman rings a bell. Station master Tadeusz Wrona meets you by the
+    dispatcher's office, never letting go of a worn folder. "The night watchman Hryn Zhuk was
+    found under a wagon on the dead siding," he says. "The doctor wrote: accident. But my men
+    whisper about a ghost with a lantern, and nobody wants to take the night shift."
+
+    The air above the tracks smells of coal smoke, grease and wet clay. Behind the stone warehouse,
+    where the rails run out, empty wagons and weed-grown loading platforms stand black in the
+    fog. By one of the wagons a dark stain still shows on the gravel.
+
+    What do you do?
+
+keeper_notes: |
+  TRUTH: This is mostly a crime story with a small, quiet horror kernel at its end. Hryn Zhuk, 58,
+  the night watchman, was killed on Tuesday night on the dead siding behind the stone warehouse. A smuggling
+  ring uses an unlisted wagon, its number painted over, to bring contraband across from the eastern
+  border: church silver, icons, saccharin and watches. The ring is run by the deputy station master
+  Leon Szymanski, with warehouse clerk Jozef Pawlak and a paid-off shunter, Marko Boyko, who only
+  looks away. Zhuk saw the nightly unloading; Pawlak struck him from behind with a coupling pin and
+  Szymanski had the body laid under a wagon to pass as an accident. The "ghost shunter" is the
+  smugglers' signal: a green-shaded lantern waved on the siding. Nobody on the staff has seen anything
+  supernatural. The kernel: the last shipment contains a crate marked "peat samples", a zinc tank with a
+  glass lid, brine and a pale, long-limbed, unnameable thing taken from a marsh far to the east. The
+  smugglers did not know what it is; a private collector in the city was to buy it on Friday. It is
+  dead, but the investigators do not know that at first. The thing itself is NOT a monster in this
+  scenario, only a shock.
+
+  PEOPLE:
+  - Tadeusz Wrona, 54, station master. Honest, overworked, wants the matter closed quietly. Suspects
+    nobody; trusts Szymanski, which is a blind spot.
+  - Leon Szymanski, 45, deputy station master. Smooth, helpful, offers to show the yard himself. Lies
+    well, but gets nervous around the dead siding.
+  - Jozef Pawlak, 33, warehouse clerk. Killed Zhuk in a panic; sweats, drinks, avoids the siding.
+  - Marko Boyko, 40, shunter. Superstitious and guilty; blames the "ghost" loudly to cover that he
+    was paid to look away. Breaks under pressure or kindness.
+  - Olha Zhuk, 55, the watchman's widow. Knows her husband brought home saccharin tablets "from the
+    yard" and said last week that an extra wagon stood on the siding at night.
+  - Mendel Rubin, owner of the railwaymen's tavern near the gate; hears everything; will not
+    speak against a regular without a reason.
+  - Sergeant Jan Mroz, State Police sub-station. Accepted the doctor's verdict; will reopen if shown a wound
+    that is not from a fall.
+
+  LOCATIONS: the dispatcher's office and ledgers, the open yard with the signal box, the dead siding behind
+  the coal sheds and the stone customs warehouse, the tavern by the gate, the Zhuk cottage near the embankment, the
+  police sub-station.
+
+  CLUES (reveal only when earned):
+  1. Body (already at the mortuary shed; First Aid or Medicine, Regular): the wound is a narrow dent
+     on the back of the skull, not a crush from a wagon; he was dead before he was moved (lividity).
+  2. Siding (Spot Hidden): drag marks in the gravel, a smear of grease and a chip of green glass from a
+     lantern shade; Track (Regular) shows two men's boot prints beside the drag marks.
+  3. Mrs Zhuk (Psychology or Persuade; kind words help): saccharin tablets in a tin; her husband
+     spoke of "the wagon that is not in the book" and said it was none of his business.
+  4. Marko Boyko (Intimidate, Persuade or Psychology): he saw the lantern and was told by "a gentleman"
+     to look away for ten złoty a night; he did not see the killing. He names no one yet.
+  5. Dispatcher's ledger (Library Use or Accounting): a wagon moved to the dead siding every Tuesday
+     and Friday with no consignment note; the initials on the movement slips are L.S.
+  6. Unlisted wagon (Spot Hidden, with Climb to inspect the roof): the old number shows through the fresh
+     paint; the door seals are new and the lock is oiled.
+  7. Warehouse (Locksmith, Fast Talk, or Credit Rating with the clerk): customs seals re-glued; a ledger
+     page torn out; Pawlak's shaking hands (Psychology).
+  8. Tavern (Listen or Persuade): Szymanski buys rounds for the shunters on payday; two men at a
+     back table talk about "Friday" and "the collector".
+  9. Tank (inside the wagon at night, or when the crate is opened): the sanity event creature_in_tank.
+     A note on the lid gives the collector's address (a villa on the city outskirts).
+
+  THREAT & PACING: Treat the first half as a mundane investigation with fog, noise and the
+  railwaymen's dread. The ghost story ends when someone follows the green lantern: it is a human
+  hand. The smugglers fight only when cornered; Pawlak panics, Szymanski bluffs and tries to bribe or to
+  blame the dead man. If the investigators approach the wagon at night, two hired men with
+  cudgels guard it. Friday evening is the deadline: the wagon moves out and the crate leaves with a
+  carter. Nothing in the tank moves unless the Keeper chooses a single final twitch to spend sanity.
+
+  ENDINGS: (a) Evidence reaches Sergeant Mroz before Friday: arrests; Wrona is shaken. (b) The wagon
+  leaves: the crate reaches the collector, who locks it in a cellar; the thread remains open. (c) Szymanski
+  frames Boyko as the killer; the investigators can still clear him with the ledger and the boot prints.
+
+  SANITY TRIGGERS (use the key in sanity_events): body_under_wagon = seeing the body at the mortuary shed or
+  finding the bloodstain up close; creature_in_tank = first clear sight of the creature in the tank
+  (clue 9); tank_twitch = the single movement the Keeper may choose after the lid is lifted;
+  killer_confronted = facing Pawlak or Szymanski with a weapon in hand.
+
+sanity_events:
+  body_under_wagon: "0/1D3"
+  creature_in_tank: "1/1D4"
+  tank_twitch: "1/1D6"
+  killer_confronted: "0/1D2"
+
+investigators:
+  - id: oleksandr-dmytryshyn
+    name:
+      uk: Олександр Дмитришин
+      en: Oleksandr Dmytryshyn
+    occupation:
+      uk: Митний інспектор
+      en: Customs inspector
+    age: 38
+    characteristics: {STR: 60, CON: 60, SIZ: 70, DEX: 50, APP: 40, INT: 50, POW: 50, EDU: 80}
+    luck: 45
+    skills:
+      Accounting: 55
+      Anthropology: 1
+      Appraise: 50
+      Archaeology: 1
+      "Art/Craft (Calligraphy)": 10
+      Charm: 15
+      Climb: 40
+      Credit Rating: 40
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 25
+      Drive Auto: 30
+      Electrical Repair: 10
+      Fast Talk: 35
+      "Fighting (Brawl)": 45
+      "Firearms (Handgun)": 40
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 30
+      History: 20
+      Intimidate: 35
+      Jump: 20
+      "Language (Other: German)": 50
+      "Language (Other: Polish)": 60
+      "Language (Other: Russian)": 40
+      "Language (Own: Ukrainian)": 80
+      Law: 40
+      Library Use: 40
+      Listen: 40
+      Locksmith: 25
+      Mechanical Repair: 35
+      Medicine: 1
+      Natural World: 10
+      Navigate: 30
+      Occult: 5
+      Persuade: 40
+      Psychology: 45
+      "Science (Chemistry)": 1
+      Sleight of Hand: 10
+      Spot Hidden: 60
+      Stealth: 20
+      Swim: 20
+      Throw: 20
+      Track: 10
+
+  - id: rivka-adler
+    name:
+      uk: Рівка Адлер
+      en: Rivka Adler
+    occupation:
+      uk: Дільнична медсестра
+      en: District nurse
+    age: 26
+    characteristics: {STR: 40, CON: 50, SIZ: 50, DEX: 60, APP: 50, INT: 70, POW: 60, EDU: 80}
+    luck: 55
+    skills:
+      Accounting: 5
+      Anthropology: 1
+      Appraise: 5
+      Archaeology: 1
+      "Art/Craft (Embroidery)": 25
+      Charm: 40
+      Climb: 20
+      Credit Rating: 20
+      Cthulhu Mythos: 0
+      Disguise: 5
+      Dodge: 30
+      Drive Auto: 20
+      Electrical Repair: 10
+      Fast Talk: 20
+      "Fighting (Brawl)": 25
+      "Firearms (Handgun)": 20
+      "Firearms (Rifle/Shotgun)": 25
+      First Aid: 70
+      History: 10
+      Intimidate: 15
+      Jump: 20
+      "Language (Other: German)": 50
+      "Language (Other: Polish)": 60
+      "Language (Other: Ukrainian)": 50
+      "Language (Own: Yiddish)": 80
+      Law: 5
+      Library Use: 40
+      Listen: 50
+      Locksmith: 1
+      Mechanical Repair: 10
+      Medicine: 45
+      Natural World: 15
+      Navigate: 10
+      Occult: 5
+      Persuade: 45
+      Psychology: 60
+      "Science (Biology)": 30
+      Sleight of Hand: 10
+      Spot Hidden: 50
+      Stealth: 25
+      Swim: 20
+      Throw: 20
+      Track: 10
