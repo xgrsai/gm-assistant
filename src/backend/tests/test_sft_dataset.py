@@ -224,6 +224,16 @@ def test_dice_line_present_if_and_only_if_there_is_a_roll(world):
     assert "dice-line" not in codes(oracle, good_text(oracle)) and "dice-line" not in codes(roll, roll_text(roll))
 
 
+def test_the_dice_line_comes_before_the_closing_question(world):
+    _, inputs = world
+    roll = pick(inputs, "sft-roll")
+    lines = roll_text(roll).splitlines()
+    dice = next(ln for ln in lines if ln.startswith("🎲"))
+    rest = [ln for ln in lines if ln != dice]
+    assert "dice-line" not in codes(roll, "\n\n".join([*rest[:-1], dice, rest[-1]]))   # narration, 🎲, question
+    assert "dice-line" in codes(roll, "\n\n".join([*rest, dice]))                       # question, then 🎲
+
+
 def with_result(inp: SftInput, result: str) -> str:
     """The roll turn with `result` as the words after «результат —» on the 🎲 line."""
     roll = inp.rolls[0]

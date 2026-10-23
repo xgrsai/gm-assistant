@@ -281,6 +281,11 @@ def lint_dice_line(inp: SftInput, text: str) -> list[Problem]:
                                      f"{len(dice_lines)} such line(s))")]
     if not inp.rolls and DICE in text:
         return [Problem("dice-line", f"{DICE} used but there is no roll in MECHANICS")]
+    # keeper-v2 FORMAT: narration first, then the 🎲 line, and the reply ENDS with the open question
+    if inp.rolls and inp.kind == "in_fiction":
+        paragraphs = [p for p in text.split("\n\n") if p.strip()]
+        if paragraphs and paragraphs[-1].lstrip().startswith(DICE):
+            return [Problem("dice-line", f"the {DICE} line must come before the closing open question, not after it")]
     return []
 
 
