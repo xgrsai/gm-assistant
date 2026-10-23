@@ -27,6 +27,8 @@ The output is deterministic: the same seeds, scenarios, corpus and code give byt
 COMMITTED and then treated as frozen: the recorded rolls and chunk ids keep targets consistent with the dice even if
 the rules code changes later; `--check` shows whether a rebuild would differ.
 
+The `build` and `review-export` commands (inputs + targets + review -> train/val files) live in `sft/dataset.py`.
+
 Training scenarios live in `data/sft/coc7e/scenarios/<id>/scenario.yaml` (same `ScenarioPack` schema as the app's
 `data/scenarios`, loaded by a separate `ScenarioRepo` root, so they never show up in the UI). `demo-haunt` is the
 evaluation scenario and is forbidden here.
@@ -397,21 +399,49 @@ def brief_adjudication(a: dict) -> dict:
 
 
 def guidance(inp: SftInput) -> list[str]:
-    out = ["Write only the Keeper reply, in the reply language, as the keeper-v2 prompt demands."]
+    """What the target author is told; the same rules are enforced by the lints in `sft/dataset.py`."""
+    out = ["Write only the Keeper reply, in the reply language, as the keeper-v2 prompt demands.",
+           "Numbers: only those in the sheet, MECHANICS, the player's text or an oracle passage; never state a rule "
+           "number that no oracle passage gives."]
     if inp.rolls:
-        out.append("Narrate exactly the rolled result, then one short out-of-character line starting with 🎲.")
+        out.append("Narrate exactly the rolled result (MECHANICS: passed / level / difficulty), then ONE short "
+                   "out-of-character line starting with 🎲. It must say the outcome in these words: «успіх» or "
+                   "«провал» (success / failure), «критичний успіх» (critical success) for level critical, "
+                   "«фатальний провал» (fumble) for level fumble, «екстремальний успіх» (extreme success) for level "
+                   "extreme on a check that was not extreme. A level named before «успіх» («звичайний», «складний», "
+                   "«екстремальний»; regular / hard / extreme success) must lie between the check's required level "
+                   "and the rolled level. Keep it plain: a success needs the word «успіх» itself (not just «не "
+                   "провал»), a failure needs «провал» / «невдача»; «без успіху» and «успіху немає» read as "
+                   "failures. The only numbers allowed on this line are the d100 value (and the SAN lost, "
+                   "written right after «втрата», for a sanity roll).")
     if inp.kind == "rules_question":
         out.append("Out-of-character rules answer, then return to the scene in one sentence.")
     elif inp.kind == "meta":
         out.append("Out-of-character: answer briefly, then invite the player back into the scene.")
-    if inp.use_rag and inp.kb_mode == "oracle":
-        out.append("Cite the passage(s) with role 'oracle' as [R#] in out-of-character text only; do not cite "
-                   "distractors and do not use their content.")
-    elif inp.use_rag and inp.kb_mode == "distractor_only":
-        out.append("No passage answers this: say \"Keeper ruling\" explicitly and answer from general Call of "
-                   "Cthulhu 7e knowledge; do not cite [R#].")
-    elif inp.use_rag:
-        out.append("No passages were retrieved: do not cite [R#]; for a rules question say \"Keeper ruling\".")
+    if not inp.use_rag:
+        out.append("No knowledge base in this prompt: no [R#] markers and no \"Keeper ruling\".")
+        return out
+    if inp.kb_mode == "oracle":
+        out.append("Do not cite distractors and do not use their content.")
+        if inp.kind == "rules_question":
+            out.append("Cite the passage(s) with role 'oracle' as [R#] (required) in the rules answer.")
+        elif inp.kind == "meta":
+            out.append("You may cite an oracle passage as [R#] in the out-of-character answer (not required).")
+        elif inp.rolls:
+            out.append("Cite an oracle passage as [R#] (required) on the 🎲 line ONLY, never in the narration "
+                       "(keeper-v2 rule 7).")
+        else:
+            out.append("No [R#] markers at all: an in-character turn without a roll has no out-of-character place "
+                       "for them (keeper-v2 rule 7); use the oracle passage only as background.")
+        out.append("Do not say \"Keeper ruling\": the knowledge base answers.")
+        return out
+    out.append("No passage answers this" if inp.kb_mode == "distractor_only" else "No passages were retrieved")
+    out[-1] += ": do not cite [R#]."
+    if inp.kind == "rules_question":
+        out.append("Answer from general Call of Cthulhu 7e knowledge and say \"Keeper ruling\" (or «рішення "
+                   "Хранителя») explicitly, exactly in this nominative form.")
+    else:
+        out.append("Do not say \"Keeper ruling\" / «рішення Хранителя»: it is only for rules questions.")
     return out
 
 
@@ -509,6 +539,36 @@ def main() -> None:
     mode.add_argument("--write", action="store_true", help="write the inputs and the briefs")
     mode.add_argument("--check", action="store_true", help="exit 1 if the committed inputs differ from a rebuild")
     q.set_defaults(func=cmd_inputs)
+
+    from sft import dataset  # imports this module, so it cannot be imported at the top
+
+    def add_files(sp: argparse.ArgumentParser) -> None:
+        sp.add_argument("--version", default="v1")
+        sp.add_argument("--inputs", type=Path, help="default: data/sft/coc7e/inputs.<version>.jsonl")
+        sp.add_argument("--targets", type=Path, help="default: data/sft/coc7e/targets.<version>.jsonl")
+        sp.add_argument("--reviews", type=Path, help="default: data/sft/coc7e/reviews.<version>.jsonl")
+        sp.add_argument("--allow-no-input-hash", action="store_true",
+                        help="accept targets that carry no input_hash (staleness cannot be checked)")
+
+    b = sub.add_parser("build", help="inputs + targets + reviews -> artifacts/sft/coc7e-<version>/ (lints first)")
+    add_files(b)
+    b.add_argument("--out-dir", type=Path, help="default: artifacts/sft/coc7e-<version>")
+    b.add_argument("--lint-only", action="store_true", help="lint only, write nothing; inputs without a target are OK")
+    b.add_argument("--allow-missing", action="store_true", help="build although some inputs have no target yet")
+    b.set_defaults(func=dataset.cmd_build)
+
+    r = sub.add_parser("review-export", help="--sample N: review CSV for the author; --review FILE: apply verdicts")
+    add_files(r)
+    mode = r.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--sample", type=int, help="write a stratified sample of N examples (kind x kb mode) as CSV")
+    mode.add_argument("--review", type=Path, help="read the filled-in CSV and write the reviews file")
+    r.add_argument("--sample-stale", action="store_true",
+                   help="--sample: only targets rewritten after review (default: those first, then new ones)")
+    r.add_argument("--include-reviewed", action="store_true",
+                   help="--sample: also offer targets that already have a verdict for their current text")
+    r.add_argument("--out", type=Path, help="sample CSV (default: artifacts/sft/coc7e-<version>/review-sample.csv)")
+    r.add_argument("--reviews-out", type=Path, help="where --review writes (default: the --reviews path)")
+    r.set_defaults(func=dataset.cmd_review_export)
     args = p.parse_args()
     raise SystemExit(args.func(args))
 

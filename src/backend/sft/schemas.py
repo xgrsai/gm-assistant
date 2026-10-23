@@ -249,6 +249,9 @@ class SftReview(_Strict):
     verdict: Literal["accept", "edit", "reject"]
     edited_text: str | None = None       # required for 'edit'
     note: str = ""
+    # sha16 of the TARGET text the reviewer saw (`sft.build.sha16`). reviews.jsonl keeps one verdict per (id, hash) as a
+    # history; only the one for the current text applies. None = unbound (hand-made), always applied and counted.
+    target_hash: str | None = None
 
     @model_validator(mode="after")
     def _edit_has_text(self):
