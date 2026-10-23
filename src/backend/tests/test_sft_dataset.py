@@ -906,6 +906,13 @@ def test_review_sample_is_stratified_seeded_and_exported(patched, tmp_path, caps
     assert "Spot Hidden" in roll["rolls"] and "hard" in roll["rolls"] and roll["passages"] == ""
     oracle = next(r for r in table if r["id"].startswith("sft-oracle"))
     assert "[R1]" in oracle["passages"] and "oracle:" in oracle["passages"] and "distractor:" in oracle["passages"]
+    # the full passage texts as rendered into the prompt, one block per hit, labelled with the role
+    inp = by_id[oracle["id"]]
+    blocks = oracle["passages_text"].split("\n\n")
+    assert len(blocks) == len(inp.hits) and roll["passages_text"] == ""
+    for block, hit in zip(blocks, inp.hits, strict=True):
+        assert block.startswith(f"{hit.role.upper()} [R{hit.marker}]") and block[len(hit.role):].strip() in \
+            inp.messages[0].content
     capsys.readouterr()
 
 

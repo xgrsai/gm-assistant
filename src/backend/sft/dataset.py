@@ -726,8 +726,9 @@ def write_dataset(version: str, assembled: Assembled, ctx: DatasetContext, out_d
 
 # ------------------------------------------------------------------------------------------ review CSV
 
-CSV_COLUMNS = ["id", "kind", "kb_mode", "language", "use_rag", "scene", "player_text", "rolls", "passages", "lint",
-               "target", "target_hash", "status", "current_verdict", "current_edit", "verdict", "edited_text", "note"]
+CSV_COLUMNS = ["id", "kind", "kb_mode", "language", "use_rag", "scene", "player_text", "rolls", "passages",
+               "passages_text", "lint", "target", "target_hash", "status", "current_verdict", "current_edit",
+               "verdict", "edited_text", "note"]
 CSV_DELIMITER = ";"      # Excel in a Ukrainian / European locale opens `;`-separated files into columns
 
 
@@ -744,6 +745,15 @@ def rolls_summary(rolls: list[dict]) -> str:
 
 def passages_summary(inp: SftInput) -> str:
     return " | ".join(f"[R{h.marker}] {h.role}: {h.source} > {h.section}" for h in inp.hits)
+
+
+def passages_text(inp: SftInput) -> str:
+    """Full text of every KB passage as rendered into the prompt, with its role, so the reviewer can check citations."""
+    if not inp.hits:
+        return ""
+    _, rendered = split_system(inp.messages[0].content)
+    return "\n\n".join(f"{h.role.upper()} {rendered.get(h.marker, f'[R{h.marker}] (not found in the prompt)').strip()}"
+                       for h in inp.hits)
 
 
 def allocate(sizes: dict[str, int], n: int) -> dict[str, int]:
@@ -809,7 +819,8 @@ def write_review_csv(path: Path, rows: list[Row]) -> None:
                         "use_rag": "yes" if i.use_rag else "no",
                         "scene": i.history[-1].text if i.history else "(scenario opening)",
                         "player_text": i.player_text, "rolls": rolls_summary(i.rolls),
-                        "passages": passages_summary(i), "lint": lint, "target": r.target_text,
+                        "passages": passages_summary(i), "passages_text": passages_text(i), "lint": lint,
+                        "target": r.target_text,
                         "target_hash": HASH_PREFIX + sha16(r.target_text), "status": review_status(r),
                         "current_verdict": r.verdict, "current_edit": r.text if r.origin == "edited" else "",
                         "verdict": "", "edited_text": "", "note": ""})
