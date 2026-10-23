@@ -1,0 +1,367 @@
+{
+  "version": 1,
+  "method": "stratified-hash-v1",
+  "seed": 1927,
+  "chunking": {
+    "chunk_size": 1000,
+    "overlap": 200
+  },
+  "corpus_chunk_ids_hash": "211d71b458122497",
+  "gold_hashes": {
+    "adjudication": "7971372f06a2ba5e",
+    "conflict_probes": "efa21b9fac487c37",
+    "rules_qa": "90b5cfa0f004974d"
+  },
+  "counts": {
+    "sections": 50,
+    "train": 25,
+    "heldout": 25,
+    "gold_sections": 49,
+    "gold_items": {
+      "rules_qa": {
+        "train": 43,
+        "heldout": 33,
+        "mixed": 9,
+        "no_gold": 15
+      },
+      "conflict_probes": {
+        "train": 12,
+        "heldout": 12,
+        "mixed": 0,
+        "no_gold": 0
+      }
+    },
+    "per_category": {
+      "bonus_penalty": {
+        "train": 1,
+        "heldout": 0
+      },
+      "characteristics": {
+        "train": 1,
+        "heldout": 2
+      },
+      "combat": {
+        "train": 3,
+        "heldout": 3
+      },
+      "development": {
+        "train": 1,
+        "heldout": 1
+      },
+      "difficulty": {
+        "train": 1,
+        "heldout": 0
+      },
+      "firearms": {
+        "train": 1,
+        "heldout": 1
+      },
+      "idea_know": {
+        "train": 0,
+        "heldout": 1
+      },
+      "insanity": {
+        "train": 2,
+        "heldout": 2
+      },
+      "keeper_principles": {
+        "train": 1,
+        "heldout": 1
+      },
+      "luck": {
+        "train": 1,
+        "heldout": 1
+      },
+      "opposed": {
+        "train": 1,
+        "heldout": 0
+      },
+      "pushing": {
+        "train": 0,
+        "heldout": 1
+      },
+      "sanity": {
+        "train": 2,
+        "heldout": 1
+      },
+      "setting": {
+        "train": 4,
+        "heldout": 5
+      },
+      "skill_rolls": {
+        "train": 1,
+        "heldout": 1
+      },
+      "skills": {
+        "train": 3,
+        "heldout": 2
+      },
+      "success_levels": {
+        "train": 0,
+        "heldout": 1
+      },
+      "uncategorized": {
+        "train": 1,
+        "heldout": 0
+      },
+      "wounds_healing": {
+        "train": 1,
+        "heldout": 2
+      }
+    }
+  },
+  "train": [
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Characteristics and Derived Attributes > Base Values of Some Skills",
+      "category": "skills"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Characteristics and Derived Attributes > Damage Bonus and Build",
+      "category": "combat"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Characteristics and Derived Attributes > Hit Points, Magic Points, Sanity and Luck",
+      "category": "characteristics"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Firearms",
+      "category": "firearms"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Melee Attacks",
+      "category": "combat"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Outnumbered",
+      "category": "combat"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Common Investigator Skills > Perception Skills",
+      "category": "skills"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Common Investigator Skills > Physical and Practical Skills",
+      "category": "skills"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Hit Points, Wounds and Healing > Losing Hit Points",
+      "category": "wounds_healing"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Luck > Spending Luck (Optional Rule)",
+      "category": "luck"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Running the Game: Keeper Principles",
+      "category": "keeper_principles"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Indefinite and Permanent Insanity",
+      "category": "insanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Recovering Sanity",
+      "category": "development"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Sanity Loss Notation",
+      "category": "sanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Sanity Rolls",
+      "category": "sanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Temporary Insanity",
+      "category": "insanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > Bonus and Penalty Dice",
+      "category": "bonus_penalty"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > Difficulty Levels",
+      "category": "difficulty"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > Opposed Rolls",
+      "category": "opposed"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > When to Roll",
+      "category": "skill_rolls"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes",
+      "category": "uncategorized"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > People an Investigator Might Meet > Landladies and Caretakers",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > People an Investigator Might Meet > Police",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > Places > The University and Its Anatomy Rooms",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > The City and Its People > Everyday Life",
+      "category": "setting"
+    }
+  ],
+  "heldout": [
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Call of Cthulhu 7e Rules Reference",
+      "category": "keeper_principles"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Characteristic Rolls, Idea Rolls and Know Rolls",
+      "category": "idea_know"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Characteristics and Derived Attributes > Half and Fifth Values",
+      "category": "characteristics"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Characteristics and Derived Attributes > The Eight Characteristics",
+      "category": "characteristics"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Combat Rounds and Order",
+      "category": "firearms"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Damage",
+      "category": "combat"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Extreme Success in Combat",
+      "category": "combat"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Combat > Fighting Manoeuvres",
+      "category": "combat"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Common Investigator Skills > Knowledge and Research Skills",
+      "category": "skills"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Common Investigator Skills > Social Skills",
+      "category": "skills"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Hit Points, Wounds and Healing > First Aid and Medicine",
+      "category": "wounds_healing"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Hit Points, Wounds and Healing > Natural Healing",
+      "category": "wounds_healing"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Investigator Development",
+      "category": "development"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Luck > Luck Rolls",
+      "category": "luck"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Bouts of Madness",
+      "category": "insanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Cthulhu Mythos Knowledge and Maximum Sanity",
+      "category": "sanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Sanity > Involuntary Action",
+      "category": "insanity"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > Levels of Success",
+      "category": "success_levels"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > Pushing a Roll",
+      "category": "pushing"
+    },
+    {
+      "source": "Call of Cthulhu 7e Rules Reference (GM Assistant)",
+      "section": "Skill Rolls > Rolling Percentile Dice",
+      "category": "skill_rolls"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > People an Investigator Might Meet > Academics",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > Places > Beneath the Old City",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > Places > Pekarska Street and the Lychakiv District",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > The City and Its People > Newspapers and Information",
+      "category": "setting"
+    },
+    {
+      "source": "Lviv 1927 Setting Notes (GM Assistant)",
+      "section": "Lviv in 1927: Setting Notes > The City and Its People > Political Situation",
+      "category": "setting"
+    }
+  ]
+}
