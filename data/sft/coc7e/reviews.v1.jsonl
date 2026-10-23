@@ -1,0 +1,617 @@
+{"id": "ob-001", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "772cab36236304fa"}
+{"id": "ob-002", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "be7f18b59e53a9a7"}
+{"id": "ob-003", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1cdcc18712813db9"}
+{"id": "ob-004", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "eee41d0d73e1be0f"}
+{"id": "ob-005", "verdict": "edit", "edited_text": "Доглядачка, огрядна жінка в хустці й старому кожусі, слухає вас, не випускаючи з рук зошита з орендою. Слово «поліція» змушує її стиснути губи, але ваше тихе «нікому не скажу» діє краще за будь-які гроші. Вона озирається на вікна подвір'я, де за фіранками завжди хтось чатує, і зітхає.\n\n«Пані Крукова пішла до сестри ще звечора. А я ж не звір, дитина в біді, всі знають». Вона знімає з цвяшка за дверима в'язку запасних ключів і веде вас скрипучими дерев'яними сходами нагору.\n\nДвері квартири відчиняються з тихим стогоном. Усередині холодно, піч давно не топили, на підвіконні іній. На столі під лампою лежить акуратний стосик листів, перев'язаних шпагатом; адресу на верхньому виведено старанним почерком студентки.\n\nДоглядачка лишається на порозі. «Я тут постою. Тільки нічого не виносьте, бо мені потім відповідати».\n\n🎲 Переконання (Persuade) з бонусною кісткою: 27 — успіх [R3].\n\nЩо ви робите?", "note": "LLM review (Claude); Mother is «пані Крукова»; «Круківна» is the daughter (opening: «панна Круківна»), so the line reads as if Marysia left.; mechanical post-review fix (dice-line order / wording)", "target_hash": "16a2b7af4e433cf4"}
+{"id": "ob-006", "verdict": "edit", "edited_text": "Втрачену Розсудливість (Sanity) можна повернути, хоча й нелегко. Шляхів кілька [R3]: перемога над загрозою Міфів, і тоді нагороду визначає сам сценарій; тривале психіатричне лікування; і розвиток персонажа: коли під час фази розвитку якась навичка зростає до 90% або вище, персонаж отримує +2D6 Розсудливості [R3]. Тож розум не пропадає назавжди, але повертається повільно, і значно дешевше його не втрачати.\n\nБіля брами Остапюк чекає, тримаючи ліхтар, а з купола долинає те саме рівне цокання. Що ви робите?", "note": "LLM review (Claude); Case error: «можна повернути втрачену Розсудливість» (accusative).", "target_hash": "aa555678a061aee9"}
+{"id": "ob-007", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9de1d01497387028"}
+{"id": "ob-008", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3237ef73d0a3abbb"}
+{"id": "ob-009", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "141ec8680f7fdb40"}
+{"id": "ob-010", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2087ec640ae19569"}
+{"id": "ob-011", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "86df3a37f54ba7ab"}
+{"id": "ob-012", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ed42393a863c5a2c"}
+{"id": "ob-013", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "22646871d0b081b8"}
+{"id": "ob-014", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1658e0be7884d039"}
+{"id": "ob-015", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "55888814cad4a4fe"}
+{"id": "ob-016", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "462d5ab4cfe7e08e"}
+{"id": "ob-017", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "79b6d861c28397d7"}
+{"id": "ob-018", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f3ed21c5477ab443"}
+{"id": "ob-019", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "933edbb76501758d"}
+{"id": "ob-020", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "a745bd110c0bc0ae"}
+{"id": "ob-021", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "274d8827187c290d"}
+{"id": "ob-022-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "332cfd2571dd77b0"}
+{"id": "ob-022-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "99d444a7a8982968"}
+{"id": "ob-023", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "41eafa64c680bcba"}
+{"id": "ob-024", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c2fb03b5d4b7c28e"}
+{"id": "ob-025", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "575cad62954635ac"}
+{"id": "ob-026", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "059939d07acb2b3e"}
+{"id": "ob-027", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "795cd7e858694ee8"}
+{"id": "ob-028", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e6762c2e74deb28a"}
+{"id": "ob-029", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5ec9ca6f8246c3fe"}
+{"id": "ob-030", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "62758f25fd3168a6"}
+{"id": "ob-031", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cbac166ac8993d8b"}
+{"id": "ob-032", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1084ae50483414f3"}
+{"id": "ob-033", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "bf678cc6af935a9c"}
+{"id": "ob-034", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "189da23b195993ae"}
+{"id": "ob-035", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "228ecea332062e66"}
+{"id": "ob-036", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "091f330541d46f12"}
+{"id": "ob-037", "verdict": "edit", "edited_text": "Рішення Хранителя: у грі справді є така межа. Якщо протягом одного ігрового дня персонаж втрачає значну частку тієї Розсудливості (Sanity), з якою він почав цей день, на нього чекає безстрокове божевілля, яке може вивести його з гри надовго. Точного порогу база знань тут не дає, тож я стежитиму за ним сам і попереджу, коли ви наблизитеся до небезпечної риски. Щодо вас: ваша Розсудливість зараз 60, і сьогодні ви ще нічого не втратили, тож до межі поки далеко.\n\nБіля брами Остапюк чекає з ліхтарем, а з купола долинає рівне цокання. Що ви робите?", "note": "LLM review (Claude); Gender agreement: «Розсудливості ..., з якою він почав цей день».", "target_hash": "5fc194ac07e51976"}
+{"id": "ob-038", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0ba3df0f112c27ba"}
+{"id": "ob-039", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "23d5a47c709e5a6f"}
+{"id": "ob-040", "verdict": "edit", "edited_text": "Ви впираєтеся плечем у двері комори й налягаєте всією вагою. Дошки навіть не здригаються. Мороз позатягував щілини кригою, і двері ніби вросли в одвірок. Ви б'єте вдруге, сильніше; удар відгукується в плечі тупим болем, а згори на комір сиплеться сніговий пил із лиштви.\n\nНічого. Тільки завіси жалібно рипнули, та й годі.\n\nЗвук удару ще довго котиться порожньою баштою, відбивається від кам'яних стін, і на сходах угорі на мить уривається тихий дівочий голос, ніби хтось збився з рахунку. Потім лічба відновлюється, рівна, як і була. Остапюк визирає з дверей сторожки, побачивши вас, хитає головою й торкається в'язки ключів на поясі.\n\n🎲 Сила (STR): 53 — провал.\n\nЩо ви робите?", "note": "LLM review (Claude); «вривається» reads as 'bursts in'; meaning is 'breaks off' -> «уривається».", "target_hash": "6d57640f008f18b9"}
+{"id": "ob-041", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "429548c829e413b2"}
+{"id": "ob-042", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1571318ae70b6e92"}
+{"id": "ob-043", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d66c2948cb009441"}
+{"id": "ob-044", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1e4adae7bbbc589b"}
+{"id": "ob-045", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8345928fc94251cf"}
+{"id": "ob-046", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "99cc9b00376349f8"}
+{"id": "ob-047", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a1e1ac48f56a2231"}
+{"id": "ob-048", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2f74cd02da0a9f26"}
+{"id": "ob-049", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2f5919db1af181e5"}
+{"id": "ob-050", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "845846582dd0926e"}
+{"id": "ob-051", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3c1d3ccd52ca4292"}
+{"id": "ob-052", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5a6683dd05bd1b5c"}
+{"id": "ob-053", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6c4ae2e1d1954e75"}
+{"id": "ob-054", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9873edc3d48d8d7e"}
+{"id": "ob-055", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5708de88328bb515"}
+{"id": "ob-056", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "dd2acc134edcdb44"}
+{"id": "ob-057", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ce7f1e044785c4e5"}
+{"id": "ob-058", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8ab9527457ca8987"}
+{"id": "ob-059", "verdict": "edit", "edited_text": "Вирішує Хранитель. Перевірку Розсудливості (Sanity) я призначаю тоді, коли персонаж стає свідком чогось жахливого чи надприродного: кидаєте 1D100 проти поточної Розсудливості, і результат, не вищий за неї, означає успіх [R2]. Тобто кидок потрібен не за будь-яку дивину, а лише тоді, коли побачене справді страшне або порушує звичний порядок світу. Дивний годинник чи дивна поведінка людини можуть лишатися просто тривожними деталями, а от зустріч із тим, що не має пояснення, вже вимагатиме перевірки.\n\nБіля брами Остапюк чекає з ліхтарем, і з купола долинає рівне цокання. Що ви робите?", "note": "LLM review (Claude); Agreement: «не вищий за неї» (Розсудливість is feminine).", "target_hash": "78b05b155c79c10d"}
+{"id": "ob-060", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a5a2621c491a9a5c"}
+{"id": "ob-061", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0bc26b7296091115"}
+{"id": "ob-062", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "50adf054e9856d80"}
+{"id": "ob-063", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "6b92a7291c0b7bff"}
+{"id": "ob-064", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "86d5d536e893524b"}
+{"id": "ob-065-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9ddbab6aaabb4289"}
+{"id": "ob-065-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "028e4a8085ba5aa7"}
+{"id": "ob-066-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4f707e395dd4e940"}
+{"id": "ob-066-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1ab6b665fc5b65e4"}
+{"id": "ob-067", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "65bfeb59b2f6e640"}
+{"id": "ob-068", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3bdf697c2e8e1ea6"}
+{"id": "ob-069", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "2bd086709c4be373"}
+{"id": "ob-070", "verdict": "edit", "edited_text": "Так, психіатр може допомогти: тривале психіатричне лікування — один зі способів повернути втрачену Розсудливість (Sanity) [R1]. Але швидко не буде: таке лікування розтягується на довгі періоди ігрового часу, і персонаж весь цей час проводить під наглядом, а не в розслідуванні. Є й інші шляхи: перемога над загрозою Міфів, за яку сценарій визначає свою нагороду, і розвиток навичок до 90% або вище, що дає +2D6 Розсудливості [R1].\n\nБіля брами Остапюк чекає з ліхтарем, а з купола долинає рівне цокання. Що ви робите?", "note": "LLM review (Claude); Case error: «повернути втрачену Розсудливість».", "target_hash": "5fd5445708af6119"}
+{"id": "ob-071", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "eb196dedcf398013"}
+{"id": "ob-072", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b055ab51405b6253"}
+{"id": "ob-073", "verdict": "edit", "edited_text": "Безстрокове божевілля настає, якщо протягом одного ігрового дня персонаж втрачає п'яту частину або більше тієї Розсудливості (Sanity), яку мав на початку цього дня [R2]. Такий стан триває місяцями ігрового часу й зазвичай виводить персонажа з гри, поки його не вилікують [R2]. Окрема межа — нуль: тоді божевілля стає постійним, і персонаж переходить під контроль Хранителя [R2].\n\nБіля брами Остапюк чекає з ліхтарем, а з купола долинає рівне цокання. Що ви робите?", "note": "LLM review (Claude); Gender agreement: «тієї Розсудливості, яку мав».", "target_hash": "d50632e6699e750c"}
+{"id": "ob-074-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a919e164e48a1113"}
+{"id": "ob-074-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fbcffc4d2518ec3d"}
+{"id": "ob-075", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f579c1d014b6ed3f"}
+{"id": "ob-076", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6c0123585acedb41"}
+{"id": "ob-077-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "25a6efbec9da5b91"}
+{"id": "ob-077-uk", "verdict": "edit", "edited_text": "У коморі для пластинок так холодно, що подих стає парою, а пахне склом, пилом і старим проявником. Ви йдете вздовж стелажів, коробка за коробкою. Нумерація ретельна, майже маніакальна: одинадцять місяців скляних пластинок і паперових стрічок, на кожній коробці акуратний почерк Гребовського, кожна на своєму місці. У послідовності нічого не бракує.\n\nТа погляд чіпляється за те, що приховує сам цей порядок. Найновіших коробок немає там, де їм належить стояти: їх засунуто в глибину горішньої полиці, за ряд порожніх картонок, наче хтось хотів мати їх під рукою, але не бачити. Ви знімаєте одну й підносите пластинку до лампи. Потім наступну, і ще одну. Ліхтарник стоїть на кожній в тому самому місці, і на кожній він на волосинку яскравіший, ніж на попередній. Крихітні кроки, терплячі й рівні, ніч за ніччю, і жодного кроку назад.\n\nДесь над вами не змовкає цокання.\n\n🎲 Пильність (Spot Hidden): 6 — екстремальний успіх.\n\nЩо ви робите?", "note": "LLM review (Claude); Spelling: «маніакальна».", "target_hash": "0fce3fd801cbc60c"}
+{"id": "ob-078", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "360bf616c868dbd4"}
+{"id": "ob-079", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7326bc75ebb2a719"}
+{"id": "ob-080", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8023e19f24fb1e6b"}
+{"id": "ob-081", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e96510630a80273b"}
+{"id": "ob-082", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5167817ef9edf732"}
+{"id": "ob-083", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "09853b8afd788f61"}
+{"id": "ob-084", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cc022bc29cfcfb56"}
+{"id": "ob-085", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e068aa6d2ec5d7f1"}
+{"id": "ob-086", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f80aa72e8a05266c"}
+{"id": "ob-087", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "14b3029f0c62a8b9"}
+{"id": "ob-088", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "759fa07b689d0643"}
+{"id": "ob-089", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "40c95520e2a7b05d"}
+{"id": "ob-090", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "52fc2a487745d023"}
+{"id": "ob-091", "verdict": "edit", "edited_text": "Ви підходите ближче, і Остапюк опускає ліхтар, наче йому соромно за власне світло. «Почалося? — перепитує він. — Та хто ж знає, коли воно почалося. Пан доктор завжди сидів ночами, то його діло. А по-справжньому дивно стало з понеділка».\n\nВи дивитеся на нього уважно: на руки, що міцно стискають дужку ліхтаря, на обличчя, яке він ховає. Це не страх людини, що має щось на сумлінні. Це сором старого фронтовика, який боїться чогось, чого не можна застрелити, і боїться, що його засміють. Під вашим уважним, спокійним поглядом він нарешті здається.\n\n«З понеділка годинник у сторожці біжить уперед, — бурмоче він. — Трохи, кілька хвилин за ніч, але я його ставлю щоранку, а він знову за своє. Стільки років ходив як вкопаний. І пес… — Остапюк кривиться. — Пес на пагорб не йде. Тягну за мотузку, а він лягає в сніг і скавучить. Отаке. Дурниці, правда ж?»\n\n🎲 Психологія (Psychology): 16 — успіх.\n\nЩо ви робите?", "note": "LLM review (Claude); Rule 3: the Keeper put words in the investigator's mouth («Ви м'яко кажете...»); rephrased.", "target_hash": "9349755a5b2d1cbc"}
+{"id": "ob-092", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ff98ac0b51d1ed99"}
+{"id": "ob-093", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f873242dbc4ce2f9"}
+{"id": "ob-094", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cb5a3b51983c46fd"}
+{"id": "ob-095", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c70af846e0795abd"}
+{"id": "ob-096", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fe3fc4b54f27151e"}
+{"id": "ob-097", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "83627ec6446aca4b"}
+{"id": "ob-098", "verdict": "edit", "edited_text": "У комісаріаті тепло від залізної груби й тхне мокрими шинелями. Черговий, огрядний чоловік із вусами, підводить очі від журналу, коли ви кладете перед ним пресову картку. Він бере її двома пальцями, читає повільно, ворушачи губами, і його обличчя твердне.\n\n«Газета, — каже він, наче називає хворобу. — І що ж панові газетярові треба?» Ви питаєте про заяву пані Крук. Він навіть не гортає журналу. «Доросла панна? То, видно, поїхала собі куди. До Варшави, до нареченого, до тітки. Дорослі люди, пане, мають право їздити, куди хочуть, і не звітувати ні матері, ні вашій газеті». Він повертає вам картку, трохи відсунувши її по столу, наче брудну. «А як будете ходити й розпитувати про чужих панночок, то ще подумаємо, навіщо вам це. Добраніч».\n\nЗа вашою спиною хтось кашляє на лавці для відвідувачів. Двері знову рипають на морозі.\n\n🎲 Переконання (Persuade): 89 — провал [R3].\n\nЩо ви робите?", "note": "LLM review (Claude); Wrong preposition/case: «кашляє на лавці для відвідувачів».", "target_hash": "b8ee9d63c6b2dcf2"}
+{"id": "ob-099", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "27154abea7d5784e"}
+{"id": "ob-100", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ad70c2795ea2fa61"}
+{"id": "ob-101", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e890e59935564f79"}
+{"id": "ob-102", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ba90f04b9314dbed"}
+{"id": "ob-103", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9f0ea0abe84fc1e2"}
+{"id": "ob-104", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d99823e8b47b07c4"}
+{"id": "ob-105", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "286438c48317bcc3"}
+{"id": "ob-106", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ebe7716aeaa3e162"}
+{"id": "ob-107", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "992d06c608a9cd57"}
+{"id": "ob-108", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f80ace745f7f4ea3"}
+{"id": "ob-109", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5bf6220237c6f29b"}
+{"id": "ob-110", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "27054e0c792a932c"}
+{"id": "ob-111", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9385175dd07f8acb"}
+{"id": "ob-112", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e037aef8095fc4e3"}
+{"id": "ob-113-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1bae44c2a12512fb"}
+{"id": "ob-113-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3bbdafb257d3d3b4"}
+{"id": "ob-114", "verdict": "edit", "edited_text": "Ви тихо підходите ззаду й кладете руку йому на плече. Під сюртуком відчуваються самі кістки, гострі, як у птаха. «Пане докторе, це Карпінська з університету. Можна кілька слів?»\n\nГребовський не здригається. Він лише трохи схиляє голову, наче прислухається не до вас, а до чогось за вами, і шепіт не уривається ні на мить. Стрічка повзе з-під його пальців, крапка за крапкою. «Потім, пані, потім, — каже він, не обертаючись, рівно й ввічливо, між двома числами. — Ще трохи. Ще зовсім трохи». Його рука лягає на вашу, суха й холодна, і м'яко, але наполегливо знімає її з плеча, як знімають гілку, що зачепилася за рукав.\n\nВаші слова падають у тишу купола й зникають, не залишивши сліду. Лампа ледь потріскує, і в її світлі видно, що вії Гребовського посивіли від інею.\n\n🎲 Переконання (Persuade): 65 — провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Rule 3: Keeper invented extra things the investigator says (calls him again, talks of Marysia); removed.", "target_hash": "43d2df679e8c27d6"}
+{"id": "ob-115", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "891c8cbf6c6859b6"}
+{"id": "ob-116", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4a23929a3acd965f"}
+{"id": "ob-117", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "440d3b998479a3ff"}
+{"id": "ob-118", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1d2810a1c1ee0555"}
+{"id": "ob-119", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7697dd0f24a03df4"}
+{"id": "ob-120", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1f88870ffc65e00d"}
+{"id": "ob-121", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "98e4676ec5a78334"}
+{"id": "ob-122", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "782f3fe0eed0a951"}
+{"id": "ob-123", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2e98d2c16e634cb1"}
+{"id": "ob-124", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "a0bbf775fbb7c734"}
+{"id": "ob-125", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ea0e290649dd831c"}
+{"id": "ob-126", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f9afc1a040bd2e7a"}
+{"id": "ob-127", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "575cc7989d86c937"}
+{"id": "ob-128", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1efa14bcbc667923"}
+{"id": "ob-129", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5bd09fc226accf85"}
+{"id": "ob-130", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "224fc951782a4087"}
+{"id": "ob-131", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fa47af718755d921"}
+{"id": "ob-132", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9eff39dc5d638023"}
+{"id": "ob-133", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5a167a2e8a95f6aa"}
+{"id": "ob-134", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e520165dd63a4a2a"}
+{"id": "ob-135", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1fdea23c709925da"}
+{"id": "ob-136", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c99ca9cce3313c19"}
+{"id": "ob-137", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "6825112b4fbe9020"}
+{"id": "ob-138", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3bc0bd19712812d7"}
+{"id": "ob-139", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "014d51e2f2ae1036"}
+{"id": "ob-140", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5754a60c35bb6601"}
+{"id": "ob-141", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bb0f55ac019af882"}
+{"id": "ob-142", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d986c1a23e8de13e"}
+{"id": "ob-143", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6f83d69856c88e00"}
+{"id": "ob-144", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c1fab28bf1dd2942"}
+{"id": "ob-145", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e4ef5aef507999fc"}
+{"id": "ob-146", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4b0d81da5d1a1aa7"}
+{"id": "ob-147", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7ac5eaf5b3c244b1"}
+{"id": "ph-001", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "4fc542aec832733b"}
+{"id": "ph-002", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "d9ff9b6ab115f808"}
+{"id": "ph-003", "verdict": "edit", "edited_text": "Гнатюк довго м'яв картуз, перш ніж відповісти. «Незвичних… — він зітхає. — Було одне. Доброчинне товариство, вдовам допомагають, читання влаштовують. Замовили молитовні картки, три сотні штук. Прийшов від них нотар, чемний такий пан, заплатив наперед, золотом». Майстер відводить очі. «Я взяв. Соромно казати, але взяв, бо зима, а папір дорожчає. Данило набирав сам, нікого до того набору не пускав. Казав, що текст дивний, без жодної помилки, а він таких не любить».\n\nГнатюк киває на полицю біля дверей, де лежить товста книга в полотняній оправі. «Там усе записано: хто, коли, за скільки. Я сам ті картки не читав. Друкар читає тільки заради помилок, пані». Він замовкає, і в тиші чути, як рипить над брамою жерстяна вивіска.\n\nЩо ви робите?", "note": "LLM review (Claude); Hnatiuk addresses Ivanna (female) as «пане»; fixed to «пані».", "target_hash": "3e28c1f5dc9f56d9"}
+{"id": "ph-004", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "e07cdb4b31cf7fc2"}
+{"id": "ph-005", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5193278686c17f5c"}
+{"id": "ph-006", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "dc59612e26857110"}
+{"id": "ph-007", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "1cff9f0c495fbc64"}
+{"id": "ph-008", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "16d1d02b7656a0e8"}
+{"id": "ph-009", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "af25643dedf7a4da"}
+{"id": "ph-010", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "af54185e48796767"}
+{"id": "ph-011", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d211a18e63150600"}
+{"id": "ph-012", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ac9b8c8d5a6b26fe"}
+{"id": "ph-013", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ebbd06a5b1ea04c8"}
+{"id": "ph-014", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "1134e16a36a477b0"}
+{"id": "ph-015", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "268fc773d0536546"}
+{"id": "ph-016", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "31656bf04296b89c"}
+{"id": "ph-017", "verdict": "edit", "edited_text": "Рубін, огрядний чоловік у жилетці, з засуканими рукавами сорочки, спершу лише протирає склянку й дивиться повз вас. Але ви говорите спокійно, ввічливо, не тиснете, і він зрештою сідає навпроти, підсунувши вам філіжанку кави.\n\n«Данило — добрий хлопець, — каже він тихо. — Руки золоті, а голова дурна. Грав у карти, винен був півміста. А тиждень тому все сплатив. Прийшов сюди якийсь пан, чистенький, у сірих рукавичках, і порозраховувався з усіма, кому Данило був винен. Ні імені не назвав, ні решти не взяв». Рубін знизує плечима. «Я тоді подумав: родич якийсь. Тепер не знаю, що й думати».\n\nВін оглядається на дальній столик, де двоє чоловіків у темних пальтах сидять над недопитим чаєм, і стишує голос ще більше.\n\n🎲 Переконання (Persuade): 36 — успіх.\n\nЩо ви робите?", "note": "LLM review (Claude); A waistcoat has no sleeves (fixed to shirt sleeves); «понижує голос» -> «стишує голос».; mechanical post-review fix (dice-line order / wording)", "target_hash": "bce60f076dbadec3"}
+{"id": "ph-018", "verdict": "edit", "edited_text": "Монети дзенькають об мармурову стільницю. Рубін дивиться на них, потім на вас, і повільно, двома пальцями, підсуває їх назад.\n\n«Пане, я стільки літ тримаю кав'ярню, а язиком за гроші не торгую, — каже він рівно. — Хто кому що платить — то справа не моя і не ваша». Він підводиться, витирає руки об фартух і повертається за шинквас, ніби розмову закінчено.\n\nВи помічаєте, що за дальнім столиком двоє чоловіків у темних пальтах замовкли. Один із них неквапом повертає голову й довго роздивляється вас, не ховаючи погляду, а тоді щось тихо каже товаришеві. Той киває й допиває чай одним ковтком.\n\n🎲 Переконання (Persuade): 47 — провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Garbled idiom in Rubin's line («тримаю каву, а не язика за зубами за гроші»); rephrased.; mechanical post-review fix (dice-line order / wording)", "target_hash": "be7c0161fd09804e"}
+{"id": "ph-019", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "05ecfcace30e9f5c"}
+{"id": "ph-020-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "a0578b12ac9a5c46"}
+{"id": "ph-020-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "278bad1400ab7245"}
+{"id": "ph-021", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "6b8ad891d4fbc314"}
+{"id": "ph-022", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "77edb1649776b754"}
+{"id": "ph-023", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c0f060b4fd487043"}
+{"id": "ph-024", "verdict": "edit", "edited_text": "Дорога додому тягнеться крізь мокру темряву. Вдома ви довго не можете зігрітися, але зрештою сон бере своє, глибокий і без сновидінь. Ранок видається сірим і тихим: дощ ущух, на дахах лежить мокрий сніг, а над Ринком кружляють галки.\n\nБіля друкарні «Гнатюк і Син» ви застаєте майстра на порозі. Він неголений і, схоже, майже не спав. «Добре, що ви прийшли, пані, — каже він, озираючись на браму. — Учора, вже як ви пішли, заходив той пан нотар, від Товариства. Чемний такий, у сірих рукавичках. Питав, чи не можна забрати набір і недороблені картки просто так, як є. Обіцяв доплатити».\n\nМайстер мне картуз. «Я сказав, що подумаю. Він усміхнувся й сказав, що зайде ще сьогодні».\n\nУсередині на кам'яному столі, як і вчора, лежить форма. Що ви робите?", "note": "LLM review (Claude); Contradiction: the investigator slept deeply, yet Hnatiuk 'slept no more than you'.", "target_hash": "f796ccd37e050b5e"}
+{"id": "ph-025", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "cced7fb661edd4bf"}
+{"id": "ph-026", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "30ce20ba931adab0"}
+{"id": "ph-027", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "6063002d89f6607c"}
+{"id": "ph-028", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ee67cf6e91c198a0"}
+{"id": "ph-029", "verdict": "edit", "edited_text": "Ви спостерігаєте за Петриком, поки той відповідає на ваші запитання: він крутить у пальцях ґудзик фартуха, кліпає часто, дивиться то на підлогу, то на сходи. Але що за цим стоїть, ви не можете вловити. Може, хлопець справді щось приховує. А може, він просто змерзлий, голодний і наляканий підліток, якого третій день смикають то майстер, то поліція, то незнайомі пани з питаннями.\n\n«Можна я піду нагору? — питає він тихо. — Мені пан майстер казав папір перебрати». Голос рівний, втомлений, без жодної зачіпки.\n\nГнатюк, почувши це, озивається з майстерні: «Іди, Петре, іди». Хлопець прошмигує повз вас, і на сходах скриплять його кроки, а потім клацає засувка горища.\n\n🎲 Психологія (Psychology): 97 — провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Petryk never says Hnatiuk's name (only «пан майстер»); small factual slip.; mechanical post-review fix (dice-line order / wording)", "target_hash": "53c211dbafa3ba36"}
+{"id": "ph-030", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "893817b16a976f9d"}
+{"id": "ph-031", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "f637ec903dbc47e8"}
+{"id": "ph-032", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "79cd8cfd804f2dcf"}
+{"id": "ph-033", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "0b0256aafef37902"}
+{"id": "ph-034", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "bb857bf439ee19d1"}
+{"id": "ph-035", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "cc828f80574917a6"}
+{"id": "ph-036-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "fc231b7554f1d9e6"}
+{"id": "ph-036-uk", "verdict": "edit", "edited_text": "Кулак летить широкою дугою, і ви пірнаєте, намагаючись прослизнути під рукою. Трохи запізно. Кісточки зачіпають вам вилицю, світ спалахує білим, капелюх летить у сльоту, і вас відкидає на мокру стіну подвір'я.\n\nЗдоровань не кидається добивати. Він струшує кистю, розминає важкі плечі й дивиться на вас маленькими терплячими очима над давно розбитим, приплюснутим носом. З козирка кашкета на його обличчя скрапує дощ. Він стоїть між вами й брамою, і йому, схоже, нікуди не треба поспішати.\n\nУ вухах дзвенить, у роті присмак міді. Але ви ще тримаєтеся на ногах.\n\n🎲 Ухилення (Dodge): 71 — провал; ухилитися не вдалося, тож удар досягає мети [R2].\n\nЩо ви робите?", "note": "LLM review (Claude); Calque of 'like a swinging door' («мов двері на завісах») replaced with natural Ukrainian.; mechanical post-review fix (dice-line order / wording)", "target_hash": "c88ac63223443fc1"}
+{"id": "ph-037", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "7ba1e97c9c21e5cd"}
+{"id": "ph-038", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "eb793ab09b01369a"}
+{"id": "ph-039", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "2c136bd2b3e978f7"}
+{"id": "ph-040", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "4bc35ad1b3103d2d"}
+{"id": "ph-041", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "b822bfa750ac8a36"}
+{"id": "ph-042", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "7e367afa4f3d373f"}
+{"id": "ph-043", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "f6c8573b446fe35d"}
+{"id": "ph-044", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6a4327a3ca6761da"}
+{"id": "ph-045-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "18ad2d6985fb4822"}
+{"id": "ph-045-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "4f262cfb0e3838d7"}
+{"id": "ph-046", "verdict": "edit", "edited_text": "Ви говорите різко, про поліцію, про відповідальність, про те, що буде, коли все випливе. Двірничка блідне, але не так, як ви розраховували. Її губи стискаються в тонку нитку, а рука з в'язкою ключів зникає під фартухом.\n\n«Поліцією мене лякати? — шипить вона. — Я тут цілий вік, пане, і всі в кам'яниці мене знають. А вас я бачу вперше. Хочете ключ — приходьте з комісаром і з паперами. А як ні, то я сама покличу пана нотаря й розкажу, хто тут ходить і людей залякує».\n\nВона відступає за поріг своєї комірчини й зачиняє двері. Ви чуєте, як усередині клацає засув, а потім щось важке підсувають під двері. Угорі, на сходах, рипить мостина: хтось почув вашу розмову.\n\n🎲 Залякування (Intimidate): 91 — провал; двірничка боїться скандалу так само, як поліції, і погрозою її не зламати [R3].\n\nЩо ви робите?", "note": "LLM review (Claude); Same woman is «двірничка» in the player text and narration but «управителька» on the dice line.; mechanical post-review fix (dice-line order / wording)", "target_hash": "d247748602921343"}
+{"id": "ph-047", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "73ee46fa26ed1965"}
+{"id": "ph-048", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "284430c14d55fbba"}
+{"id": "ph-049", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "bc1fd78910464e0c"}
+{"id": "ph-050", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "113e3e108258b05b"}
+{"id": "ph-051", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "edebb85146fb2c24"}
+{"id": "ph-052", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7f93ee079bed2eaf"}
+{"id": "ph-053", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "699948a7c8f39b5e"}
+{"id": "ph-054", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "36a6a741411d6c95"}
+{"id": "ph-055", "verdict": "edit", "edited_text": "Слова самі злітають із ваших губ. Без пробілів, без пауз, суцільною низкою звуків, які язик вимовляє так, ніби завжди їх знав. Ви чуєте власний голос і не впізнаєте його: він стає тихішим, глухішим, а друкарня довкола раптом втрачає звуки. Вивіска надворі більше не рипить. Дощ не шелестить. Навіть лампа горить беззвучно.\n\nНа мить вам здається, що в цій тиші хтось слухає. Не в кімнаті — десь значно далі, за самою тишею.\n\nВаші долоні мимоволі злітають до вух і з силою притискаються до них. Ви задкуєте від столу, перечіпаєтеся об табурет і ледве втримуєтеся на ногах. А тоді звуки повертаються всі разом: рип вивіски, стукіт дощу, Гнатюків зляканий вигук. У роті з'являється присмак свинцю.\n\n🎲 Розсудливість (Sanity): 69 — провал, втрата 1.\n\nЩо ви робите?", "note": "LLM review (Claude); «присмак у носі» is unnatural; taste is in the mouth.; mechanical post-review fix (dice-line order / wording)", "target_hash": "a1988fb7af91038d"}
+{"id": "ph-056", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "433f107eaf662871"}
+{"id": "ph-057", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "2ce2f50886102034"}
+{"id": "ph-058", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "b4d5944ee91c5837"}
+{"id": "ph-059", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "0775e2fc4ee6d51d"}
+{"id": "ph-060", "verdict": "edit", "edited_text": "Ви вдивляєтеся в останній рядок, намагаючись упізнати форму, а не зміст: ритм, повтори, будову. Щось у ньому наче нагадує молитву — та й будь-що інше, якщо на те пішло. Або заклинання з дешевої окультної книжечки. Або просто невдалий шрифтовий зразок.\n\nЧим довше ви дивитеся, тим більше рядок розпливається. Пам'ять підсовує уривки прочитаного колись — щось про гностиків, щось про спіритичні сеанси, які описували в газетах, — але жоден уривок не пасує. Рядок не стає ні молитвою, ні закляттям. Він лишається собою: суцільною стрічкою чужих знаків, по якій погляд ковзає вниз, ніби по мокрому склу.\n\nВи відводите очі. Лампа тим часом чомусь притихла, і в друкарні стало чутно, як цокає годинник у кишені майстра.\n\n🎲 Окультизм (Occult), складна перевірка: 62 — провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Failed Occult (Hard) still named 'litany', the exact info a success would give; removed.; mechanical post-review fix (dice-line order / wording)", "target_hash": "f53c2a80578d202a"}
+{"id": "ph-061", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "545780b5d5f57aa4"}
+{"id": "ph-062", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "fdcd0e35cb601621"}
+{"id": "ph-063", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "db44df4102e3ee06"}
+{"id": "ph-064", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "445df7d36b61f571"}
+{"id": "ph-065-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "d3a150d09d0e89dd"}
+{"id": "ph-065-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "c8ec85f9f8ecc152"}
+{"id": "ph-066", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "397f598803f990f5"}
+{"id": "ph-067", "verdict": "edit", "edited_text": "Правила лишаються правилами, тож кидок зроблено, і він вирішує. Ви б'єте здорованя біля складу коротко й сильно, вкладаючи в удар усю вагу. Ви цілите йому в скроню, але той устигає відвернути голову, і кулак лише ковзає по вилиці, не завдавши шкоди.\n\nЧоловік струшує головою, мов пес після купелі. А тоді випростовується на весь свій зріст і дивиться на вас з-під важких брів. Приплюснутий ніс, широкі плечі, руки борця. Він не впав. Він навіть не сплюнув.\n\nВантажний візок біля складу дзенькає, коли здоровань відсуває його ногою, звільняючи місце. Він повільно стискає кулаки, і по тому, як він стає — боком, низько, — ви бачите, що бійка для нього звична справа.\n\n🎲 Ближній бій (Fighting (Brawl)), складна перевірка: 36 — звичайний успіх, але проти такого суперника цього замало: провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Failed attack was narrated as a landed (glancing) blow that staggers him; made it a clear miss.; mechanical post-review fix (dice-line order / wording)", "target_hash": "c19257c4e4747641"}
+{"id": "ph-068", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "687ffb174735cac5"}
+{"id": "ph-069", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "dbca486af4c7fd51"}
+{"id": "ph-070", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "d7ebddab58cf0764"}
+{"id": "ph-071", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9bcd8289e09b54a5"}
+{"id": "ph-072", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "858488b6f3a31090"}
+{"id": "ph-073", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7e1e302e4f548c60"}
+{"id": "ph-074", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "194b7a66366c714d"}
+{"id": "ph-075", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "1069b0161f5727d8"}
+{"id": "ph-076", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c14c3d2e0b5cfe5b"}
+{"id": "ph-077", "verdict": "edit", "edited_text": "Спершу це здається шелестом паперу або дощем по ринві. Та звук не стихає: десь у темряві, ближче, ніж хотілося б, хрипкий чоловічий голос шепоче без упину, без жодної паузи між словами, ніби одне нескінченне слово тягнеться і тягнеться, не потребуючи подиху. Ви не розумієте ані звуку, але ритм чіпляється за слух, як гачок, і вже за мить ловите себе на тому, що чекаєте наступного складу.\n\nПравила Розсудливості діють навіть тоді, коли їх просять не помічати. Ваше тіло реагує раніше, ніж думка: ви мимоволі відсахуєтеся, долоні самі злітають до вух, плечима ви вдаряєтеся об холодну стіну, і з полиці поруч із тонким дзенькотом сиплються бляшані свічники. Серце гупає в горлі. Кілька довгих секунд ви не можете відірвати рук від голови, а шепіт, приглушений, усе одно просочується крізь пальці.\n\n🎲 Розсудливість (Sanity): 84 — провал, втрата 4 Розсудливості.\n\nЩо ви робите?", "note": "LLM review (Claude); Rudyk whispers in the cellar chapel (notes), but the reply put type cases there; prop changed.", "target_hash": "85715d82a22d8a5a"}
+{"id": "ph-078", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ce42988a1b0bd279"}
+{"id": "ph-079", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7e86e41454f9cf7e"}
+{"id": "ph-080", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "497a8c486732eec0"}
+{"id": "ph-081", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "50fbe91fe9683faf"}
+{"id": "ph-082", "verdict": "edit", "edited_text": "Ви ривком висмикуєте поли пальта з його пальців, розвертаєтеся на п'ятах і вкладаєте всю вагу в короткий прямий удар. Кулак входить йому під ребра, точно й глибоко, туди, де м'язи найтонші. Здоровань видихає з глухим хрипом, наче з міха вийшло повітря, і на мить згинається навпіл.\n\nВін непевно відступає, хапається рукою за мокру стіну, щоб не впасти. У тьмяному світлі з вікна ви бачите його обличчя: широке, з приплюснутим носом, і очі, в яких немає ні люті, ні страху — лише уважний, холодний розрахунок. Він не кричить, не лається. Просто дивиться на вас, повільно випростовуючись, і важко дихає крізь зуби.\n\nМіж вами повисає тиша. З вулиці не долинає ні звуку.\n\n🎲 Ближній бій (Fighting (Brawl)): 27 — складний успіх [R1].\n\nЩо ви робите?", "note": "LLM review (Claude); The fight is on an indoor stair landing (history), yet snow falls between them; fixed.", "target_hash": "d6df668dba1c84b4"}
+{"id": "ph-083", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f69ea7228a05bf16"}
+{"id": "ph-084", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "424341cde2db0d5b"}
+{"id": "ph-085", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5410f0c9dbcd96e7"}
+{"id": "ph-086", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5bea40035d9e8dc0"}
+{"id": "ph-087", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7171dbfb944e9204"}
+{"id": "ph-088", "verdict": "edit", "edited_text": "Ви уважно стежите за Стадником: за руками в сірих рукавичках, що спокійно лежать на руків'ї ціпка, за усмішкою, за очима. І чим довше дивитеся, тим певніше складається картина. Перед вами літній, трохи педантичний чоловік, якому щиро шкода, що доброчинне замовлення зірвалося. Він говорить про вдів і сиріт, які чекають на картки до свята, і в голосі його ви не чуєте ані фальші, ані поспіху. Звичайний нотаріус, звиклий до чужих бід і чужих грошей.\n\nТільки одна дрібниця: ваш пильний погляд не лишається непоміченим. Стадник повертає голову й дивиться просто на вас — довго, лагідно, з тією самою усмішкою. «Пан, бачу, теж цікавиться нашою справою? — м'яко питає він. — Дуже приємно. Може, ви знайомий пана Рудика?» Гнатюк зиркає на вас, а тоді знову в підлогу.\n\n🎲 Психологія (Psychology), складна перевірка: 100 — фатальний провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Russianism «набалдашник» -> «руків'я».", "target_hash": "3c9f3371d70d00c9"}
+{"id": "ph-089", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "01eddb17b9280eb0"}
+{"id": "ph-090", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "58aabe884b5d325d"}
+{"id": "ph-091", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "133bceabe7b6e1b5"}
+{"id": "ph-092", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bf8bf03657a2ef03"}
+{"id": "ph-093", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fe90ebfc40fe1a6f"}
+{"id": "ph-094", "verdict": "edit", "edited_text": "Драбина крута й рипуча, перекладини затерті до блиску чужими долонями. Ви піднімаєтеся, і з кожним щаблем повітря стає теплішим і сухішим: сюди, під самий дах, тягне жар від пічної труби, що проходить крізь горище.\n\nНагорі тісно й низько, доводиться пригинати голову. Під скатом даху лежать сінники: один зім'ятий, із сірою ковдрою й подушкою в латаній наволочці, інший — акуратно застелений, наче на ньому давно ніхто не спав. Біля стіни — дерев'яна скриня з облупленою фарбою, на цвяху висить чиясь куртка, замала для дорослого чоловіка, завелика для хлопця. На крокві хтось вирізав ножем дрібні літери, рядок за рядком, як вправу для складача.\n\nУ кутку, за скринею, шарудить. Звідти визирає худе хлоп'яче обличчя з переляканими очима, і одразу ховається назад. Знизу долинає приглушений голос Гнатюка: «Петрику, не бійся, це свої».\n\nЩо ви робите?", "note": "LLM review (Claude); Logic inverted: a jacket 'too big for a grown man, too small for the boy'; swapped.", "target_hash": "9c12cbcc27c1a649"}
+{"id": "ph-095", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "9a58b0e20f88ed50"}
+{"id": "ph-096", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a5a0856cfab710fd"}
+{"id": "ph-097", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "17e8dd9fa2fdd299"}
+{"id": "ph-098", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2a48714c8306c23d"}
+{"id": "ph-099", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fa6b157680534b07"}
+{"id": "ph-100", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1f5e61aaa37b3b09"}
+{"id": "ph-101", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "81e0c4132e086e2d"}
+{"id": "ph-102", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f5de43c877b459c8"}
+{"id": "ph-103", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fa9583606d1c9811"}
+{"id": "ph-104", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2a90a4a162d94ecd"}
+{"id": "ph-105", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5d707479cc8c9460"}
+{"id": "ph-106", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5c3a449b7fbfc466"}
+{"id": "ph-107", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "24e9e58637bc9f24"}
+{"id": "ph-108", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5ada15f1305c84a5"}
+{"id": "ph-109", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "be43db4990fc06db"}
+{"id": "ph-110", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "959982a72bd1e7ee"}
+{"id": "ph-111", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3ac0cbc7ce0016d2"}
+{"id": "ph-112", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7d5aee41fc72e517"}
+{"id": "ph-113", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1016ba82cfde8d06"}
+{"id": "ph-114", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7521aba7fe4b4b7a"}
+{"id": "ph-115", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e38a1db87051c841"}
+{"id": "ph-116", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d2a27c04ff51bf35"}
+{"id": "ph-117", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7f7894552fba1270"}
+{"id": "ph-118", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "112b80addd90ee60"}
+{"id": "ph-119-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d7608ed15e1288c4"}
+{"id": "ph-119-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "842d688c67ddca53"}
+{"id": "ph-120", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "654fdd4fd7288b79"}
+{"id": "ph-121", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "48d7ddfda8bce875"}
+{"id": "ph-122", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c4ed08a3b780a71f"}
+{"id": "ph-123", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "20d229d5fc015296"}
+{"id": "ph-124", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8df131c0e0f3fa1a"}
+{"id": "ph-125", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9db5931e8efca606"}
+{"id": "ph-126", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bd96c24f906135ef"}
+{"id": "ph-127", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "dfcae894aae46ca6"}
+{"id": "ph-128", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "dd728fe33c19ee47"}
+{"id": "ph-129", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5ffec6f254b25d56"}
+{"id": "ph-130", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fb24df64eb7fbeca"}
+{"id": "ph-131", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c5e3e2e07e80e84d"}
+{"id": "ph-132", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2b9e292591327b0a"}
+{"id": "ph-133", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0cc8c481fa1b667a"}
+{"id": "ph-134", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4cbdca9471f56476"}
+{"id": "ph-135", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7aea944776349a80"}
+{"id": "ph-136", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3df010a8d6d6b098"}
+{"id": "ph-137", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ac62103fd4532b79"}
+{"id": "ph-138", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "901e9dc1f27acea9"}
+{"id": "ph-139", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ba62595a9a0013cc"}
+{"id": "ph-140-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4df76ca059a87b6c"}
+{"id": "ph-140-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fc9d14bc41631554"}
+{"id": "ph-141", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9628073e43f34f16"}
+{"id": "ph-142", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7a60a8b3c671ebcc"}
+{"id": "ph-143", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "056dfe771e4648ab"}
+{"id": "ph-144", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "92ad96a44f2960b4"}
+{"id": "ph-145", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "06827324745e55cc"}
+{"id": "ph-146", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "639e73a06d58aef3"}
+{"id": "ph-147", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9c0dcfb241601b7f"}
+{"id": "rx-001-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cd5d04c3c1c1497c"}
+{"id": "rx-001-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "711e055b72e0029e"}
+{"id": "rx-002", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6d82ac87aa7e0f19"}
+{"id": "rx-003", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e79995e545268565"}
+{"id": "rx-004", "verdict": "edit", "edited_text": "You speak quietly and without hurry, and every word lands. Sawicki opens his mouth to protest, closes it again, and you watch the fight drain out of his shoulders. \"You are right,\" he says at last. \"God help me, you are right.\"\n\nHe goes to the counter, unlocks a drawer with a key from his waistcoat and takes out another, much older one: heavy black iron, its bow worn smooth by a hand that is not his. He holds it a moment longer than he needs to before putting it in your palm. It is cold, colder than the drawer should have kept it.\n\n\"It belonged to the old owner, Rappaport,\" he says. \"I have not been down there since I bought the place. I tell myself there is nobody in that cellar.\" He swallows. \"But at night I hear the glass too, sir. Every night.\"\n\nFrom below, faintly, comes the chime of a bottle set down on stone.\n\n🎲 Persuade: 1 — critical success.\n\nWhat do you do?", "note": "LLM review (Claude); Sawicki claims his key is the only one; notes say the caretaker also keeps the cellar key", "target_hash": "e31334bce675addf"}
+{"id": "rx-005", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4413c916dda3aad4"}
+{"id": "rx-006", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0742ab390d92c1d1"}
+{"id": "rx-007", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ed2eb7093538af6a"}
+{"id": "rx-008", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "63b840e6db7e29fb"}
+{"id": "rx-009", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "810e73901ddd1448"}
+{"id": "rx-010", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "46107e44c7ee7996"}
+{"id": "rx-011", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f9aea902bfefc190"}
+{"id": "rx-012", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "66c09cc0e51a464d"}
+{"id": "rx-013", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "88cf78be7efee99c"}
+{"id": "rx-014", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ec760d4125587ef1"}
+{"id": "rx-015", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c125e346a3dded8a"}
+{"id": "rx-016", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b4d0e38fd2943a1f"}
+{"id": "rx-017", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ffd4edc54d346422"}
+{"id": "rx-018", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d66d9805c9909c16"}
+{"id": "rx-019", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f2383269a150a848"}
+{"id": "rx-020", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c0392e4670a68c09"}
+{"id": "rx-021", "verdict": "edit", "edited_text": "Ваш голос звучить різко, але погроза, здається, лише зачіпає провізора за живе. Савіцький спершу блідне, потім червоніє плямами, і замість того щоб злякатися, він випрямляється й ховається за прилавок, наче за мур.\n\n«Ідіть, пані докторко, — каже він тремтячим, але впертим голосом. — Ідіть до сержанта. Він і так мене вже засудив, то нехай ще й ви. Я все життя стою за прилавком, і ніхто ніколи не казав, що я когось отруїв».\n\nВін береться перекладати рецепти, хоча руки йому трусяться так, що аркуші шелестять. Більше він на вас не дивиться й на запитання не відповідає, лише бурмоче щось про чесне ім'я. Двері до задньої кімнати він, проходячи повз, причиняє щільніше, ніж треба.\n\nПід підлогою тихо дзенькає скло, і в тиші аптеки цей звук здається надто гучним.\n\n🎲 Залякування (Intimidate): 32 — провал.\n\nЩо ви робите?", "note": "LLM review (Claude); Sawicki is 45, not an old man (keeper notes)", "target_hash": "67e54a274aed077d"}
+{"id": "rx-022", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0bfeec651ee09677"}
+{"id": "rx-023", "verdict": "edit", "edited_text": "Ви перебираєте в пам'яті старі розмови в книгарнях, некрологи, плітки біля синагоги, і кам'яниця поволі виринає з минулого.\n\nАптека «Під Білим Пеліканом» стоїть тут, скільки ви себе пам'ятаєте. Десятиліттями нею володів Саломон Раппапорт, провізор віденської школи, чоловік учений і мовчазний, якого шанували навіть ті, хто не любив євреїв. До нього ходили лікарі по поради, а бідняки по ліки в борг.\n\nВи пригадуєте й інше, про що говорили пошепки. Колись, ще в минулому столітті, у Раппапорта померла маленька донька, від крупу, за одну ніч. Відтоді він майже не виходив зі своєї підвальної лабораторії, писав щось ночами, усе шукав якийсь рецепт. Казали, що від горя він трохи зсунувся з глузду. Помер він кілька років тому, і аптеку продали чужій людині.\n\nСавіцький, почувши ім'я Раппапорта, мимоволі хреститься.\n\n🎲 Історія (History): 43 — успіх.\n\nЩо ви робите?", "note": "LLM review (Claude); unnatural phrasing: «шабасових подвір'ях», colloquial calque «зсунувся»", "target_hash": "5b3eedc5552cbe3d"}
+{"id": "rx-024", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3b0319854bd9a68c"}
+{"id": "rx-025", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "25f4084233e7618a"}
+{"id": "rx-026", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b29f4954e9dfd12d"}
+{"id": "rx-027", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2f8b4d21a33d2ffd"}
+{"id": "rx-028", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fd9a3bd707946aac"}
+{"id": "rx-029", "verdict": "edit", "edited_text": "Луцик відкладає черевик, який лагодив, і оглядає вас з-під кошлатих брів, наче вирішує, чи варта ви розмови. Потім, певно, вирішує, що варта.\n\n«Служу? Та я тут ще за пана Раппапорта, царство йому небесне, мітлу в руки взяв. Давно, пані, дуже давно. А мешканців... — він загинає пальці, збивається й махає рукою. — Повна кам'яниця. Кравець із дітьми, студенти, вдова нагорі, аптекар із хлопцем. Усі на очах».\n\nНа запитання про шум він довго мовчить і чухає потилицю. «Шум, кажете. Ну, двір старий, кам'яниця стара, усе тут рипить: і сходи, і люди. А що вночі...» Він замовкає, кидає погляд на низьке підвальне віконце у вас за спиною й чмокає губами. «Старому, пані, на морозі горло пересихає. Бачити-то я, може, щось і бачив. Тільки за сухе горло й пам'ять суха».\n\nЩо ви робите?", "note": "LLM review (Claude); agreement error: «все ... риплять»", "target_hash": "7ad48f3a8dbbdca5"}
+{"id": "rx-030", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d4d78693d69ebddc"}
+{"id": "rx-031", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b2b439170692007f"}
+{"id": "rx-032", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7e6a3ae76444250d"}
+{"id": "rx-033", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ca2db2bfbeea3657"}
+{"id": "rx-034", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8afc45367bc3756d"}
+{"id": "rx-035", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d1b1df3f20c82137"}
+{"id": "rx-036", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5a890338c8ea97a3"}
+{"id": "rx-037", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "22598b520ec98a78"}
+{"id": "rx-038", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "58978c62de111570"}
+{"id": "rx-039", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "17a795d3c9408cde"}
+{"id": "rx-040", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "91aaf2f381f3e91e"}
+{"id": "rx-041", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3fa50bb1db946b37"}
+{"id": "rx-042", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8031acc4657b28b4"}
+{"id": "rx-043", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0b7000729071407a"}
+{"id": "rx-044", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0647b844284041c4"}
+{"id": "rx-045", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "276ea7cd207b8870"}
+{"id": "rx-046-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "086b218e885428a8"}
+{"id": "rx-046-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "93f830fb377219ab"}
+{"id": "rx-047", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "018c85827a21f6a0"}
+{"id": "rx-048", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bc26ef539e96ac8a"}
+{"id": "rx-049", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "183773aa57aef8b6"}
+{"id": "rx-050", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5971a449848125c0"}
+{"id": "rx-051", "verdict": "edit", "edited_text": "Вахтер, сивий чоловік у засмальцьованій шинелі, дивиться на монети у своїй долоні, потім на вас, потім на темний коридор за спиною. Платять йому, видно, мало, а ніч довга.\n\n«Тільки тихо, пані, — бурмоче він нарешті й знімає з цвяха ключ. — І недовго. Як щось, то я вас не бачив».\n\nВін веде вас крізь холодний корпус, де пахне формаліном і карболкою. Повз зачинені двері анатомічної зали, повз шафи зі склянками, в яких щось біліє в каламутній рідині, нагору крутими сходами. Нарешті відмикає важкі двері, і на вас дихає запахом старого паперу. Ряди полиць губляться в темряві, на столі під зеленим абажуром стоїть лампа.\n\n«Я внизу, — каже вахтер. — Свічку не запалюйте, бо згорить усе до біса». Його кроки затихають на сходах. Ви лишаєтеся сама серед старих медичних книг, і десь далеко в корпусі мірно цокає годинник.\n\n🎲 Переконання (Persuade) з бонусним кубиком: 45 — успіх [R2].\n\nЩо ви робите?", "note": "LLM review (Claude); Russianism «к бісу»", "target_hash": "7f3a19068fbece12"}
+{"id": "rx-052", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "11f5f0fe5f1ee4f7"}
+{"id": "rx-053", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8e962956707df4f1"}
+{"id": "rx-054", "verdict": "edit", "edited_text": "Сусідка, пані Ядвіга із сусідньої квартири, спершу відчиняє двері на ланцюжок, але ваша чемність і, можливо, ваш поважний вигляд роблять своє. За хвилину ви вже сидите в її тісній кухні, перед вами горнятко міцного чаю, а вона говорить, не зупиняючись.\n\nДвір вона знає як свої п'ять пальців. Кравець п'є, студенти не платять, Луцик бере гроші за все, навіть за те, щоб не помічати. Аптекар чоловік чесний, «але ж такий наляканий, бідачисько». А тоді вона нахиляється до вас і знижує голос.\n\n«А хлопчик його, учень, з ним щось недобре. Я раз уночі встала до вітру, глянула у двір, а він ходить. Босий, по снігу, руки отак перед собою, і йде просто до підвальних дверей. Я думала, п'яний. А він не п'є, я знаю. І світло там потім, у віконці, бліде таке». Вона хреститься. «Я нікому не казала. Хто б мені повірив?»\n\n🎲 Чарівність (Charm): 21 — успіх [R2].\n\nЩо ви робите?", "note": "LLM review (Claude); calqued idiom «знає краще, ніж власну кишеню»", "target_hash": "36f45a4f084cf096"}
+{"id": "rx-055", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0b97a57989f503cf"}
+{"id": "rx-056", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4af2692cd2a15937"}
+{"id": "rx-057", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "967f68e9f9aca84f"}
+{"id": "rx-058", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8bc31101f9030564"}
+{"id": "rx-059", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "75286c31abef9d4a"}
+{"id": "rx-060", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e4d443f49ef9db22"}
+{"id": "rx-061", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "88ee9c34efa5018c"}
+{"id": "rx-062", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "47464399c70b0425"}
+{"id": "rx-063", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fdadf135c359d435"}
+{"id": "rx-064", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "847396763cf85f2b"}
+{"id": "rx-065", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8a0805a00069c0ca"}
+{"id": "rx-066", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c02c45e17c814abd"}
+{"id": "rx-067", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ac716e113bad8cc9"}
+{"id": "rx-068", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e7e20507211d39e0"}
+{"id": "rx-069", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1b53211a42275ad2"}
+{"id": "rx-070", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "05253fd1185eea29"}
+{"id": "rx-071", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f2adceb9d0ad59cd"}
+{"id": "rx-072", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "16adab313899e312"}
+{"id": "rx-073", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4c5feb4fda8a0a50"}
+{"id": "rx-074", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f7495717c3339975"}
+{"id": "rx-075", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a8708a5d655a2bc5"}
+{"id": "rx-076", "verdict": "edit", "edited_text": "Добре запитання, відповім поза грою.\n\nЯкщо слідчий за одну перевірку Розсудливості (Sanity) втрачає 5 або більше пунктів, гравець одразу кидає перевірку Інтелекту (INT) [R1]. Тут усе навпаки, ніж зазвичай: успіх — це погана новина. Персонаж повністю усвідомлює, що саме побачив, і стає тимчасово божевільним на 1D10 годин ігрового часу. Якщо ж кидок Інтелекту провалено, розум просто відмовляється сприймати жах: персонаж лишається при тямі, але може витіснити спогад про побачене [R1].\n\nТобто велика разова втрата не означає божевілля автоматично: усе вирішує кидок Інтелекту, і результат цього кидка вирішують кубики, а не я.\n\nА тим часом Савіцький досі стоїть перед вами з тремтячими руками, і з підвалу знову долинає дзенькіт скла. Що ви робите?", "note": "LLM review (Claude); Keeper should not mention 'the code' to the player; say the dice decide", "target_hash": "ada07db54d019ec2"}
+{"id": "rx-077", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ea926dca2f1bae9b"}
+{"id": "rx-078", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "62a97179b0924fc4"}
+{"id": "rx-079", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "08c07ea3eee9549e"}
+{"id": "rx-080", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "095b0e7eed8eb542"}
+{"id": "rx-081", "verdict": "edit", "edited_text": "Поза грою: бонусний кубик дають обставини, що допомагають дії, — сама складність перевірки від цього не змінюється. За кожен бонусний кубик ви кидаєте додатковий кубик десятків і залишаєте найменший результат десятків. Кубик одиниць кидається лише один раз і спільний для всіх кубиків десятків [R2]. Тобто з одним бонусним кубиком на столі два кубики десятків і один одиниць. Після взаємного скасування зі штрафними кидок ніколи не має більше двох бонусних кубиків [R2].\n\nА в аптеці Савіцький досі чекає на ваше слово, і з-під підлоги долинає ледь чутний дзенькіт скла. Що ви робите?", "note": "LLM review (Claude); euphony: «з штрафними» -> «зі штрафними»", "target_hash": "9567b1e439478278"}
+{"id": "rx-082", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f3eeb4b2b65018a8"}
+{"id": "rx-083-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2d2c1e4d7b6ad35c"}
+{"id": "rx-083-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "190b31a455c0af3a"}
+{"id": "rx-084", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b9018ee48e1462e2"}
+{"id": "rx-085", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "32de48cbd0ea131b"}
+{"id": "rx-086", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "53ed26dba91d6bda"}
+{"id": "rx-087", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "743af43ecb3730c3"}
+{"id": "rx-088", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "29d851596c74719f"}
+{"id": "rx-089", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ac87c7ad8d08c990"}
+{"id": "rx-090", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2a75fc2f14543081"}
+{"id": "rx-091", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a5cddadd38e21029"}
+{"id": "rx-092", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6ffdca8cb4775dcc"}
+{"id": "rx-093", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cecb0d9ffd8a9dcc"}
+{"id": "rx-094", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "90ae5b3f357093a6"}
+{"id": "rx-095", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fd99cd6c9980a16c"}
+{"id": "rx-096", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d592f123d3ff09d0"}
+{"id": "rx-097", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8745f41685a01b46"}
+{"id": "rx-098", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cf4349ca1ae40e4e"}
+{"id": "rx-099", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a24d85ff475ef504"}
+{"id": "rx-100", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ee49d2b6027d05ee"}
+{"id": "rx-101", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "545c0b1ca7997825"}
+{"id": "rx-102", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "48789dea3c199de7"}
+{"id": "rx-103", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "183d4e964e94d0e8"}
+{"id": "rx-104", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "729023ef121fc11c"}
+{"id": "rx-105", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "67e6e03d5d4c0eba"}
+{"id": "rx-106", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "84ec618d09d4f914"}
+{"id": "rx-107", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "270828fdd8322dc5"}
+{"id": "rx-108", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8df15ae86f5244bb"}
+{"id": "rx-109", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3e2b1706afde9f56"}
+{"id": "rx-110", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e3bf9549ca190247"}
+{"id": "rx-111", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "18a96a0db32b7da0"}
+{"id": "rx-112", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9b8dae1b30ca53cb"}
+{"id": "rx-113", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bf0e9359699a3361"}
+{"id": "rx-114", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7146edd47ab45fb4"}
+{"id": "rx-115", "verdict": "edit", "edited_text": "Поза грою: місто справжнє, а історія вигадана. Львів 1927 року тут показаний якомога ближче до історичного: кам'яниці, газові ліхтарі, державна поліція, кілька мов на вулицях. Проте аптека «Під Білим Пеліканом», провізор Савіцький та все, що з ними відбувається, — вигадка для цієї гри, а не реальні люди чи події.\n\nПовертаймося до аптеки: Савіцький чекає на ваше слово. Що ви робите?", "note": "LLM review (Claude); 1927 Lviv police was the State Police (KB / keeper notes), not municipal", "target_hash": "fec0433e9fc4ef88"}
+{"id": "rx-116", "verdict": "edit", "edited_text": "Дякую, приємно чути! Кілька порад. Дійте з того, що знає Ганна, а не ви: вона дільнична лікарка, тож природно оглядає людей, нюхає ліки, питає про симптоми, пульс і сон. А от про надприродне вона думатиме в останню чергу, поки не побачить щось, чого медицина не пояснює. Якщо ви як гравець щось підозрюєте, дайте Ганні знайти до цього підставу в грі. І не бійтеся помилок: лікарка, що чіпляється за раціональне пояснення, — це чудова драма.\n\nТож Савіцький перед вами, а синій флакон на полиці. Що робить Ганна?", "note": "LLM review (Claude); meta advice names ghosts, i.e. the true threat (rule 5); generalised", "target_hash": "5c97db3307a4ad7e"}
+{"id": "rx-117-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5fa7fe7fbbadc990"}
+{"id": "rx-117-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "43476b24ef8ff70c"}
+{"id": "rx-118", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f1089db85641e634"}
+{"id": "rx-119", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "265edd80fcd2dad5"}
+{"id": "rx-120", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a74d0b9098eb6150"}
+{"id": "rx-121", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "013e57c960d52e62"}
+{"id": "rx-122", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "32b6394d5dcec6a6"}
+{"id": "rx-123", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fead745a566a7802"}
+{"id": "rx-124", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a2295d9416bf83ef"}
+{"id": "rx-125", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "33b67bfa5cbe3fa9"}
+{"id": "rx-126", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f8b2af8a1c62b4a2"}
+{"id": "rx-127", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8ef23e83d93fc042"}
+{"id": "rx-128", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "5171f9ee4d4c6cc7"}
+{"id": "rx-129", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "17b059256051c002"}
+{"id": "rx-130", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "75a9dc007cff7912"}
+{"id": "rx-131", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b1dfd296f9538be6"}
+{"id": "rx-132", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a811c4f74d19e109"}
+{"id": "rx-133", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "43c531860b7fb47c"}
+{"id": "rx-134", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9453aa92be9d12c2"}
+{"id": "rx-135", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "68cfbc314758d043"}
+{"id": "rx-136", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "091eae24a9c14e18"}
+{"id": "rx-137", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "eac853b4114a56f1"}
+{"id": "rx-138", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1928fc423c338a8f"}
+{"id": "rx-139", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fd722fca567e45a8"}
+{"id": "rx-140-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "aa90d059d11963ab"}
+{"id": "rx-140-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2798694b62adcc9b"}
+{"id": "rx-141", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "48eae50d0cb226fa"}
+{"id": "rx-142", "verdict": "edit", "edited_text": "Ви гортаєте далі, і раптом безлад розпливлого чорнила складається у вас перед очима, ніби хтось підкрутив лінзу. Скорочення старої аптекарської школи, знайомі ще з університету: Digitalis, extractum; Papaver, decoctum; Syrupus simplex. Ви бачите не просто склад, а сам задум. Автор шукав ліки, що заспокоюють серце й дають сон, і крок за кроком додавав наперстянки, щоб посилити дію. Пропорція, на якій він зупинився, не значиться в жодній сучасній фармакопеї, і ви бачите чому: одна доза заспокоює, друга сповільнює серце, а третя здатна його зупинити. Помилка не в пропорції сиропу, а в самій думці, що більше означає краще.\n\nНа полях, поряд із останньою версією рецепта, іншою рукою поспіхом виведено письмо праворуч наліво. Його ви прочитати не можете. Холод від підлоги піднімається вам до колін.\n\n🎲 Фармацевтика (Science (Pharmacy)), складна перевірка через розпливле чорнило: 1 — критичний успіх [R2].\n\nЩо ви робите?", "note": "LLM review (Claude); present tense «хтось ... виводить» implied someone writing right now (unrolled event); mechanical post-review fix (dice-line order / wording)", "target_hash": "a8da04990b16f03c"}
+{"id": "rx-143", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "accad488d461e237"}
+{"id": "rx-144", "verdict": "edit", "edited_text": "Ви ставите синій флакон на стіл перед сержантом. Дудек спершу кривиться, але флакон цілком реальний, і ваше пояснення звучить не як здогадка, а як висновок лікаря. Він бере флакон, крутить його проти світла, нюхає корок і кривиться ще дужче.\n\n«Наперстянка, кажете? Це ж... серцеві ліки?» Ви бачите, як у його голові складається щось нове: отрута не з аптекарської шафи, а з чийогось старого рецепта. Він довго мовчить, барабанить пальцями по протоколу.\n\n«Гаразд, — нарешті каже він неохоче. — Арешт почекає. Кілька днів, не більше, і то лише тому, що ви лікарка й принесли доказ. Флакон лишається тут, у протоколі. А якщо небіжчиків племінник знову прийде, я скажу йому, що слідство триває». Він підводиться й відчиняє вам двері.\n\n🎲 Переконання (Persuade), складна перевірка з бонусним кубиком: 13 — складний успіх.\n\nЩо ви робите?", "note": "LLM review (Claude); «склянка» (drinking glass) used for the bottle", "target_hash": "8aacf913bc324247"}
+{"id": "rx-145", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7d16ec22655809d9"}
+{"id": "rx-146", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "000fa55e081fe5ce"}
+{"id": "rx-147", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a041da9deb29fd13"}
+{"id": "rx-148", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e22c43c39116e727"}
+{"id": "rx-149", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "452bd564e29c4b6b"}
+{"id": "rx-150", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "6de7f2029bd48683"}
+{"id": "rx-151", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5c9a106c38232aa3"}
+{"id": "rx-152", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2b3b2ef7d525eca7"}
+{"id": "rx-153", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "44bbc9427d42d896"}
+{"id": "rx-154", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ab7bf29f85200d76"}
+{"id": "rx-155", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "625f1b6b119c565f"}
+{"id": "rx-156", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7732ea5be919ab02"}
+{"id": "ry-001-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "e11a80f128d2ddfe"}
+{"id": "ry-001-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "0ab4b9c6feaeb154"}
+{"id": "ry-002", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "f73adb87940eb159"}
+{"id": "ry-003", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "496a294bf1b7733e"}
+{"id": "ry-004", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5b283185404a0c1b"}
+{"id": "ry-005", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "65c939233e6a3552"}
+{"id": "ry-006", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "f84badfc0a0ebc81"}
+{"id": "ry-007", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "df9a8ce7b2ef5726"}
+{"id": "ry-008", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "28b41a70c2a660ad"}
+{"id": "ry-009", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5222a50ae59c2341"}
+{"id": "ry-010", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ab0fa83ff165049c"}
+{"id": "ry-011", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "9aec498ff475b24c"}
+{"id": "ry-012", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "453385f03c8bb383"}
+{"id": "ry-013", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5d8962015b1ad580"}
+{"id": "ry-014", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "d354f23972448144"}
+{"id": "ry-015", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "eb4f654141c30449"}
+{"id": "ry-016", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "32eec2fae922c723"}
+{"id": "ry-017", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "ad9a02a1670d0c29"}
+{"id": "ry-018", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "fc1cadd3bbdbc017"}
+{"id": "ry-019", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "f652b473c7d59460"}
+{"id": "ry-020", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "36f24bdf73ec706c"}
+{"id": "ry-021", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "8fd593f94e24e4b0"}
+{"id": "ry-022", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "787b3b94e87f51fd"}
+{"id": "ry-023", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "d4aa3588cb2df07c"}
+{"id": "ry-024", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "36902e1b960ed1c1"}
+{"id": "ry-025", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "7cf60c8547446841"}
+{"id": "ry-026", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "60f65f33b7ae93f2"}
+{"id": "ry-027", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4e6c89d16529317e"}
+{"id": "ry-028", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "93844a1710ecbbb0"}
+{"id": "ry-029", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "8741eeff9060891e"}
+{"id": "ry-030", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "4ba25cb18af0a1bb"}
+{"id": "ry-031", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5358cbba1b6cac0e"}
+{"id": "ry-032", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "461f176f7cc3801f"}
+{"id": "ry-033", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "50c32a350d35cb8d"}
+{"id": "ry-034", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "91556fc4149f39f1"}
+{"id": "ry-035", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "27cd82140088e711"}
+{"id": "ry-036", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "8a2628912a0a4ae9"}
+{"id": "ry-037-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "507be723c1481109"}
+{"id": "ry-037-uk", "verdict": "edit", "edited_text": "Пан Врона стоїть до вас спиною, притиснувши трубку до вуха, і кричить у тріскучу лінію про запізнений вугільний потяг. Ви тихо заходите за його стіл.\n\nСтіл чесний, дубовий, у пропалинах від цигарок. У шухлядах — штемпелі, чисті бланки, порошки від печії й фотографія повної жінки з двома хлопчиками. Ви пробігаєте пальцями по кожному стику, простукуєте дно: ані подвійного дна, ані схованки. Цей чоловік, схоже, справді нічого не ховає у своєму столі. Шафа з картотекою така сама: тугі шухляди, напхані циркулярами дирекції залізниць.\n\nТа коли ви присідаєте, щоб глянути під шафу, в пилюці за задніми ніжками біліють папірці. Два бланки руху вагонів, зім'яті, ніби зісковзнули з шафи й ніхто їх не шукав. Обидва — про вагон, переведений уночі на глуху колію: один у вівторок, другий у п'ятницю. Графа накладної порожня. А в кутку кожного — акуратні ініціали олівцем: L.S. Той самий почерк, той самий нахил.\n\nЗа спиною пан Врона каже: «Так, так, тоді завтра», — і вішає трубку.\n\n🎲 Пильність (Spot Hidden): 7 — екстремальний успіх [R2].\n\nЩо ви робите?", "note": "LLM review (Claude); Russianisms: «состав» -> «потяг», «не хватився» -> «не шукав», «зі шафи» -> «з шафи».; mechanical post-review fix (dice-line order / wording)", "target_hash": "7dceff45c4dd6825"}
+{"id": "ry-038", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "e0dbe66eeaa428a7"}
+{"id": "ry-039", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "9e9c52d06e8bcb98"}
+{"id": "ry-040", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "0b196da48f1104d5"}
+{"id": "ry-041", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "c2174ca3ed259478"}
+{"id": "ry-042", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "150b0bbbeb7b899e"}
+{"id": "ry-043", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "39b4a37183cf1af2"}
+{"id": "ry-044", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "475aa85d1a40b326"}
+{"id": "ry-045", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "8002c947d4562bed"}
+{"id": "ry-046", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "43ac19d0f79a2d6a"}
+{"id": "ry-047", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "0b22018f2cf97364"}
+{"id": "ry-048", "verdict": "edit", "edited_text": "Ви опускаєтеся на коліна просто на мокрий гравій. Марко Бойко лежить на боці, обличчя сіре, губи посиніли, з розсіченої шкіри над вухом повільно сочиться кров і стікає за комір. Дихання ледь чутне, переривчасте.\n\nРуки працюють самі, так, як навчили роки служби. Ви обережно повертаєте його голову, щоб не захлинувся, розриваєте свою хустку на смуги, складаєте подушечку й тугою пов'язкою притискаєте рану. Кров просочує першу смугу, другу — і зупиняється. Ви підкладаєте йому під голову згорнуту куртку, розстібаєте тісний комір, перевіряєте зіниці при світлі ліхтаря: однакові, реагують.\n\nЗа хвилину його дихання вирівнюється, стає глибшим і спокійнішим. Він не приходить до тями, але й не згасає. Тепер йому потрібні тепло, спокій і лікар — і він має всі шанси дожити до ранку.\n\nДесь на коліях гуде паровоз, і в тумані хтось біжить у ваш бік.\n\n🎲 Перша допомога (First Aid): 10 — екстремальний успіх; успішна Перша допомога стабілізує пораненого [R3] [R2].\n\nЩо ви робите?", "note": "LLM review (Claude); Verb form: «гудить» -> «гуде».; mechanical post-review fix (dice-line order / wording)", "target_hash": "db3e7ff4d05d4615"}
+{"id": "ry-049", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "7d5cca473042fc2f"}
+{"id": "ry-050", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "5ad4a3a77df18d8c"}
+{"id": "ry-051", "verdict": "edit", "edited_text": "Ви лежите нерухомо, затамувавши подих. У кімнаті темно, тільки вікно сіріє квадратом туману. Звук повторюється: глухий, важкий, десь там, з боку колій. Удар — тиша — удар.\n\nВи прислухаєтеся щосили, але звуки в тумані плутаються. Це може бути зчіпка вагонів, що їх перегоняють уночі. Або дерев'яні двері, які хтось розсуває й засуває. Або ж просто віконниця на вітрі, через дорогу, у сусідньому будинку. Ще один удар, тихіший, і за ним — чи то голос, чи то скрип колеса, ви не можете збагнути. А тоді й він зникає.\n\nТиша. Десь далеко гавкає собака й затихає. Годинник на стіні цокає так голосно, що здається, ніби звук іде звідти. Що це було і звідки саме — ви так і не розібрали.\n\n🎲 Слух (Listen): 74 — провал [R1].\n\nЩо ви робите?", "note": "LLM review (Claude); Rule 3: removed a sentence that decides what the investigator feels (no failed SAN roll).; mechanical post-review fix (dice-line order / wording)", "target_hash": "ad100c69d32d76f0"}
+{"id": "ry-052", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "2506af195dc9312d"}
+{"id": "ry-053", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "533b27c8410e9204"}
+{"id": "ry-054", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b5e9236858e1f0e4"}
+{"id": "ry-055", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "051138463c7c14a7"}
+{"id": "ry-056", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "f79aeef0e0bd0031"}
+{"id": "ry-057", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "0f5040eb508a3b26"}
+{"id": "ry-058", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "391a6da4671368b2"}
+{"id": "ry-059", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "209e2a3e8da8f897"}
+{"id": "ry-060", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "017cb219eb9efbcd"}
+{"id": "ry-061", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "d1c83f284facda4a"}
+{"id": "ry-062", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "af3c0bb88ddc3370"}
+{"id": "ry-063", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "77763245c94bde4e"}
+{"id": "ry-064", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "781431f6b5a0cfdf"}
+{"id": "ry-065", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "1c6729bba2f0f1b9"}
+{"id": "ry-066", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "b26ca8e30a1ddeda"}
+{"id": "ry-067", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "09880c5bb120f705"}
+{"id": "ry-068", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "679ec25ad5a9b51a"}
+{"id": "ry-069", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "df9b9a23282b5888"}
+{"id": "ry-070", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "7b2aa981e91c77eb"}
+{"id": "ry-071", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude); mechanical post-review fix (dice-line order / wording)", "target_hash": "71eeb39ee4893a42"}
+{"id": "ry-072", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "38482551b4e0f153"}
+{"id": "ry-073", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1b4ff253aeee79cb"}
+{"id": "ry-074", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ee259646c36b7046"}
+{"id": "ry-075", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a68dce60396f1bab"}
+{"id": "ry-076", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "64bf72d73f77faa5"}
+{"id": "ry-077", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bae1769063300a39"}
+{"id": "ry-078", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fffaa12533670981"}
+{"id": "ry-079", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "edc2734e27a54016"}
+{"id": "ry-080-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "37130ab26d6f0d49"}
+{"id": "ry-080-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9e8ddc2bcd54e36c"}
+{"id": "ry-081", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "37bc8f6a38782848"}
+{"id": "ry-082", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "09dfc8d977dce457"}
+{"id": "ry-083", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "779f8f6fe0070a5d"}
+{"id": "ry-084", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4c99c14558326782"}
+{"id": "ry-085", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "8ccb3a5592784745"}
+{"id": "ry-086", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "557cc77cbd4fb32a"}
+{"id": "ry-087", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "996f7c0c9050bb19"}
+{"id": "ry-088", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f9c3ceadbfd37d8a"}
+{"id": "ry-089", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "cf4f7e78a5df01f7"}
+{"id": "ry-090", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f58b3c5f345b6ab2"}
+{"id": "ry-091", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "505c0989b080e184"}
+{"id": "ry-092", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "95c618259305ba1b"}
+{"id": "ry-093", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a1fde52fab43a4d6"}
+{"id": "ry-094", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e326d1fd7e23e290"}
+{"id": "ry-095", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "047172fd7469e095"}
+{"id": "ry-096", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ac475d5975628ec3"}
+{"id": "ry-097", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bb6c6d58e1df82e2"}
+{"id": "ry-098", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "926504b29f118921"}
+{"id": "ry-099", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "796e9599fec92a53"}
+{"id": "ry-100", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "f3524e6ad94937d4"}
+{"id": "ry-101", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fa05d5304f151c10"}
+{"id": "ry-102", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "445f37790207f317"}
+{"id": "ry-103", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bb390cdd087cc943"}
+{"id": "ry-104", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "24f22be1dfad6252"}
+{"id": "ry-105", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2cee927d351f4a65"}
+{"id": "ry-106", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b8764151f0bfdeda"}
+{"id": "ry-107", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "fd99817e20cb0052"}
+{"id": "ry-108", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4febe9027b018226"}
+{"id": "ry-109", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e8f5f78bcc337188"}
+{"id": "ry-110-en", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "9d38661fa4179d85"}
+{"id": "ry-110-uk", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "533da93d74e255bb"}
+{"id": "ry-111", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "606c211e781ef72e"}
+{"id": "ry-112", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d0f23d85795e7a4d"}
+{"id": "ry-113", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "70435211b4f83f79"}
+{"id": "ry-114", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "4d00871126d0a7e3"}
+{"id": "ry-115", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2fd32ef0c2fa7266"}
+{"id": "ry-116", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3e0a2fc0484eddd7"}
+{"id": "ry-117", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "412ffde94abd0267"}
+{"id": "ry-118", "verdict": "edit", "edited_text": "Серйозне поранення (Major Wound) — це один удар, який завдає шкоди, рівної половині максимальних хіт-пойнтів персонажа або більшої. Після нього персонаж мусить одразу пройти кидок Витривалості (CON), інакше втрачає свідомість [R1]. Важливо, що рахується саме один удар, а не сума кількох.\n\nА тепер повернімося на станцію: пан Врона досі стоїть біля диспетчерської й чекає вашого рішення. Що ви робите?", "note": "LLM review (Claude); Inconsistent characteristic name: CON is «Витривалість» elsewhere («Статура» reads as SIZ).", "target_hash": "9e73ea969a53b59c"}
+{"id": "ry-119", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a1f8e48465b6ffc0"}
+{"id": "ry-120", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d1b60a25cc25b8f3"}
+{"id": "ry-121", "verdict": "edit", "edited_text": "Тоді персонаж помирає. Наприкінці кожного наступного раунду він мусить пройти кидок Витривалості (CON), інакше гине. Урятувати його можна успішною Першою допомогою (First Aid): вона стабілізує того, хто помирає [R2]. Тож у такій ситуації час іде на раунди, і хтось має якомога швидше взятися до перев'язки.\n\nПовернімося до сцени: пан Врона все ще стоїть біля диспетчерської з потертою течкою в руках. Що ви робите?", "note": "LLM review (Claude); Inconsistent characteristic name: CON is «Витривалість» elsewhere («Статура» reads as SIZ).", "target_hash": "5a81363dc2c40a60"}
+{"id": "ry-122", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "59033c3878452a9a"}
+{"id": "ry-123", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "3d3e4f30f733f3c6"}
+{"id": "ry-124", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b0c7c0f3e3a3afb1"}
+{"id": "ry-125", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "83ca76f4edd87b05"}
+{"id": "ry-126", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "33ae99865d729bd9"}
+{"id": "ry-127", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "281e689ff6aecdac"}
+{"id": "ry-128", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "2ed0fd374ef6a04b"}
+{"id": "ry-129", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "87dc2d2b642af281"}
+{"id": "ry-130", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "201b85c4a21cba7c"}
+{"id": "ry-131", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "78edc7c1ef3a4e61"}
+{"id": "ry-132", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ab61ef96a6b2534d"}
+{"id": "ry-133", "verdict": "edit", "edited_text": "У базі знань немає потрібного правила, тож це рішення Хранителя: так, одразу після важкого поранення треба пройти кидок Витривалості (CON). Якщо він провалений, персонаж втрачає свідомість. Якщо вдалий, він лишається на ногах, хоча й тяжко поранений, і йому варто якомога швидше отримати допомогу.\n\nА тепер повернімося на станцію: пан Врона досі чекає біля диспетчерської. Що ви робите?", "note": "LLM review (Claude); Inconsistent characteristic name: CON is «Витривалість» elsewhere («Статура» reads as SIZ).", "target_hash": "6992b3cd7d039690"}
+{"id": "ry-134", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b8dd3db638fb8486"}
+{"id": "ry-135", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "c06265e1d164b97c"}
+{"id": "ry-136", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "119266aeee38ffd9"}
+{"id": "ry-137", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "a98e31e7fb417812"}
+{"id": "ry-138", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "d3e9a01ca6775b3e"}
+{"id": "ry-139", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "ef1efd2eae661c14"}
+{"id": "ry-140", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "1253276fe04a7901"}
+{"id": "ry-141", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "bc08f91d4551b7ab"}
+{"id": "ry-142", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "29bb64f44ec6bd45"}
+{"id": "ry-143", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "07ade44a0fcac5ab"}
+{"id": "ry-144", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b97d1c6f0def1b98"}
+{"id": "ry-145", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "b4437165cb6acc14"}
+{"id": "ry-146", "verdict": "accept", "edited_text": null, "note": "LLM review (Claude)", "target_hash": "e68743a0c1ba92cd"}

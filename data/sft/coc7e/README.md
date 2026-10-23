@@ -88,3 +88,20 @@ the training data (it favours "Keeper ruling" over a confident guess), not as a 
 `manifest.json` has `files.<name>.sha256` (what `training/train_unsloth.py` verifies) plus the prompt hash (`keeper-v2`),
 split file hash, gold-file hashes, git sha and `git_dirty`, source file hashes, counts by kind / RAG / language / KB
 mode, review counts, `partial` + `missing_targets`, the narration-length distribution and the token estimate.
+
+## Review of v1 (2026-10-23)
+
+- Targets were authored by Claude agents from the frozen briefs; every target passes the lints above.
+- **Review:** all 617 examples were reviewed by four further Claude agents that did not author them (one per
+  scenario), against the keeper-v2 rules, the scenario keeper notes, the rolls and the ORACLE / DISTRACTOR passages.
+  Result: 574 accept, 43 edit (language, small factual slips against the notes, the Keeper deciding what an
+  investigator says or feels), 0 reject. Verdicts, edited texts and reasons: `review-v1.csv`; applied verdicts:
+  `reviews.v1.jsonl` (every note starts with "LLM review (Claude)"). This is an LLM review, not a human one; the
+  author approves the list of edits — record the approval here.
+- **Mechanical post-review fixes** (carried over with the verdicts, noted in each affected row): the 🎲 line moved
+  before the closing question in 132 targets (keeper-v2 FORMAT; now enforced by the `dice-line` lint), «кастелянка»
+  → «доглядачка» (seeds and targets), one spelling of the NPC Юзеф Павлак, one Ukrainian label per skill on the
+  dice line.
+- Known residual variation the lints cannot see: small invented details that differ between examples of the same
+  scenario (where a key hangs, what a label says), and two names for indefinite insanity («безстрокове» /
+  «тривале»).
