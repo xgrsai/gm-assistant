@@ -15,7 +15,7 @@ AI Game Master (Keeper) for tabletop RPGs; practical part of the author's master
 - `src/backend/evals` — evaluation harness (methodology: `docs/evaluation.md`).
   - `datasets.py` schemas + validator for `data/eval/coc7e/*.v1.jsonl` (gold retrieval labels are SECTIONS, not chunk ids); `experiment.py` eval YAMLs in `evals/experiments/`; `harness.py` runs the production graph/nodes (`forced_hits`, `forced_kind` inputs; shared helpers `search_query`/`adjudicate_turn` in `keeper/nodes.py`); `judge.py` + `evals/prompts/`; `metrics.py` report; `stats.py` (no scipy); `calibrate.py` human-label κ; `review.py` + `review_page.html` build the gold-data review page (`artifacts/review/`, verdicts exported as JSON, `--summary`).
   - Frozen RAG contexts (critique C7) cached in `artifacts/eval/contexts/`, keyed by aux + analyze prompt + retrieval spec + query mode (`analyze` uses the aux LLM, `question_en` uses none). Runs in `artifacts/eval/runs/<name>/` are resumable and bound to a fingerprint that ignores judge and cell selection (limits, tasks, query modes, languages, conditions).
-  - Gold data v1 is AI-drafted: the author must review it before thesis runs.
+  - Gold data v1 was reviewed (2026-10-10, LLM pass approved by the author; verdicts in `data/eval/coc7e/review-v1.json`); it is frozen once its hashes are recorded in a thesis run config.
 - `src/frontend` — React 18 + Vite 5 + Tailwind 3; `/api` via the Vite proxy (`src/api/`); citations rendered by a remark plugin (`src/markdown/citations.js`, `components/Citations.jsx`).
 - Run natively: `cd src/backend; uv run uvicorn server.main:app --reload` and `cd src/frontend; npm run dev`. Tests: `uv run pytest` (in-memory Qdrant + fake models), lint: `uv run ruff check .`.
 - Gemini: `gemini-3.8-flash` works; thinking level `minimal` is rejected (use `low`). The author's key is free tier with a low per-minute quota and occasional 503 "high demand" — avoid bursts of live calls.
@@ -23,7 +23,11 @@ AI Game Master (Keeper) for tabletop RPGs; practical part of the author's master
 
 ## Roadmap
 
-Plan: `docs/final-architecture.md`; corrections to apply: `docs/critique.md`. Phase 3 harness is built; open items: human review of gold data, full `phase3-gemini` run (≈1000 Gemini calls, exceeds the free daily quota — spread over days or use a paid key), judge calibration, adopting the calibrated `min_score` as a new arm. Next: Phase 4 LoRA fine-tuning (Colab/Kaggle), Phase 5 full matrix and ablations (bge-m3, hybrid BM25, chunk sizes).
+Plan: `docs/final-architecture.md`; corrections to apply: `docs/critique.md`. Phase 3 harness is built; open items: freeze the reviewed gold data (record hashes in a run), full `phase3-gemini` run (≈1000 Gemini calls, exceeds the free daily quota — spread over days or use a paid key), judge calibration, adopting the calibrated `min_score` as a new arm. Next: Phase 4 LoRA fine-tuning (Colab/Kaggle), Phase 5 full matrix and ablations (bge-m3, hybrid BM25, chunk sizes).
+
+## Agents
+
+`.claude/agents/`: `planner` (read-only plan), `implementer` (one approved step, no commits), `reviewer` (read-only, runs offline checks). The `/orchestrate <task>` skill runs them from the main session (subagents cannot start subagents): plan → author approval → implement step by step → review (≤2 fix rounds) → checks → commit only when asked.
 
 ## Rules
 
