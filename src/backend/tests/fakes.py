@@ -6,11 +6,13 @@ import hashlib
 import math
 import re
 from collections.abc import Iterator
+from typing import Any
 
 from langchain_core.embeddings import Embeddings
 from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda
+from pydantic import Field
 
 from keeper.llm import ModelProfile
 
@@ -30,6 +32,17 @@ class Script(Iterator):
         return AIMessage(content=item)
 
 
+class RecordingChat(GenericFakeChatModel):
+    """Fake chat model that appends every input message list to `seen` (shared with the factory)."""
+
+    seen: Any = Field(default_factory=list)  # Any: pydantic would copy a list-typed field
+
+    # GenericFakeChatModel streams through _generate, so recording here covers invoke and stream once each.
+    def _generate(self, messages, *args, **kwargs):
+        self.seen.append(list(messages))
+        return super()._generate(messages, *args, **kwargs)
+
+
 class FakeFactory:
     def __init__(self, narrations: list | None = None, adjudications: list | None = None,
                  queries: list | None = None):
@@ -37,13 +50,14 @@ class FakeFactory:
         self.adjudications = list(adjudications or [])
         self.queries = list(queries or [])
         self.structured_calls: list = []
+        self.chat_inputs: list = []  # message lists the narrator model received, one per call
         self.responders: dict = {}  # schema name -> callable(messages) -> dict, takes precedence over the lists
 
     def profile(self, name: str) -> ModelProfile:
         return ModelProfile(provider="google_genai", model=f"fake-{name}", max_tokens=1024, context_window=32768)
 
     def chat(self, name: str, *, seed: int | None = None) -> GenericFakeChatModel:
-        return GenericFakeChatModel(messages=self.narrations)
+        return RecordingChat(messages=self.narrations, seen=self.chat_inputs)
 
     def structured(self, name: str, schema, *, seed: int | None = None):
         def call(messages):

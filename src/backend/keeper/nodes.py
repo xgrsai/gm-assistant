@@ -6,8 +6,9 @@ Prompt-only arms skip analyze/retrieve. The LLM decides what to roll and how to 
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from functools import partial
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import AIMessage, AnyMessage, HumanMessage, SystemMessage
@@ -18,7 +19,9 @@ from pydantic import BaseModel, Field, ValidationError
 
 from . import citations
 from .game.coc7e import rules
-from .spec import KeeperContext
+from .llm import ModelProfile
+from .prompts import PromptSet
+from .spec import ExperimentSpec, KeeperContext
 from .state import KeeperState
 
 if TYPE_CHECKING:
@@ -129,6 +132,39 @@ async def adjudicate_turn(deps: Deps, spec, scenario: dict, investigator: dict, 
     return data, []
 
 
+def narrate_messages(prompts: PromptSet, profile: ModelProfile, spec: ExperimentSpec,
+                     state: Mapping[str, Any]) -> list[AnyMessage]:
+    """The exact message list the narrator model receives: system prompt followed by the trimmed history.
+
+    Used by the `narrate` node and by the SFT builder, so training examples are rendered as they are served.
+    `profile` is the generator's ModelProfile (its window and output budget size the history); `state` needs
+    `scenario`, `investigator` and `messages` (ending with a player turn), and optionally `adjudication`,
+    `turn_rolls`, `errors` and `rules_hits`. Raises ValueError if trimming leaves no player turn last.
+    """
+    scenario = state["scenario"]
+    language = scenario.get("language", "uk")
+    system = prompts.render(
+        spec.prompt_version,
+        scenario=scenario,
+        language_name=LANGUAGE_NAMES.get(language, "the player's language"),
+        sheet=rules.public_sheet(state["investigator"]),
+        adjudication=state.get("adjudication"),
+        rolls=state.get("turn_rolls") or [],
+        errors=state.get("errors") or [],
+        use_rag=spec.use_rag,
+        rules_hits=state.get("rules_hits") or [],
+    )
+    counter = partial(count_tokens_approximately, chars_per_token=CHARS_PER_TOKEN.get(language, 3.0))
+    system_tokens = counter([SystemMessage(system)])
+    # Floor: a maximal 4000-character player message must always fit, or trimming would drop it.
+    budget = max(2_000, min(spec.history_max_tokens,
+                            profile.context_window - system_tokens - profile.max_tokens - 256))
+    history = trim_messages(state["messages"], strategy="last", token_counter=counter, max_tokens=budget,
+                            start_on="human", include_system=False)
+    assert_ends_with_human(history)
+    return [SystemMessage(system), *history]
+
+
 class Nodes:
     def __init__(self, deps: Deps):
         self.d = deps
@@ -194,30 +230,10 @@ class Nodes:
     async def narrate(self, state: KeeperState, runtime: Runtime[KeeperContext]) -> dict:
         runtime.stream_writer({"type": "progress", "payload": {"node": "narrate"}})
         spec = runtime.context.spec
-        scenario = state["scenario"]
-        language = scenario.get("language", "uk")
-        system = self.d.prompts.render(
-            spec.prompt_version,
-            scenario=scenario,
-            language_name=LANGUAGE_NAMES.get(language, "the player's language"),
-            sheet=rules.public_sheet(state["investigator"]),
-            adjudication=state.get("adjudication"),
-            rolls=state.get("turn_rolls") or [],
-            errors=state.get("errors") or [],
-            use_rag=spec.use_rag,
-            rules_hits=state.get("rules_hits") or [],
-        )
         profile = self.d.llms.profile(spec.generator)
-        counter = partial(count_tokens_approximately, chars_per_token=CHARS_PER_TOKEN.get(language, 3.0))
-        system_tokens = counter([SystemMessage(system)])
-        # Floor: a maximal 4000-character player message must always fit, or trimming would drop it.
-        budget = max(2_000, min(spec.history_max_tokens,
-                                profile.context_window - system_tokens - profile.max_tokens - 256))
-        history = trim_messages(state["messages"], strategy="last", token_counter=counter, max_tokens=budget,
-                                start_on="human", include_system=False)
-        assert_ends_with_human(history)
+        messages = narrate_messages(self.d.prompts, profile, spec, state)
         llm = self.d.llms.chat(spec.generator, seed=spec.seed)
-        msg = await llm.ainvoke([SystemMessage(system), *history])
+        msg = await llm.ainvoke(messages)
         if not msg.text.strip():
             raise EmptyGeneration(str(msg.response_metadata.get("finish_reason")))
         update: dict = {"messages": [msg]}  # the original message object keeps Gemini thought signatures
