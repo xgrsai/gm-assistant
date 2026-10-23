@@ -97,7 +97,7 @@ mode, review counts, `partial` + `missing_targets`, the narration-length distrib
   Result: 574 accept, 43 edit (language, small factual slips against the notes, the Keeper deciding what an
   investigator says or feels), 0 reject. Verdicts, edited texts and reasons: `review-v1.csv`; applied verdicts:
   `reviews.v1.jsonl` (every note starts with "LLM review (Claude)"). This is an LLM review, not a human one; the
-  author approves the list of edits — record the approval here.
+  author approved its result on 2026-10-23 (Yevhen Oleksyshyn).
 - **Mechanical post-review fixes** (carried over with the verdicts, noted in each affected row): the 🎲 line moved
   before the closing question in 132 targets (keeper-v2 FORMAT; now enforced by the `dice-line` lint), «кастелянка»
   → «доглядачка» (seeds and targets), one spelling of the NPC Юзеф Павлак, one Ukrainian label per skill on the
