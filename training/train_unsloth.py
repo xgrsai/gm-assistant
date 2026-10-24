@@ -80,8 +80,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--save-steps", type=int, default=50)
     p.add_argument("--resume", action="store_true", help="continue from the latest checkpoint in <out>/checkpoints")
     p.add_argument("--check-data", action="store_true", help="run the data gates (steps 1-2) and exit")
-    p.add_argument("--skip-memory-probe", action="store_true",
-                   help="do not run one training step on the longest example before training")
+    p.add_argument("--memory-probe", action="store_true",
+                   help="before training, run one step on the longest example and report peak GPU memory (diagnostic)")
     p.add_argument("--llama-cpp-dir", type=Path, help="llama.cpp checkout: also convert the adapter to GGUF")
     return p.parse_args(argv)
 
@@ -206,10 +206,16 @@ def memory_probe(model, trainer, train_lens: list[int], torch) -> dict:
     batch = trainer.data_collator([trainer.train_dataset[longest]])
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
+    oom = False
     try:
         loss = trainer.training_step(model, batch)
     except torch.cuda.OutOfMemoryError:
+        oom = True  # leave the except block first: its traceback keeps the failed step's tensors alive
+    if oom:
+        import gc
+
         model.zero_grad(set_to_none=True)
+        gc.collect()
         torch.cuda.empty_cache()
         sweep = memory_sweep(model, trainer, batch, torch)
         sys.exit(
@@ -246,7 +252,10 @@ def memory_sweep(model, trainer, batch: dict, torch, lengths: tuple[int, ...] = 
             out[n] = round(torch.cuda.max_memory_allocated() / 2**30, 2)
         except torch.cuda.OutOfMemoryError:
             out[n] = "OOM"
+        import gc
+
         model.zero_grad(set_to_none=True)
+        gc.collect()
         torch.cuda.empty_cache()
     return out
 
@@ -505,10 +514,12 @@ def main(argv: list[str] | None = None) -> None:
         "gates": gate_report,
     }  # fmt: skip
 
-    if args.skip_memory_probe:
-        gate_report["memory_probe"] = {"skipped": "--skip-memory-probe"}
-    else:
+    # Opt-in: the probe runs one step outside trainer.train(), where some of Unsloth's memory savings may not be
+    # active yet, so it can report OOM for a step that real training handles. The real run is the authoritative test.
+    if args.memory_probe:
         gate_report["memory_probe"] = memory_probe(model, trainer, train_lens, torch)
+    else:
+        gate_report["memory_probe"] = {"skipped": "not requested (--memory-probe)"}
     print(f"memory probe: {gate_report['memory_probe']}")
 
     result = trainer.train(resume_from_checkpoint=True if args.resume and has_checkpoints else None)
