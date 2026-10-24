@@ -28,12 +28,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import shutil
 import subprocess
 import sys
 from importlib import metadata
 from pathlib import Path
+
+# Must be set before torch initialises CUDA: fewer fragmentation OOMs on long sequences.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))  # a copy of gates.py next to this script (upload without the repo)
@@ -205,10 +209,14 @@ def memory_probe(model, trainer, train_lens: list[int], torch) -> dict:
     try:
         loss = trainer.training_step(model, batch)
     except torch.cuda.OutOfMemoryError:
+        model.zero_grad(set_to_none=True)
+        torch.cuda.empty_cache()
+        sweep = memory_sweep(model, trainer, batch, torch)
         sys.exit(
             f"OUT OF MEMORY on a real training step with the longest train example ({train_lens[longest]} tokens, "
-            "batch size 1). Peak memory depends on the real example length, not on --max-len: rebuild the data with "
-            "a smaller history budget (a new data version), then lower --r. See training/README.md."
+            f"batch size 1). Peak memory of the same step on the example's last N tokens: {sweep}. "
+            f"GPU total {torch.cuda.get_device_properties(0).total_memory / 2**30:.1f} GB. Send this line to the "
+            "maintainer; see training/README.md."
         )
     peak = torch.cuda.max_memory_allocated()
     model.zero_grad(set_to_none=True)
@@ -220,6 +228,27 @@ def memory_probe(model, trainer, train_lens: list[int], torch) -> dict:
         "max_memory_allocated_gb": round(peak / 2**30, 2),
         "gpu_total_gb": round(torch.cuda.get_device_properties(0).total_memory / 2**30, 2),
     }
+
+
+def memory_sweep(model, trainer, batch: dict, torch, lengths: tuple[int, ...] = (1024, 2048, 3072)) -> dict:
+    """Peak GB of one training step on the last N tokens of `batch` (keeps the supervised final reply): the growth
+    with N shows whether attention (quadratic) or logits/activations (linear) take the memory."""
+    seq = batch["input_ids"].shape[-1]
+    out = {}
+    for n in lengths:
+        if n >= seq:
+            continue
+        cut = {k: (v[..., -n:] if hasattr(v, "shape") and v.shape[-1] == seq else v) for k, v in batch.items()}
+        torch.cuda.empty_cache()
+        torch.cuda.reset_peak_memory_stats()
+        try:
+            trainer.training_step(model, cut)
+            out[n] = round(torch.cuda.max_memory_allocated() / 2**30, 2)
+        except torch.cuda.OutOfMemoryError:
+            out[n] = "OOM"
+        model.zero_grad(set_to_none=True)
+        torch.cuda.empty_cache()
+    return out
 
 
 # ---------------------------------------------------------------------------------------------------------------------
