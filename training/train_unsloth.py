@@ -76,6 +76,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--save-steps", type=int, default=50)
     p.add_argument("--resume", action="store_true", help="continue from the latest checkpoint in <out>/checkpoints")
     p.add_argument("--check-data", action="store_true", help="run the data gates (steps 1-2) and exit")
+    p.add_argument("--skip-memory-probe", action="store_true",
+                   help="do not run one training step on the longest example before training")
     p.add_argument("--llama-cpp-dir", type=Path, help="llama.cpp checkout: also convert the adapter to GGUF")
     return p.parse_args(argv)
 
@@ -187,25 +189,26 @@ def template_string(tokenizer) -> str:
     return template if isinstance(template, str) else json.dumps(template, sort_keys=True)
 
 
-def memory_probe(model, trainer, train_lens: list[int], use_bf16: bool, torch) -> dict:
-    """One forward + backward with labels on the LONGEST train example: peak memory depends on that length."""
+def memory_probe(model, trainer, train_lens: list[int], torch) -> dict:
+    """One real training step (trainer.training_step) on the LONGEST train example: peak memory depends on that length.
+
+    It goes through the trainer, not model(**batch): Unsloth's memory savings (chunked cross-entropy without the full
+    vocabulary logits, its gradient checkpointing, mixed precision via the accelerator) live on the trainer's path, so
+    a bare forward pass overstates the memory a real step needs by several GB.
+    """
     if not torch.cuda.is_available():
         return {"skipped": "no CUDA"}
     longest = max(range(len(train_lens)), key=train_lens.__getitem__)
     batch = trainer.data_collator([trainer.train_dataset[longest]])
-    batch = {k: v.to(model.device) for k, v in batch.items() if k in ("input_ids", "attention_mask", "labels")}
     torch.cuda.empty_cache()
     torch.cuda.reset_peak_memory_stats()
-    model.train()
     try:
-        with torch.autocast("cuda", dtype=torch.bfloat16 if use_bf16 else torch.float16):
-            loss = model(**batch).loss
-        loss.backward()
+        loss = trainer.training_step(model, batch)
     except torch.cuda.OutOfMemoryError:
         sys.exit(
-            f"OUT OF MEMORY on the longest train example ({train_lens[longest]} tokens, batch size 1). Peak memory "
-            "depends on the real example length, not on --max-len: rebuild the data with a smaller history budget "
-            "(a new data version), then lower --r. See training/README.md."
+            f"OUT OF MEMORY on a real training step with the longest train example ({train_lens[longest]} tokens, "
+            "batch size 1). Peak memory depends on the real example length, not on --max-len: rebuild the data with "
+            "a smaller history budget (a new data version), then lower --r. See training/README.md."
         )
     peak = torch.cuda.max_memory_allocated()
     model.zero_grad(set_to_none=True)
@@ -473,8 +476,11 @@ def main(argv: list[str] | None = None) -> None:
         "gates": gate_report,
     }  # fmt: skip
 
-    gate_report["memory_probe"] = memory_probe(model, trainer, train_lens, use_bf16, torch)
-    print(f"memory probe ok: {gate_report['memory_probe']}")
+    if args.skip_memory_probe:
+        gate_report["memory_probe"] = {"skipped": "--skip-memory-probe"}
+    else:
+        gate_report["memory_probe"] = memory_probe(model, trainer, train_lens, torch)
+    print(f"memory probe: {gate_report['memory_probe']}")
 
     result = trainer.train(resume_from_checkpoint=True if args.resume and has_checkpoints else None)
     final_eval = trainer.evaluate()
