@@ -1,0 +1,1225 @@
+{
+  "adapter": {
+    "dir": "adapters/keeper-qwen25-3b-sft-v1",
+    "files": {
+      "adapter/adapter_model.safetensors": {
+        "bytes": 119801528,
+        "sha256": "db74b777eda14919b1bcb14d1a0b6041a860aedbac7b3295a795d47f56204244",
+        "tensor_count": 504
+      }
+    },
+    "peft_config": {
+      "base_model_name_or_path": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+      "lora_alpha": 16,
+      "lora_dropout": 0,
+      "peft_type": "LORA",
+      "r": 16,
+      "target_modules": [
+        "v_proj",
+        "gate_proj",
+        "up_proj",
+        "q_proj",
+        "k_proj",
+        "down_proj",
+        "o_proj"
+      ]
+    },
+    "safetensors_sha256_matches_train_meta": true,
+    "saved_at_step": 140,
+    "selection": "last step (no load_best_model_at_end)",
+    "train_meta_sha256": "17f80224f147afe05fb0992575b823f2abece17b2e06a4c8e106a7729b473fb8"
+  },
+  "check_adapter": {
+    "cases": [
+      {
+        "base_stable": true,
+        "differs": true,
+        "has_roll": true,
+        "id": "ob-031",
+        "language": "uk"
+      },
+      {
+        "base_stable": true,
+        "differs": true,
+        "has_roll": false,
+        "id": "ry-117",
+        "language": "en"
+      },
+      {
+        "base_stable": true,
+        "differs": true,
+        "has_roll": true,
+        "id": "ph-092",
+        "language": "en"
+      },
+      {
+        "base_stable": true,
+        "differs": true,
+        "has_roll": true,
+        "id": "ob-016",
+        "language": "uk"
+      },
+      {
+        "base_stable": true,
+        "differs": true,
+        "has_roll": true,
+        "id": "ph-039",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ry-069",
+        "language": "en"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ob-066-en",
+        "language": "en"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": false,
+        "id": "ph-131",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "rx-005",
+        "language": "en"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": false,
+        "id": "ry-055",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "rx-127",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": false,
+        "id": "rx-076",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": false,
+        "id": "rx-106",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "rx-064",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ph-043",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ob-066-uk",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": false,
+        "id": "ph-122",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ph-014",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ph-082",
+        "language": "uk"
+      },
+      {
+        "base_stable": null,
+        "differs": true,
+        "has_roll": true,
+        "id": "ph-091",
+        "language": "uk"
+      }
+    ],
+    "created_at": "2026-10-25T13:12:49+00:00",
+    "data": {
+      "val_file": "artifacts/sft/coc7e-v1/val.jsonl",
+      "val_sha256": "9afcb61067b8f622898703b027ac3b9b307e8d8274b085b4bbadbdc1f988e595"
+    },
+    "deltas": {
+      "base_minus_reference": {
+        "chars_mean": -418.5,
+        "citation_rate": -0.35,
+        "citation_rate_when_reference_cites": -1.0,
+        "cyrillic_share_en": 0.0,
+        "cyrillic_share_uk": -0.0011,
+        "dice_line_rate_with_roll": -0.9286,
+        "dice_line_rate_without_roll": 0.0,
+        "empty": 0,
+        "truncated": 0,
+        "words_mean": -69.4,
+        "words_median": -84.5
+      },
+      "ft_minus_base": {
+        "chars_mean": 411.95,
+        "citation_rate": 0.1,
+        "citation_rate_when_reference_cites": 0.1429,
+        "cyrillic_share_en": 0.0,
+        "cyrillic_share_uk": 0.0047,
+        "dice_line_rate_with_roll": 0.7857,
+        "dice_line_rate_without_roll": 0.1667,
+        "empty": 0,
+        "truncated": 4,
+        "words_mean": 76.3,
+        "words_median": 78.5
+      },
+      "ft_minus_reference": {
+        "chars_mean": -6.55,
+        "citation_rate": -0.25,
+        "citation_rate_when_reference_cites": -0.8571,
+        "cyrillic_share_en": 0.0,
+        "cyrillic_share_uk": 0.0036,
+        "dice_line_rate_with_roll": -0.1429,
+        "dice_line_rate_without_roll": 0.1667,
+        "empty": 0,
+        "truncated": 4,
+        "words_mean": 6.9,
+        "words_median": -6.0
+      }
+    },
+    "elapsed_s": 807.1,
+    "gates": {
+      "determinism": {
+        "checked": 5,
+        "identical": 5,
+        "min_share": 1.0,
+        "passed": true,
+        "share": 1.0,
+        "unstable_ids": []
+      },
+      "effect": {
+        "differ": 20,
+        "min_share": 0.8,
+        "n": 20,
+        "passed": true,
+        "same_ids": [],
+        "share": 1.0
+      },
+      "parity": {
+        "compared": [
+          "base",
+          "ft"
+        ],
+        "differences": [],
+        "ignored_prefixes": [
+          "general."
+        ],
+        "official_differences": [
+          {
+            "key": "tokenizer.ggml.add_eos_token",
+            "values": {
+              "base": false,
+              "official": "<missing>"
+            }
+          },
+          {
+            "key": "tokenizer.ggml.clean_spaces",
+            "values": {
+              "base": false,
+              "official": "<missing>"
+            }
+          },
+          {
+            "key": "tokenizer.ggml.normalizer.nfc",
+            "values": {
+              "base": true,
+              "official": "<missing>"
+            }
+          }
+        ],
+        "passed": true,
+        "tensor_counts": {
+          "base": 434,
+          "ft": 434
+        },
+        "tensor_counts_equal": true,
+        "verified": true
+      },
+      "template": {
+        "equal": true,
+        "official_equal": true,
+        "passed": true,
+        "verified": true
+      },
+      "weights": {
+        "adapter_layers": false,
+        "base_blob_matches_gguf": true,
+        "blobs_distinct": true,
+        "ft_blob_matches_gguf": true,
+        "passed": true,
+        "verified": true
+      }
+    },
+    "markers": {
+      "base": {
+        "chars_mean": 338.1,
+        "citation_rate": 0.0,
+        "citation_rate_when_reference_cites": 0.0,
+        "cyrillic_share_en": 0.0,
+        "cyrillic_share_uk": 0.9784,
+        "dice_line_rate_with_roll": 0.0714,
+        "dice_line_rate_without_roll": 0.0,
+        "empty": 0,
+        "n": 20,
+        "truncated": 0,
+        "words_mean": 53.6,
+        "words_median": 39.5
+      },
+      "ft": {
+        "chars_mean": 750.05,
+        "citation_rate": 0.1,
+        "citation_rate_when_reference_cites": 0.1429,
+        "cyrillic_share_en": 0.0,
+        "cyrillic_share_uk": 0.9831,
+        "dice_line_rate_with_roll": 0.8571,
+        "dice_line_rate_without_roll": 0.1667,
+        "empty": 0,
+        "n": 20,
+        "truncated": 4,
+        "words_mean": 129.9,
+        "words_median": 118.0
+      },
+      "reference": {
+        "chars_mean": 756.6,
+        "citation_rate": 0.35,
+        "citation_rate_when_reference_cites": 1.0,
+        "cyrillic_share_en": 0.0,
+        "cyrillic_share_uk": 0.9795,
+        "dice_line_rate_with_roll": 1.0,
+        "dice_line_rate_without_roll": 0.0,
+        "empty": 0,
+        "n": 20,
+        "truncated": 0,
+        "words_mean": 123.0,
+        "words_median": 124.0
+      }
+    },
+    "passed": true,
+    "results_file": {
+      "path": "adapters/keeper-qwen25-3b-sft-v1/check_adapter.json",
+      "sha256": "f7fd00819b4a28d52501521c8769434b27277776d414c67877dcac0225d22be2"
+    },
+    "selection": {
+      "composition": {
+        "language": {
+          "en": 5,
+          "uk": 15
+        },
+        "reference_cites": 7,
+        "with_roll": 14,
+        "without_roll": 6
+      },
+      "ids": [
+        "ob-031",
+        "ry-117",
+        "ph-092",
+        "ob-016",
+        "ph-039",
+        "ry-069",
+        "ob-066-en",
+        "ph-131",
+        "rx-005",
+        "ry-055",
+        "rx-127",
+        "rx-076",
+        "rx-106",
+        "rx-064",
+        "ph-043",
+        "ob-066-uk",
+        "ph-122",
+        "ph-014",
+        "ph-082",
+        "ph-091"
+      ]
+    },
+    "settings": {
+      "base": "qwen2.5-3b-selfq4:v1",
+      "ft": "keeper-qwen25-3b:sft-v1",
+      "keep_alive": 0,
+      "min_differ": 0.8,
+      "min_stable": 1.0,
+      "n": 20,
+      "num_ctx": 16384,
+      "num_predict": 512,
+      "official": "qwen2.5:3b",
+      "parity_ignore": [
+        "general."
+      ],
+      "repeat": 5,
+      "seed": 0,
+      "selection_seed": 1927,
+      "temperature": 0
+    },
+    "status": "passed"
+  },
+  "data": {
+    "counts": {
+      "all": {
+        "examples": 617,
+        "kb_mode": {
+          "distractor_only": 122,
+          "none": 265,
+          "oracle": 230
+        },
+        "kind": {
+          "in_fiction": 433,
+          "meta": 34,
+          "rules_question": 150
+        },
+        "language": {
+          "en": 97,
+          "uk": 520
+        },
+        "use_rag": {
+          "no_rag": 243,
+          "rag": 374
+        },
+        "with_rolls": 378
+      },
+      "train": {
+        "examples": 556,
+        "kb_mode": {
+          "distractor_only": 110,
+          "none": 239,
+          "oracle": 207
+        },
+        "kind": {
+          "in_fiction": 390,
+          "meta": 31,
+          "rules_question": 135
+        },
+        "language": {
+          "en": 84,
+          "uk": 472
+        },
+        "use_rag": {
+          "no_rag": 220,
+          "rag": 336
+        },
+        "with_rolls": 343
+      },
+      "val": {
+        "examples": 61,
+        "kb_mode": {
+          "distractor_only": 12,
+          "none": 26,
+          "oracle": 23
+        },
+        "kind": {
+          "in_fiction": 43,
+          "meta": 3,
+          "rules_question": 15
+        },
+        "language": {
+          "en": 13,
+          "uk": 48
+        },
+        "use_rag": {
+          "no_rag": 23,
+          "rag": 38
+        },
+        "with_rolls": 35
+      }
+    },
+    "dataset": "coc7e-v1",
+    "git_commit": "e3edbe97f4c167f5fd24f221c5bcc580abf337c3",
+    "git_dirty": false,
+    "gold_hashes": {
+      "adjudication": "7971372f06a2ba5e",
+      "conflict_probes": "efa21b9fac487c37",
+      "rules_qa": "90b5cfa0f004974d"
+    },
+    "manifest": {
+      "file": "artifacts/sft/coc7e-v1/manifest.json",
+      "same_as_adapter_dir_copy": true,
+      "sha256": "72907dc3a4517542d7683950597179f7e6008d0e59534c95a3877aad4f631220"
+    },
+    "matches_train_meta": {
+      "train.jsonl": true,
+      "val.jsonl": true
+    },
+    "prompt": {
+      "hash": "9786cc2d29bcc606",
+      "version": "keeper-v2"
+    },
+    "sources": {
+      "inputs": {
+        "file": "data/sft/coc7e/inputs.v1.jsonl",
+        "sha256": "b2bb8cf00b139765df609ee3eb8221f140c33ac12be6db7354db2c20bbe9610a"
+      },
+      "reviews": {
+        "file": "data/sft/coc7e/reviews.v1.jsonl",
+        "sha256": "bdd946604af78108ad5db5225937fc930904c51d50adc87d956d8b2dd6562a37"
+      },
+      "targets": {
+        "file": "data/sft/coc7e/targets.v1.jsonl",
+        "sha256": "740490926e592ddb3d1f640b8e0ddd778b25c1a52ceab533eaf39954e2e53710"
+      }
+    },
+    "train": {
+      "examples": 556,
+      "sha256": "8945f0aa46b1666abe2c6e1ac46248655fd191e7fc1d3bb59343e7d2a8e2a9c1"
+    },
+    "val": {
+      "examples": 61,
+      "sha256": "9afcb61067b8f622898703b027ac3b9b307e8d8274b085b4bbadbdc1f988e595"
+    },
+    "verified_locally": [
+      "train.jsonl",
+      "val.jsonl"
+    ]
+  },
+  "generated_at": "2026-10-25T13:13:57+00:00",
+  "gguf": {
+    "base_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "base_sha256": "8b71acff3f03933a74f918fd707390f715d7ee931e813715f17a9a3d5e4e4484",
+    "files": {
+      "keeper-qwen25-3b-sft-v1.Q4_K_M.gguf": {
+        "metadata_kv_count": 31,
+        "recorded_in_gguf_meta": true,
+        "role": "ft",
+        "sha256": "701f2a989f4dae624b3597d209b504c91ab5c1cba4d764fc5651e2e86f7b416f",
+        "size": 1929902624,
+        "tensor_count": 434,
+        "version": 3
+      },
+      "qwen2.5-3b-instruct.Q4_K_M.gguf": {
+        "metadata_kv_count": 31,
+        "recorded_in_gguf_meta": true,
+        "role": "base",
+        "sha256": "8b71acff3f03933a74f918fd707390f715d7ee931e813715f17a9a3d5e4e4484",
+        "size": 1929902656,
+        "tensor_count": 434,
+        "version": 3
+      }
+    },
+    "llama_cpp_commit": "71255fefc092b0344f2acddb891388814ae961be",
+    "merge_dtype": "float16",
+    "merged_from_this_adapter": true,
+    "meta": {
+      "adapter": {
+        "config": {
+          "alpha_pattern": {},
+          "base_model_name_or_path": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+          "bias": "none",
+          "fan_in_fan_out": false,
+          "init_lora_weights": true,
+          "lora_alpha": 16,
+          "lora_dropout": 0,
+          "modules_to_save": null,
+          "peft_type": "LORA",
+          "peft_version": "0.20.0",
+          "r": 16,
+          "rank_pattern": {},
+          "scaling": 1.0,
+          "target_modules": [
+            "down_proj",
+            "gate_proj",
+            "k_proj",
+            "o_proj",
+            "q_proj",
+            "up_proj",
+            "v_proj"
+          ],
+          "task_type": "CAUSAL_LM",
+          "use_dora": false,
+          "use_rslora": false
+        },
+        "config_sha256": "0fc6d2f7cd5c26b8836d2376a270b13a6db322139cb226f837f2dc03f6616360",
+        "dir_name": "adapter",
+        "file": "adapter_model.safetensors",
+        "sha256": "db74b777eda14919b1bcb14d1a0b6041a860aedbac7b3295a795d47f56204244",
+        "size_bytes": 119801528,
+        "train_meta": {
+          "adapter_sha256": "db74b777eda14919b1bcb14d1a0b6041a860aedbac7b3295a795d47f56204244",
+          "base": {
+            "bf16": false,
+            "family": "qwen",
+            "hf_base_for_gguf": "Qwen/Qwen2.5-3B-Instruct",
+            "hf_base_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+            "id": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+            "load_in_4bit": true,
+            "revision": "2672b588848527e456d320c11926c794539f47d5"
+          },
+          "file": "train_meta.json",
+          "names_this_adapter": true,
+          "recorded_adapter_sha256": "db74b777eda14919b1bcb14d1a0b6041a860aedbac7b3295a795d47f56204244",
+          "sha256": "17f80224f147afe05fb0992575b823f2abece17b2e06a4c8e106a7729b473fb8"
+        }
+      },
+      "base": {
+        "dtype_on_disk": "bfloat16",
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "num_hidden_layers": 36,
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "trained_against": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit"
+      },
+      "code": {
+        "gates.py_sha256": "3594ed987e76f8ecb45ad5613beb7b88ceb8bbfcfdc305d48783a4f423c426ea",
+        "git": {
+          "commit": "60bb1cd2682431a04a3538e114c12f8e15cc55c8",
+          "dirty": false
+        },
+        "merge_and_quantize.py_sha256": "1eae4a40805a69992e8084e804cfb6ab35ef56ab5609f0ac5eee2701062f138d"
+      },
+      "commands": [
+        "snapshot_download('Qwen/Qwen2.5-3B-Instruct', revision='aa8e72537993ba99e69dfaafa59ed015b17504d1', allow_patterns=['*.safetensors', '*.json', '*.txt', '*.jinja'])",
+        "git init --quiet /content/llama.cpp",
+        "git -C /content/llama.cpp remote add origin https://github.com/ggml-org/llama.cpp",
+        "git -C /content/llama.cpp fetch --quiet --depth 1 origin 71255fefc092b0344f2acddb891388814ae961be",
+        "git -C /content/llama.cpp checkout --quiet --detach FETCH_HEAD",
+        "cmake -S /content/llama.cpp -B /content/llama.cpp/build -DCMAKE_BUILD_TYPE=Release -DGGML_CUDA=OFF -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_SERVER=OFF",
+        "cmake --build /content/llama.cpp/build --target llama-quantize -j 2",
+        "/usr/bin/python3 /content/llama.cpp/convert_hf_to_gguf.py /root/.cache/huggingface/hub/models--Qwen--Qwen2.5-3B-Instruct/snapshots/aa8e72537993ba99e69dfaafa59ed015b17504d1 --outfile /content/merge_work/qwen2.5-3b-instruct.f16.gguf.part --outtype f16",
+        "/content/llama.cpp/build/bin/llama-quantize /content/merge_work/qwen2.5-3b-instruct.f16.gguf /content/merge_work/qwen2.5-3b-instruct.Q4_K_M.gguf.part Q4_K_M 2",
+        "/usr/bin/python3 /content/llama.cpp/convert_hf_to_gguf.py /content/merge_work/merged --outfile /content/merge_work/keeper-qwen25-3b-sft-v1.f16.gguf.part --outtype f16",
+        "/content/llama.cpp/build/bin/llama-quantize /content/merge_work/keeper-qwen25-3b-sft-v1.f16.gguf /content/merge_work/keeper-qwen25-3b-sft-v1.Q4_K_M.gguf.part Q4_K_M 2"
+      ],
+      "environment": {
+        "host": {
+          "cpu_count": 2,
+          "gpu_used": false,
+          "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+          "ram_gb": 12.7
+        },
+        "versions": {
+          "accelerate": "1.15.0",
+          "huggingface_hub": "1.33.0",
+          "numpy": "2.1.3",
+          "peft": "0.20.0",
+          "python": "3.13.16",
+          "safetensors": "0.8.0",
+          "tokenizers": "0.23.3",
+          "torch": "2.11.0+cpu",
+          "transformers": "5.17.0"
+        }
+      },
+      "finished_at": "2026-10-25T12:29:08+00:00",
+      "kind": "merged_gguf",
+      "llama_cpp": {
+        "built_now": true,
+        "cloned_now": true,
+        "cmake_flags": [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DGGML_CUDA=OFF",
+          "-DLLAMA_CURL=OFF",
+          "-DLLAMA_BUILD_TESTS=OFF",
+          "-DLLAMA_BUILD_SERVER=OFF"
+        ],
+        "commit": "71255fefc092b0344f2acddb891388814ae961be",
+        "convert_hf_to_gguf.py_sha256": "e9a1da876330bbce9687541ab31736542a01b4ac43c6686126514a50f122fb7f",
+        "dirty": false,
+        "mismatch_waived": null,
+        "quantize_binary": "/content/llama.cpp/build/bin/llama-quantize",
+        "ref": "71255fefc092b0344f2acddb891388814ae961be",
+        "ref_matches_commit": true,
+        "url": "https://github.com/ggml-org/llama.cpp"
+      },
+      "merge": {
+        "adapter_sha256": "db74b777eda14919b1bcb14d1a0b6041a860aedbac7b3295a795d47f56204244",
+        "adapter_tensors": {
+          "lora_A": 252,
+          "lora_B": 252,
+          "lora_B_nonzero": 252,
+          "tensors": 504
+        },
+        "adopted_from_base": {
+          "config_json_differences_before_copy": [
+            "dtype: None -> 'float16'",
+            "layer_types: None -> ['full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention', 'full_attention']",
+            "rope_parameters: None -> {'rope_theta': 1000000.0, 'rope_type': 'default'}",
+            "rope_theta: 1000000.0 -> None",
+            "sliding_window: 32768 -> None",
+            "torch_dtype: 'bfloat16' -> None",
+            "transformers_version: '4.43.1' -> '5.17.0'"
+          ],
+          "files": {
+            "config.json": "eed00b17e22553979d090fa492e587e92885e328914c8e0b0b78f0a0d3576b3b",
+            "generation_config.json": "ea35dfb6fc5051b01114f9b995820d55dab01ed33ee490f6378b442af82c09f9",
+            "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+            "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+            "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          }
+        },
+        "base_id": "Qwen/Qwen2.5-3B-Instruct",
+        "base_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "device": "cpu",
+        "dtype": "float16",
+        "load_kwargs": {
+          "dtype": "torch.float16",
+          "low_cpu_mem_usage": "True"
+        },
+        "lora_B_nonzero_in_model": 252,
+        "lora_modules_merged": 252,
+        "merged_at": "2026-10-25T12:01:15+00:00",
+        "note": "The LoRA was trained against the NF4 4-bit base (unsloth/Qwen2.5-3B-Instruct-bnb-4bit) and merged into the full-precision base weights in float16 (standard QLoRA practice). The base and the fine-tuned model then go through the same convert_hf_to_gguf + llama-quantize pipeline from the same base revision, so they differ only by the training.",
+        "safe_merge": true,
+        "tensor_counts": {
+          "base": 434,
+          "merged": 434
+        },
+        "trained_against": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+        "weights_check": {
+          "compared_as": "float16",
+          "control": {
+            "model.norm.weight": {
+              "changed": 0,
+              "changed_fraction": 0.0,
+              "max_abs_diff": 0.0,
+              "mean_abs_diff": 0.0,
+              "nonfinite": 0,
+              "sampled": 2048
+            }
+          },
+          "min_changed_fraction": 0.01,
+          "problems": [],
+          "sample_elements": 65536,
+          "targets": {
+            "model.layers.0.self_attn.q_proj.weight": {
+              "changed": 55352,
+              "changed_fraction": 0.857798,
+              "max_abs_diff": 0.0003662109375,
+              "mean_abs_diff": 4.596831985954135e-05,
+              "nonfinite": 0,
+              "sampled": 64528
+            },
+            "model.layers.35.mlp.down_proj.weight": {
+              "changed": 55042,
+              "changed_fraction": 0.842303,
+              "max_abs_diff": 0.0003070831298828125,
+              "mean_abs_diff": 2.9990530299350845e-05,
+              "nonfinite": 0,
+              "sampled": 65347
+            }
+          },
+          "warnings": []
+        }
+      },
+      "outputs": {
+        "base": {
+          "chat_template_in_gguf": true,
+          "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+          "f16": {
+            "file": "qwen2.5-3b-instruct.f16.gguf",
+            "sha256": "4cac8fe384f80aeaf0d8ccba8847ed8b4571e7de2cf09788cd38eb8f4e3ebda6",
+            "size_bytes": 6178316864
+          },
+          "file": "qwen2.5-3b-instruct.Q4_K_M.gguf",
+          "role": "base",
+          "sha256": "8b71acff3f03933a74f918fd707390f715d7ee931e813715f17a9a3d5e4e4484",
+          "size_bytes": 1929902656,
+          "source": "base snapshot"
+        },
+        "ft": {
+          "chat_template_in_gguf": true,
+          "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+          "f16": {
+            "file": "keeper-qwen25-3b-sft-v1.f16.gguf",
+            "sha256": "87fedaf453461390d136f1c04784c3eb0fa15866739bc15f7ff6cb0bf21f100a",
+            "size_bytes": 6178316832
+          },
+          "file": "keeper-qwen25-3b-sft-v1.Q4_K_M.gguf",
+          "role": "ft",
+          "sha256": "701f2a989f4dae624b3597d209b504c91ab5c1cba4d764fc5651e2e86f7b416f",
+          "size_bytes": 1929902624,
+          "source": "merged folder"
+        },
+        "same_chat_template": true
+      },
+      "quantization": {
+        "applied_to": [
+          "qwen2.5-3b-instruct",
+          "keeper-qwen25-3b-sft-v1"
+        ],
+        "imatrix": null,
+        "intermediate": "f16",
+        "kept_f16": false,
+        "same_pipeline": true,
+        "threads": 2,
+        "type": "Q4_K_M"
+      },
+      "schema": 1,
+      "started_at": "2026-10-25T11:58:01+00:00",
+      "timings_s": {
+        "download_base": 0.5,
+        "gguf_base": 524.6,
+        "gguf_ft": 518.1,
+        "llama_cpp": 630.6,
+        "merge": 191.2,
+        "total": 1867.0
+      },
+      "tokenizer": {
+        "adapter_dir_tokenizer_json_sha256": "6b4360dd6a184650ffc48056c2569bc603f896c5adfe94b10f1c79f809638aa5",
+        "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+        "same_as_adapter_dir": false,
+        "source": "Qwen/Qwen2.5-3B-Instruct (files copied from the base folder)",
+        "tokenizer_json_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+      },
+      "waived_mismatches": {}
+    },
+    "meta_file": {
+      "path": "adapters/keeper-qwen25-3b-sft-v1/gguf_meta.json",
+      "sha256": "a8d4567882d2bd65f6ba5a91467e4fc829895505c08a304525f87e5e35b009af"
+    },
+    "method": "LoRA merged into the full-precision base, then quantized; the base arm was converted and quantized the same way without the LoRA, with one llama.cpp version (docs/critique.md C4 fallback)",
+    "quant": "Q4_K_M",
+    "roles": {
+      "base": "qwen2.5-3b-instruct.Q4_K_M.gguf",
+      "ft": "keeper-qwen25-3b-sft-v1.Q4_K_M.gguf"
+    },
+    "sha256": "701f2a989f4dae624b3597d209b504c91ab5c1cba4d764fc5651e2e86f7b416f",
+    "source": "gguf_meta.json",
+    "superseded": {
+      "command": "convert_lora_to_gguf.py --base-model-id Qwen/Qwen2.5-3B-Instruct --outtype f16 --outfile adapter.gguf adapter/",
+      "file": "adapter.gguf",
+      "llama_cpp_commit": "71255fefc092b0344f2acddb891388814ae961be",
+      "status": "superseded and not used for any result: Ollama no longer supports ADAPTER"
+    },
+    "versions": {
+      "accelerate": "1.15.0",
+      "huggingface_hub": "1.33.0",
+      "numpy": "2.1.3",
+      "peft": "0.20.0",
+      "python": "3.13.16",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.23.3",
+      "torch": "2.11.0+cpu",
+      "transformers": "5.17.0"
+    },
+    "waived_mismatches": {}
+  },
+  "git": {
+    "commit": "002d71ca9903e99fdca5001e27776e6ea76a5d54",
+    "dirty": false
+  },
+  "name": "keeper-qwen25-3b-sft-v1",
+  "ollama_digests": {
+    "base": "bcd1323c52dbe201d882a138a6c61f6ca868bb8358e7d1935992ab1658079be6",
+    "ft": "fbd3c7d6f2fb17c0d538c6a77eb6554f43be58379cd311287dbac70a93ca5a66"
+  },
+  "schema": 1,
+  "serving": {
+    "base": {
+      "adapter_blobs": [],
+      "details": {
+        "families": [
+          "qwen2"
+        ],
+        "family": "qwen2",
+        "format": "gguf",
+        "parameter_size": "3.1B",
+        "parent_model": "qwen2.5-3b-instruct.Q4_K_M.gguf",
+        "quantization_level": "Q4_K_M",
+        "runner": "llamacpp"
+      },
+      "digest": "bcd1323c52dbe201d882a138a6c61f6ca868bb8358e7d1935992ab1658079be6",
+      "from_blob": "8b71acff3f03933a74f918fd707390f715d7ee931e813715f17a9a3d5e4e4484",
+      "has_adapter": false,
+      "model_info": {
+        "general.architecture": "qwen2",
+        "general.file_type": 15,
+        "general.parameter_count": 3085938688,
+        "general.quantization_version": 2,
+        "general.sampling.penalty_repeat": 1.05,
+        "general.sampling.temp": 0.7,
+        "general.sampling.top_k": 20,
+        "general.sampling.top_p": 0.8,
+        "general.size_label": "3.1B",
+        "general.type": "model",
+        "qwen2.attention.head_count": 16,
+        "qwen2.attention.head_count_kv": 2,
+        "qwen2.attention.layer_norm_rms_epsilon": 1e-06,
+        "qwen2.block_count": 36,
+        "qwen2.context_length": 32768,
+        "qwen2.embedding_length": 2048,
+        "qwen2.feed_forward_length": 11008,
+        "qwen2.rope.freq_base": 1000000,
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.add_eos_token": false,
+        "tokenizer.ggml.bos_token_id": 151643,
+        "tokenizer.ggml.clean_spaces": false,
+        "tokenizer.ggml.eos_token_id": 151645,
+        "tokenizer.ggml.merges": [],
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.normalizer.nfc": true,
+        "tokenizer.ggml.padding_token_id": 151643,
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.token_type": [],
+        "tokenizer.ggml.tokens": []
+      },
+      "name": "qwen2.5-3b-selfq4:v1",
+      "parameters_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 1929911708,
+      "system_sha256": "66b9ea09bd5b7099cbb4fc820f31b575c0366fa439b08245566692c6784e281e",
+      "template_sha256": "eb4402837c7829a690fa845de4d7f3fd842c2adee476d5341da8a46ea9255175"
+    },
+    "expected_sha256": {
+      "base": "8b71acff3f03933a74f918fd707390f715d7ee931e813715f17a9a3d5e4e4484",
+      "ft": "701f2a989f4dae624b3597d209b504c91ab5c1cba4d764fc5651e2e86f7b416f"
+    },
+    "ft": {
+      "adapter_blobs": [],
+      "details": {
+        "families": [
+          "qwen2"
+        ],
+        "family": "qwen2",
+        "format": "gguf",
+        "parameter_size": "3.1B",
+        "parent_model": "keeper-qwen25-3b-sft-v1.Q4_K_M.gguf",
+        "quantization_level": "Q4_K_M",
+        "runner": "llamacpp"
+      },
+      "digest": "fbd3c7d6f2fb17c0d538c6a77eb6554f43be58379cd311287dbac70a93ca5a66",
+      "from_blob": "701f2a989f4dae624b3597d209b504c91ab5c1cba4d764fc5651e2e86f7b416f",
+      "has_adapter": false,
+      "model_info": {
+        "general.architecture": "qwen2",
+        "general.file_type": 15,
+        "general.parameter_count": 3085938688,
+        "general.quantization_version": 2,
+        "general.sampling.penalty_repeat": 1.05,
+        "general.sampling.temp": 0.7,
+        "general.sampling.top_k": 20,
+        "general.sampling.top_p": 0.8,
+        "general.size_label": "3.1B",
+        "general.type": "model",
+        "qwen2.attention.head_count": 16,
+        "qwen2.attention.head_count_kv": 2,
+        "qwen2.attention.layer_norm_rms_epsilon": 1e-06,
+        "qwen2.block_count": 36,
+        "qwen2.context_length": 32768,
+        "qwen2.embedding_length": 2048,
+        "qwen2.feed_forward_length": 11008,
+        "qwen2.rope.freq_base": 1000000,
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.add_eos_token": false,
+        "tokenizer.ggml.bos_token_id": 151643,
+        "tokenizer.ggml.clean_spaces": false,
+        "tokenizer.ggml.eos_token_id": 151645,
+        "tokenizer.ggml.merges": [],
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.normalizer.nfc": true,
+        "tokenizer.ggml.padding_token_id": 151643,
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.token_type": [],
+        "tokenizer.ggml.tokens": []
+      },
+      "name": "keeper-qwen25-3b:sft-v1",
+      "parameters_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 1929911676,
+      "system_sha256": "66b9ea09bd5b7099cbb4fc820f31b575c0366fa439b08245566692c6784e281e",
+      "template_sha256": "eb4402837c7829a690fa845de4d7f3fd842c2adee476d5341da8a46ea9255175"
+    },
+    "official": {
+      "adapter_blobs": [],
+      "details": {
+        "families": [
+          "qwen2"
+        ],
+        "family": "qwen2",
+        "format": "gguf",
+        "parameter_size": "3.1B",
+        "parent_model": "",
+        "quantization_level": "Q4_K_M"
+      },
+      "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+      "from_blob": "5ee4f07cdb9beadbbb293e85803c569b01bd37ed059d2715faa7bb405f31caa6",
+      "has_adapter": false,
+      "model_info": {
+        "general.architecture": "qwen2",
+        "general.base_model.0.name": "Qwen2.5 3B",
+        "general.base_model.0.organization": "Qwen",
+        "general.base_model.0.repo_url": "https://huggingface.co/Qwen/Qwen2.5-3B",
+        "general.base_model.count": 1,
+        "general.basename": "Qwen2.5",
+        "general.file_type": 15,
+        "general.finetune": "Instruct",
+        "general.languages": [
+          "en"
+        ],
+        "general.license": "other",
+        "general.license.link": "https://huggingface.co/Qwen/Qwen2.5-3B-Instruct/blob/main/LICENSE",
+        "general.license.name": "qwen-research",
+        "general.parameter_count": 3085938688,
+        "general.quantization_version": 2,
+        "general.size_label": "3B",
+        "general.tags": [
+          "chat",
+          "text-generation"
+        ],
+        "general.type": "model",
+        "qwen2.attention.head_count": 16,
+        "qwen2.attention.head_count_kv": 2,
+        "qwen2.attention.layer_norm_rms_epsilon": 1e-06,
+        "qwen2.block_count": 36,
+        "qwen2.context_length": 32768,
+        "qwen2.embedding_length": 2048,
+        "qwen2.feed_forward_length": 11008,
+        "qwen2.rope.freq_base": 1000000,
+        "tokenizer.ggml.add_bos_token": false,
+        "tokenizer.ggml.bos_token_id": 151643,
+        "tokenizer.ggml.eos_token_id": 151645,
+        "tokenizer.ggml.merges": [],
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.padding_token_id": 151643,
+        "tokenizer.ggml.pre": "qwen2",
+        "tokenizer.ggml.token_type": [],
+        "tokenizer.ggml.tokens": []
+      },
+      "name": "qwen2.5:3b",
+      "parameters_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 1929912432,
+      "system_sha256": "66b9ea09bd5b7099cbb4fc820f31b575c0366fa439b08245566692c6784e281e",
+      "template_sha256": "eb4402837c7829a690fa845de4d7f3fd842c2adee476d5341da8a46ea9255175"
+    },
+    "ollama_version": "0.40.10",
+    "parameters_equal": true,
+    "parameters_official_equal": true,
+    "parity": {
+      "compared": [
+        "base",
+        "ft"
+      ],
+      "ignored_prefixes": [
+        "general."
+      ],
+      "model_info_differences": [],
+      "official_compared": true,
+      "official_differences": [
+        {
+          "key": "tokenizer.ggml.add_eos_token",
+          "values": {
+            "base": false,
+            "official": "<missing>"
+          }
+        },
+        {
+          "key": "tokenizer.ggml.clean_spaces",
+          "values": {
+            "base": false,
+            "official": "<missing>"
+          }
+        },
+        {
+          "key": "tokenizer.ggml.normalizer.nfc",
+          "values": {
+            "base": true,
+            "official": "<missing>"
+          }
+        }
+      ],
+      "tensor_counts": {
+        "base": 434,
+        "ft": 434
+      },
+      "tensor_counts_equal": true
+    },
+    "system_equal": true,
+    "template_equal": true,
+    "template_official_equal": true
+  },
+  "split": {
+    "corpus_chunk_ids_hash": "211d71b458122497",
+    "manifest_sha256": "67ad0f14b14ffea5b6a606b21ee3948aafd5c81c21661421778591aa287773dc",
+    "path": "data/sft/coc7e/section_split.v1.json",
+    "seed": 1927,
+    "sha256": "67ad0f14b14ffea5b6a606b21ee3948aafd5c81c21661421778591aa287773dc"
+  },
+  "status": "passed",
+  "training": {
+    "base": {
+      "bf16": false,
+      "family": "qwen",
+      "hf_base_for_gguf": "Qwen/Qwen2.5-3B-Instruct",
+      "hf_base_revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+      "id": "unsloth/Qwen2.5-3B-Instruct-bnb-4bit",
+      "load_in_4bit": true,
+      "revision": "2672b588848527e456d320c11926c794539f47d5"
+    },
+    "chat_template": {
+      "bos_token": null,
+      "eos_token": "<|im_end|>",
+      "same_as_transformers": true,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "sha256_transformers_autotokenizer": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "source": "unsloth tokenizer of unsloth/Qwen2.5-3B-Instruct-bnb-4bit"
+    },
+    "code": {
+      "gates.py_sha256": "3594ed987e76f8ecb45ad5613beb7b88ceb8bbfcfdc305d48783a4f423c426ea",
+      "git": {
+        "commit": "80570904443afaf16fe84df0eb93b52b96506d8d",
+        "dirty": false
+      },
+      "train_unsloth.py_sha256": "1c7c36ca9f319849d910326588614c54480fcaf3636a4057bd9e764b02388bef"
+    },
+    "gates": {
+      "collator": {
+        "fallback": false,
+        "type": "DataCollatorForLanguageModeling"
+      },
+      "memory_probe": {
+        "skipped": "not requested (--memory-probe)"
+      },
+      "train": {
+        "length": {
+          "max": 4226,
+          "min": 2596,
+          "n": 556,
+          "p50": 3432,
+          "p95": 3958
+        },
+        "masking": {
+          "min_supervised_per_example": 67,
+          "n": 556,
+          "supervised_fraction": 0.0982,
+          "supervised_tokens": 187954,
+          "total_tokens": 1914191
+        }
+      },
+      "val": {
+        "length": {
+          "max": 4083,
+          "min": 2635,
+          "n": 61,
+          "p50": 3379,
+          "p95": 3979
+        },
+        "masking": {
+          "min_supervised_per_example": 85,
+          "n": 61,
+          "supervised_fraction": 0.0974,
+          "supervised_tokens": 20328,
+          "total_tokens": 208612
+        }
+      }
+    },
+    "hardware": {
+      "capability": [
+        7,
+        5
+      ],
+      "cuda": "13.0",
+      "cuda_available": true,
+      "gpu": "Tesla T4",
+      "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+      "vram_gb": 14.6
+    },
+    "hyperparameters": {
+      "alpha": 16,
+      "batch_size": 1,
+      "epochs": 2,
+      "eval_steps": 50,
+      "grad_accum": 8,
+      "lora_dropout": 0,
+      "loss_on": "final assistant reply only (history replies masked)",
+      "lr": 0.0001,
+      "lr_scheduler": "cosine",
+      "max_len": 8192,
+      "optim": "adamw_8bit",
+      "r": 16,
+      "response_tags": [
+        "<|im_start|>user\n",
+        "<|im_start|>assistant\n"
+      ],
+      "resumed": false,
+      "save_steps": 50,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "warmup_steps": 10,
+      "weight_decay": 0.01
+    },
+    "losses": {
+      "eval_loss_best": 1.7109731435775757,
+      "eval_loss_best_step": 140,
+      "eval_loss_curve": [
+        {
+          "eval_loss": 1.8595449924468994,
+          "step": 50
+        },
+        {
+          "eval_loss": 1.7264155149459839,
+          "step": 100
+        },
+        {
+          "eval_loss": 1.7109735012054443,
+          "step": 140
+        },
+        {
+          "eval_loss": 1.7109731435775757,
+          "step": 140
+        }
+      ],
+      "eval_loss_decreased": true,
+      "eval_loss_first": 1.8595449924468994,
+      "eval_loss_last": 1.7109731435775757,
+      "final_eval_loss": 1.7109731435775757,
+      "train_loss": 1.8866613388061524,
+      "train_loss_first": 2.468132972717285,
+      "train_loss_last": 1.6661849975585938
+    },
+    "seed": 3407,
+    "versions": {
+      "accelerate": "1.15.0",
+      "bitsandbytes": "0.50.2",
+      "datasets": "4.8.5",
+      "peft": "0.20.0",
+      "python": "3.13.16",
+      "torch": "2.11.0+cu130",
+      "transformers": "5.17.0",
+      "trl": "1.13.0",
+      "unsloth": "2026.10.2",
+      "unsloth_zoo": "2026.10.2"
+    }
+  },
+  "waived_mismatches": {}
+}
