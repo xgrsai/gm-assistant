@@ -840,3 +840,10 @@ def test_existing_llama_cpp_problem_looks_only_at_an_existing_checkout(monkeypat
     assert "pinned ref" in mq.existing_llama_cpp_problem(llama, mq.LLAMA_CPP_REF)
     assert mq.existing_llama_cpp_problem(llama, "b" * 12) is None  # an abbreviated hex ref that matches
     assert mq.existing_llama_cpp_problem(llama, "master") is None
+
+
+def test_old_torchao_is_reported_before_the_merge():
+    assert mq.torchao_problem(None) is None
+    assert mq.torchao_problem("0.16.0") is None and mq.torchao_problem("0.17.1+cu130") is None
+    problem = mq.torchao_problem("0.10.0")
+    assert problem and "pip uninstall -y torchao" in problem

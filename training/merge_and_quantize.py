@@ -14,6 +14,7 @@ Cell 2, dependencies (does not touch torch; llama.cpp's own requirements files a
 pin torch / transformers):
 
     !pip install -q -r /content/gm-assistant/training/requirements-merge.txt
+    !pip uninstall -y torchao   # Colab's torchao 0.10 makes PEFT refuse to load the adapter; the merge doesn't need it
 
 Cell 3, merge + convert + quantize (clones and builds llama.cpp on the first run; expect an hour or so on a CPU
 runtime: an estimate, not a measurement):
@@ -198,6 +199,31 @@ def revision_from_snapshot_path(path: str | Path) -> str | None:
 
 def missing_modules(names: Sequence[str], finder: Callable[[str], Any] = find_spec) -> list[str]:
     return [name for name in names if finder(name) is None]
+
+
+# PEFT refuses to inject LoRA layers when an older torchao is installed (Colab ships 0.10.0, PEFT 0.20 wants >= 0.16),
+# although this merge never uses torchao. Removing the package is the fix.
+TORCHAO_MIN = (0, 16, 0)
+
+
+def torchao_problem(version: str | None) -> str | None:
+    if version is None:
+        return None
+    parts = tuple(int(p) for p in re.findall(r"\d+", version)[:3])
+    if parts >= TORCHAO_MIN:
+        return None
+    return (f"torchao {version} is installed, and PEFT refuses to load the adapter with torchao older than "
+            f"{'.'.join(map(str, TORCHAO_MIN))} (this merge does not use torchao): run `pip uninstall -y torchao`, "
+            "then rerun this script")
+
+
+def installed_version(name: str) -> str | None:
+    from importlib.metadata import PackageNotFoundError, version
+
+    try:
+        return version(name)
+    except PackageNotFoundError:
+        return None
 
 
 def gpu_runtime_warning(which: Callable[[str], str | None] = shutil.which) -> str | None:
@@ -1069,6 +1095,8 @@ def main(argv: list[str] | None = None) -> None:
     missing = missing_modules(REQUIRED_MODULES)
     if missing:
         raise gates.GateError(f"missing Python packages {missing}: pip install -r training/requirements-merge.txt")
+    if problem := torchao_problem(installed_version("torchao")):
+        raise gates.GateError(problem)
     stems = (args.base_name, args.ft_name)
     finals = [args.out / gguf_file_name(stem, quant) for stem in stems]
     exists = [p.name for p in finals if p.exists()]

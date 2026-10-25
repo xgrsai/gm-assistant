@@ -204,7 +204,9 @@ train/serve, яку треба згадати в тексті роботи (`mer
 
 ### Крок 1. Злиття і квантування (Colab, CPU-рантайм)
 
-Runtime -> Change runtime type -> **CPU** (GPU тут не потрібен). Команди, залежності (`requirements-merge.txt`) і
+Runtime -> Change runtime type -> **CPU** (GPU тут не потрібен). Після `pip install -r requirements-merge.txt`
+виконайте `!pip uninstall -y torchao`: Colab має torchao 0.10, і PEFT через неї відмовляється завантажувати адаптер
+(злиттю torchao не потрібна; скрипт перевіряє це на старті). Команди, залежності (`requirements-merge.txt`) і
 порядок перевірок описані в докстрінгу `training/merge_and_quantize.py` (`--adapter-dir` = тека `adapter/` з результату
 навчання, `--out` = тека на Drive). Скрипт зупиняється, якщо злиття не змінило ваг (адаптер-no-op, C4), якщо хеші не
 збігаються тощо; наприкінці він записує `gguf_meta.json` (commit llama.cpp, версії peft/transformers, dtype злиття,
