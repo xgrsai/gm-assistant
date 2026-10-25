@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import itertools
 import math
 import random
 from collections import Counter
@@ -55,6 +56,39 @@ def sign_flip_p(diffs: Sequence[float], *, iters: int = 5000, seed: int = 0) -> 
     hits = sum(1 for _ in range(iters)
                if abs(sum(d if rng.random() < 0.5 else -d for d in nonzero)) >= observed - 1e-12)
     return (hits + 1) / (iters + 1)
+
+
+def unpaired_diff(a: Sequence[float], b: Sequence[float], *, iters: int = 2000, seed: int = 0,
+                  exact_limit: int = 20000) -> dict:
+    """Mean of b - mean of a for two INDEPENDENT samples (different items, unlike paired_diff).
+
+    The CI is a percentile bootstrap that resamples each sample on its own. The p-value is a two-sided permutation test
+    over the sample labels: exact when there are at most `exact_limit` ways to split the pooled values, otherwise
+    `iters` random splits.
+    """
+    if not a or not b:
+        raise ValueError("both samples must be non-empty")
+    na, nb = len(a), len(b)
+    observed = mean(b) - mean(a)
+    rng = random.Random(seed)
+    boots = sorted(sum(b[rng.randrange(nb)] for _ in range(nb)) / nb - sum(a[rng.randrange(na)] for _ in range(na)) / na
+                   for _ in range(iters))
+    pooled, total = [*a, *b], sum(a) + sum(b)
+
+    def gap(sum_b: float) -> float:
+        return sum_b / nb - (total - sum_b) / na
+
+    if math.comb(na + nb, nb) <= exact_limit:
+        splits = list(itertools.combinations(range(na + nb), nb))
+        hits = sum(1 for idx in splits if abs(gap(sum(pooled[i] for i in idx))) >= abs(observed) - 1e-12)
+        p = hits / len(splits)
+    else:
+        rng = random.Random(seed)
+        hits = sum(1 for _ in range(iters)
+                   if abs(gap(sum(pooled[i] for i in rng.sample(range(na + nb), nb)))) >= abs(observed) - 1e-12)
+        p = (hits + 1) / (iters + 1)
+    return {"n_a": na, "n_b": nb, "mean_diff": observed,
+            "ci95": [percentile(boots, 0.025), percentile(boots, 0.975)], "p": p}
 
 
 def mcnemar_exact(a: Sequence[bool], b: Sequence[bool]) -> dict:
