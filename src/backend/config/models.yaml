@@ -53,3 +53,32 @@ qwen25-3b-ollama-aux:
   num_ctx: 4096
   context_window: 4096
   quant: ollama-default
+
+# Phase 4: the LoRA-fine-tuned narrator and its matched base. The author's Ollama rejects `ADAPTER`, so both are
+# GGUFs converted and quantized to Q4_K_M by the same llama.cpp and created in Ollama with the official qwen2.5:3b
+# template: the fine-tuned one from Qwen2.5-3B-Instruct with the LoRA merged in, the base from the same weights
+# without it. The base is NOT the official qwen2.5:3b blob of the phase3 profiles (another quantizer), which is why it
+# has its own profile. Sampling, num_ctx, window and output budget are those of qwen25-3b-ollama, so base and
+# fine-tuned arms differ only by the model. Evals refuse to run if the shared model card says its adapter check
+# failed, or if the Ollama digest of either tag differs from the one in the card (evals/model_cards.py).
+qwen25-3b-selfq4-ollama:
+  provider: ollama
+  model: "qwen2.5-3b-selfq4:v1"
+  temperature: 0.7
+  max_tokens: 1024
+  num_ctx: 16384
+  context_window: 16384
+  quant: "Q4_K_M (self-quantized, llama.cpp; see model card)"
+  model_card: training/model_cards/keeper-qwen25-3b-sft-v1.json
+
+keeper-qwen25-3b-ollama:
+  provider: ollama
+  model: "keeper-qwen25-3b:sft-v1"
+  temperature: 0.7
+  max_tokens: 1024
+  num_ctx: 16384
+  context_window: 16384
+  finetuned: true
+  base: qwen25-3b-selfq4-ollama
+  quant: "Q4_K_M merged LoRA (self-quantized, llama.cpp; see model card)"
+  model_card: training/model_cards/keeper-qwen25-3b-sft-v1.json

@@ -13,4 +13,7 @@
 | Mojibake when printing records | Windows console code page | Prefix commands with `PYTHONUTF8=1`. |
 | `dataset validation failed` | Gold data or corpus headings changed | Run `uv run python -m evals.datasets` and fix (gold-data skill); renamed corpus headings break gold sections. |
 | Judge columns empty in report | Run used `--no-judge` or judge calls failed | `--judge-only`; report header lists pending counts. |
+| `model card check failed: ... not found` | The card of a Phase 4 profile is missing (adapter not served/checked yet) | Create the Ollama models and run `uv run python -m sft.check_adapter`; a dry run only warns. |
+| `model card check failed: ... has status 'failed'` | The adapter check did not pass (no effect on outputs, template or blob mismatch...) | Read the card's `check_adapter` section, fix the serving and rerun `python -m sft.check_adapter`. `--allow-failed-card` runs anyway, recorded in `config.json`; only for a deliberate decision. |
+| `model card check failed: Ollama model ... has digest X but ... is Y` | The tag was re-created or re-pulled since the card was written | Restore the original model, or re-verify with `python -m sft.check_adapter` and use a new `--run-name` (the card is part of the fingerprint). Never edit the digest in the card by hand. |
 | Local model very slow | 6 GB GPU, large system prompt | `--concurrency 1`, `--limit` for smoke runs; a 3B model takes ~5–15 s per answer. |

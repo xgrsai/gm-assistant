@@ -46,7 +46,9 @@ An arm may override any `ExperimentSpec` field, including a whole `retrieval` bl
 
 **More seeds:** append to `seeds`. This changes the fingerprint (new run name). Only useful where sampling is seedable.
 
-**Thesis 2×2 (Phase 5):** arms `base-prompt`, `base-rag`, `ft-prompt`, `ft-rag` on one open model family served at the same precision; the base-prompt arm first.
+**Thesis 2×2 (Phase 4):** `phase4-qwen-ft.yaml` — arms `base-prompt`, `base-rag`, `ft-prompt`, `ft-rag` on one model family served at the same precision (`qwen25-3b-selfq4-ollama` vs `keeper-qwen25-3b-ollama`, see coc-keeper-dev `models-and-arms.md`); `fixed`, retrieval, `context_query: question_en`, tasks and judge are those of `phase3-local-qwen`, so generation needs no Gemini call (check with `--dry-run --no-judge`: the line "of which Gemini (API quota)" is 0) and the judge runs later with `--judge-only`, in chunks. The base is the author's self-quantized GGUF, not the official `qwen2.5:3b` blob, so its numbers are not comparable with `phase3-local-qwen`. `phase4-qwen-ft-selfadj.yaml` is the adjudication ablation (v1 trains the narrator only): `adjudicator: generator`, `use_rag: false`, aux `qwen25-3b-ollama-aux` (unused), `judge: null`, only the adjudication task.
+
+**Profiles with a model card** (the Phase 4 pair): before generating, `evals.run` checks that the card exists, that its `status` is `passed` (sft.check_adapter writes failed cards too; `--allow-failed-card` is the explicit, recorded override) and that Ollama serves each such tag under the digest recorded in the card (`SystemExit` otherwise, so a re-created tag cannot silently change a run); `--judge-only` checks the cards only, `--dry-run` warns instead of stopping, `--summarize-only` checks nothing. `config.json` gets `model_cards` (status, digest, weights/data/split hashes per profile, informational card file hash). Everything in it except the card file hash is part of the fingerprint, so another digest, weights or status needs a new `--run-name`, while a repeated `sft.check_adapter` on the same models does not.
 
 ## After editing
 

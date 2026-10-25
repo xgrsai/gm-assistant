@@ -358,7 +358,7 @@ def build_one(seed: SftSeed, ctx: BuildContext) -> Built:
         rolls=rolls, errors=errors, kb_mode=seed.kb.mode, oracle_sections=seed.kb.oracle_sections,
         context_sections=[SectionRef(source=s, section=p) for s, p in context_keys], hits=kb_hits,
         render=RenderInfo(spec=spec.model_dump(mode="json"), spec_hash=spec.spec_hash(),
-                          generator_profile=ctx.profile.model_dump(mode="json"), prompt_version=spec.prompt_version,
+                          generator_profile=ctx.profile.snapshot(), prompt_version=spec.prompt_version,
                           prompt_hash=ctx.prompts.hash(spec.prompt_version), corpus_chunk_ids_hash=ctx.corpus_hash,
                           split_seed=ctx.split.seed, dice_base_seed=DICE_BASE_SEED),
         messages=chat, input_hash=sha16(json.dumps([m.model_dump() for m in chat], ensure_ascii=False)))

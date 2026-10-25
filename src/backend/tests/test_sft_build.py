@@ -223,6 +223,7 @@ def test_messages_are_the_production_narrator_chat(make_ctx):
     assert roll.messages[1].content == "Я обережно підходжу до дверей і прислухаюся."   # opening is trimmed off
     assert roll.messages[-1].content == roll.player_text
     assert roll.render.prompt_version == "keeper-v2" and roll.render.generator_profile["model"] == "qwen2.5:3b"
+    assert "model_card" not in roll.render.generator_profile   # the frozen inputs file keeps its profile keys
     assert roll.render.prompt_hash == ctx.prompts.hash("keeper-v2") and roll.render.split_seed == 7
     assert "KNOWLEDGE BASE" not in roll.messages[0].content and roll.hits == []     # prompt-only example
     assert "demo-haunt" not in json.dumps([m.model_dump() for m in roll.messages])

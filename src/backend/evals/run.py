@@ -8,6 +8,10 @@
     uv run python -m evals.run evals/experiments/phase3-gemini.yaml --summarize-only
     uv run python -m evals.run evals/experiments/phase3-gemini.yaml --judge-only      # grade existing answers
 
+A profile with a model card (the Phase 4 models) needs a card whose adapter check passed (--allow-failed-card to
+override, recorded) and must be served by Ollama under the digest in the card, or the run stops before generating;
+--dry-run only warns.
+
 Outputs go to artifacts/eval/runs/<run-name>/ (config.json, records.jsonl, judgments.jsonl, metrics.json,
 report.md). Rerunning the same command resumes: finished items are skipped and failed ones retried.
 """
@@ -17,12 +21,14 @@ from __future__ import annotations
 import argparse
 import asyncio
 import logging
+from collections.abc import Callable, Mapping
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import NamedTuple
 
 from qdrant_client import AsyncQdrantClient
 
-from keeper.deps import Deps
+from keeper.deps import Deps, LLMs
 from keeper.experiments import ExperimentRegistry
 from keeper.llm import ModelFactory
 from keeper.prompts import PromptSet
@@ -34,6 +40,7 @@ from keeper.scenarios import ScenarioRepo
 from server.main import detect_git_sha
 from server.settings import BACKEND_DIR, REPO_ROOT, Settings, get_settings
 
+from . import model_cards
 from .datasets import EvalDatasets, validate
 from .experiment import EvalExperiment
 from .harness import Harness
@@ -67,6 +74,40 @@ def build_eval_deps(s: Settings, exp: EvalExperiment) -> Deps:
                 runlog=RunLog(s.artifacts_dir / "runs", enabled=False), retriever=retriever)
 
 
+class CardCheck(NamedTuple):
+    """What the model card check does in a given mode of the CLI."""
+
+    enabled: bool     # run the check at all
+    ollama: bool      # also compare the digests with the Ollama server
+    warn_only: bool   # print the problems instead of stopping
+
+
+def card_check_mode(*, summarize_only: bool, dry_run: bool, judge_only: bool) -> CardCheck:
+    """--summarize-only touches no model: no check. --dry-run only warns. --judge-only generates nothing, so it needs
+    the cards (the run fingerprint is built from them) but not Ollama. A real run checks everything and stops."""
+    if summarize_only:
+        return CardCheck(enabled=False, ollama=False, warn_only=False)
+    return CardCheck(enabled=True, ollama=dry_run or not judge_only, warn_only=dry_run)
+
+
+def check_model_cards(llms: LLMs, exp: EvalExperiment, *, root: Path = REPO_ROOT,
+                      listing: Callable[[], Mapping[str, str]] | None = None, warn_only: bool = False,
+                      allow_failed_card: bool = False) -> None:
+    """Fail fast when a profile with a model card (the fine-tuned model or its base) is not the model on record.
+
+    The card must exist and say its adapter check passed (`allow_failed_card` turns a failed one into a warning),
+    and with `listing` (Ollama's tag -> digest) every such Ollama model must be served under the digest in the card,
+    so a re-created or re-pulled tag cannot silently change the results. A dry run (`warn_only`) prints the problems
+    instead of stopping.
+    """
+    names = {x for spec in exp.specs(exp.seeds[0]) for x in (spec.generator, spec.aux)}
+    errors, warnings = model_cards.check_cards(llms, names, root=root, listing=listing, allow_failed=allow_failed_card)
+    if errors and not warn_only:
+        raise SystemExit("model card check failed:\n" + "\n".join(f"- {p}" for p in errors))
+    for p in [*errors, *warnings]:
+        print(f"WARNING: {p}")
+
+
 def apply_overrides(exp: EvalExperiment, tasks: list[str] | None, limit: int | None,
                     query_modes: list[str] | None = None) -> EvalExperiment:
     if query_modes is not None:
@@ -87,6 +128,10 @@ async def run(args: argparse.Namespace) -> None:
     datasets = EvalDatasets.load(s.data_dir / exp.dataset_dir)
     chunks = load_corpus([s.data_dir / d for d in exp.corpus_dirs], chunk_size=1000, overlap=200, root=REPO_ROOT)
     deps = build_eval_deps(s, exp)
+    mode = card_check_mode(summarize_only=args.summarize_only, dry_run=args.dry_run, judge_only=args.judge_only)
+    if mode.enabled:
+        check_model_cards(deps.llms, exp, warn_only=mode.warn_only, allow_failed_card=args.allow_failed_card,
+                          listing=(lambda: model_cards.ollama_listing(s.ollama_base_url)) if mode.ollama else None)
     problems = validate(datasets, chunks, deps.scenarios.load(exp.scenario_id).investigator("uk"))
     if problems and not args.allow_invalid_datasets:
         raise SystemExit("dataset validation failed:\n" + "\n".join(problems))
@@ -94,7 +139,8 @@ async def run(args: argparse.Namespace) -> None:
     harness = Harness(exp=exp, deps=deps, datasets=datasets, chunks=chunks,
                       run_dir=s.artifacts_dir / "eval" / "runs" / run_name,
                       contexts_dir=s.artifacts_dir / "eval" / "contexts",
-                      concurrency=args.concurrency, judge_enabled=not args.no_judge)
+                      concurrency=args.concurrency, judge_enabled=not args.no_judge,
+                      allow_failed_card=args.allow_failed_card)
     judge_sigs = {t: harness.judge_signature(t) for t in exp.judge_prompt_versions} if exp.judge else {}
 
     if args.summarize_only:
@@ -134,7 +180,7 @@ async def run(args: argparse.Namespace) -> None:
     print(f"report: {harness.run_dir / 'report.md'}")
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("experiment", type=Path, help="e.g. evals/experiments/phase3-gemini.yaml")
     p.add_argument("--tasks", type=lambda v: [x.strip() for x in v.split(",") if x.strip()], default=None,
@@ -149,7 +195,14 @@ def main() -> None:
     p.add_argument("--summarize-only", action="store_true")
     p.add_argument("--judge-only", action="store_true", help="only grade answers already in the run, then report")
     p.add_argument("--allow-invalid-datasets", action="store_true")
+    p.add_argument("--allow-failed-card", action="store_true",
+                   help="run even though a model card says its adapter check failed (recorded in config.json)")
     p.add_argument("-v", "--verbose", action="store_true")
+    return p
+
+
+def main() -> None:
+    p = build_parser()
     a = p.parse_args()
     if a.query_modes and set(a.query_modes) - {"en", "uk", "uk_analyze", "uk_glossary"}:
         p.error("query modes must be en, uk, uk_analyze or uk_glossary")

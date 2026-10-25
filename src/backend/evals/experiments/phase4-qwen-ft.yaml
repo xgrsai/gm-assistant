@@ -1,0 +1,63 @@
+# Phase 4, the thesis 2x2 on one small open model: base vs LoRA-fine-tuned narrator x prompt-only vs RAG.
+# Both models are GGUFs converted and quantized to Q4_K_M by the same llama.cpp and served by Ollama with the official
+# qwen2.5:3b template: keeper-qwen25-3b:sft-v1 (Qwen2.5-3B-Instruct with the LoRA merged in) and qwen2.5-3b-selfq4:v1
+# (the same weights, same conversion, no LoRA). The Ollama version in use rejects ADAPTER, so the base is NOT the
+# official qwen2.5:3b blob of phase3-local-qwen: phase3 and phase4 numbers are not directly comparable. Sampling,
+# context, prompts and retrieval are identical across the four arms.
+# Everything except the generator models is copied from phase3-local-qwen (keeper-v2, the same retrieval, RAG contexts
+# frozen from the English gold wording, adjudication disabled), so the frozen contexts are shared with that run.
+# v1 trains the narrator only; the effect on adjudication is measured by phase4-qwen-ft-selfadj.
+#
+# Generation is local and needs no API quota; the judge is Gemini and can run later, in chunks:
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft.yaml --dry-run --no-judge    # 0 Gemini calls
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft.yaml --no-judge --concurrency 1   # generate now
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft.yaml --judge-only                 # grade when quota allows
+# A run refuses to start unless Ollama serves both tags under the digests in their model card
+# (training/model_cards/keeper-qwen25-3b-sft-v1.json, written by `python -m sft.check_adapter`).
+name: phase4-qwen-ft
+description: base vs LoRA-fine-tuned narrator x prompt-only vs RAG on self-quantized Qwen2.5-3B-Instruct Q4_K_M (Ollama), Ukrainian questions, one seed
+scenario_id: demo-haunt
+dataset_dir: eval/coc7e
+corpus_dirs: [open/coc7e]
+seeds: [11]
+judge: gemini-judge
+
+fixed:
+  aux: gemini-aux
+  adjudicator: aux
+  prompt_version: keeper-v2
+  adjudicate_prompt_version: adjudicate-v2
+  analyze_prompt_version: analyze-v1
+  history_max_tokens: 6000
+  retrieval:
+    collection: coc7e__nomic15__c1000o200
+    embedder: nomic15
+    quotas: {rules: 4, lore: 1}
+    exact: true
+    min_score: 0.55
+
+arms:                       # the first arm is the baseline of every paired comparison
+  - arm: base-prompt
+    generator: qwen25-3b-selfq4-ollama
+    use_rag: false
+  - arm: base-rag
+    generator: qwen25-3b-selfq4-ollama
+    use_rag: true
+  - arm: ft-prompt
+    generator: keeper-qwen25-3b-ollama
+    use_rag: false
+  - arm: ft-rag
+    generator: keeper-qwen25-3b-ollama
+    use_rag: true
+
+tasks:
+  retrieval:
+    enabled: false          # generator-independent; see phase3-gemini
+  rules_qa:
+    languages: [uk]
+    context_query: question_en
+  conflict_probes:
+    languages: [uk]
+    conditions: [perturbed, original, no_context]
+  adjudication:
+    enabled: false          # v1 trains the narrator only; the adjudication effect is phase4-qwen-ft-selfadj

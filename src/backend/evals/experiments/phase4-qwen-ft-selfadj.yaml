@@ -1,0 +1,45 @@
+# Phase 4 ablation: does the narrator-only LoRA adapter change adjudication? Each model adjudicates the turns of the
+# adjudication gold set itself (adjudicator: generator), prompt-only (use_rag: false): the self-quantized base
+# qwen2.5-3b-selfq4:v1 vs the fine-tuned keeper-qwen25-3b:sft-v1 (see phase4-qwen-ft for how the pair is built). The
+# aux profile is listed because every spec needs one, but nothing calls it here (no RAG, so no analyze step).
+# Everything else is copied from phase4-qwen-ft; no judge, the adjudication metrics are deterministic.
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft-selfadj.yaml --dry-run
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft-selfadj.yaml --concurrency 1
+name: phase4-qwen-ft-selfadj
+description: "self-adjudication by the base vs the LoRA-fine-tuned qwen2.5:3b (adjudicator generator), no RAG"
+scenario_id: demo-haunt
+dataset_dir: eval/coc7e
+corpus_dirs: [open/coc7e]
+seeds: [11]
+judge: null
+
+fixed:
+  aux: qwen25-3b-ollama-aux
+  adjudicator: generator
+  prompt_version: keeper-v2
+  adjudicate_prompt_version: adjudicate-v2
+  analyze_prompt_version: analyze-v1
+  history_max_tokens: 6000
+  retrieval:
+    collection: coc7e__nomic15__c1000o200
+    embedder: nomic15
+    quotas: {rules: 4, lore: 1}
+    exact: true
+    min_score: 0.55
+
+arms:                       # the first arm is the baseline
+  - arm: base-selfadj
+    generator: qwen25-3b-selfq4-ollama
+    use_rag: false
+  - arm: ft-selfadj
+    generator: keeper-qwen25-3b-ollama
+    use_rag: false
+
+tasks:
+  retrieval:
+    enabled: false
+  rules_qa:
+    enabled: false
+  conflict_probes:
+    enabled: false
+  adjudication: {}

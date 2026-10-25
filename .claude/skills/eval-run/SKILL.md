@@ -25,6 +25,7 @@ All commands run from `src/backend` with `uv run`. On Windows set `PYTHONUTF8=1`
 | Retrieval with the real analyze query | add `uk_analyze` to `--query-modes` | 1 aux call per question (cached) |
 | Smoke test of every task | `... --limit 3` | small |
 | Local generation, grade later | `... phase3-local-qwen.yaml --no-judge` | none (Ollama) |
+| Base vs fine-tuned 2x2 (Phase 4) | `... phase4-qwen-ft.yaml --no-judge --concurrency 1`, then `--judge-only` | none for generation; the line "of which Gemini (API quota)" of `--dry-run` counts the rest |
 | Grade answers already generated | `... --judge-only` | 1 judge call per answer |
 | Rebuild the report only | `... --summarize-only` | none |
 

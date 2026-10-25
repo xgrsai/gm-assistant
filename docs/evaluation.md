@@ -10,7 +10,9 @@ An **experiment** (`src/backend/evals/experiments/*.yaml`) lists **arms**. Each 
 |---|---|---|
 | `phase3-gemini` | `prompt` vs `rag`, both `gemini-3.8-flash` | Does RAG improve a strong API model? |
 | `phase3-local-qwen` | `qwen-prompt` vs `qwen-rag`, `qwen2.5:3b` via Ollama | Does RAG help a small local model more? |
-| Phase 5 (planned) | base vs LoRA × prompt vs RAG on one open model | Do RAG and fine-tuning compensate each other (interaction)? |
+| `phase4-qwen-ft` | `base-prompt`, `base-rag`, `ft-prompt`, `ft-rag` on self-quantized Qwen2.5-3B-Instruct (Q4_K_M): base vs LoRA-fine-tuned narrator × prompt vs RAG | Do RAG and fine-tuning compensate each other (interaction)? |
+| `phase4-qwen-ft-selfadj` | `base-selfadj` vs `ft-selfadj`, each model adjudicates its own turns | Does the narrator-only adapter change adjudication? |
+| Phase 5 (planned) | the full matrix and ablations | Which retrieval and chunking choices matter once the models are fixed? |
 
 ## 2. Paired design and frozen turn contexts
 
@@ -164,10 +166,31 @@ uv run python -m evals.run evals/experiments/phase3-gemini.yaml --summarize-only
 
 **Quota.** A full `phase3-gemini` run is on the order of a thousand Gemini calls (see `--dry-run`), which exceeds a free-tier daily quota. Run it over several days (it resumes), or use a paid key. Note that free-tier prompts may be used by Google, which matters if the corpus ever contains non-open text.
 
-## 8. Known limitations
+## 8. Phase 4: base vs LoRA-fine-tuned narrator
+
+**Models.** The author's Ollama rejects `ADAPTER`, so the adapter cannot be applied on top of the official `qwen2.5:3b` blob. Instead (the merged-weights fallback of review item C4, which keeps precision parity between the arms) two GGUFs are converted and quantized to Q4_K_M by the same llama.cpp and created in Ollama with the official qwen2.5:3b chat template:
+- `keeper-qwen25-3b:sft-v1` (profile `keeper-qwen25-3b-ollama`): the LoRA merged into full-precision Qwen2.5-3B-Instruct;
+- `qwen2.5-3b-selfq4:v1` (profile `qwen25-3b-selfq4-ollama`): the same weights, same conversion, no LoRA.
+
+Sampling (temperature 0.7), `num_ctx`, context window and output budget are copied from `qwen25-3b-ollama`, so the two differ only by the model. **The Phase 4 base is not the official `qwen2.5:3b` blob that `phase3-local-qwen` used** (another quantizer), so Phase 3 and Phase 4 numbers are not directly comparable; compare base and fine-tuned arms inside one Phase 4 run. The frozen RAG contexts are shared with `phase3-local-qwen` (same aux model, analyze prompt and retrieval).
+
+**Design.** `phase4-qwen-ft` copies `fixed`, retrieval, `context_query: question_en`, the tasks and the judge from `phase3-local-qwen`; only the generator differs. Adjudication is off (v1 trains the narrator only), and the arms are in the order `base-prompt` (baseline of every paired comparison), `base-rag`, `ft-prompt`, `ft-rag`. Generation is local and calls no Gemini model: `--dry-run --no-judge` prints 0 on the line "of which Gemini (API quota)". Only the judge uses Gemini, so answers are generated first (`--no-judge --concurrency 1`) and graded later with `--judge-only`, in chunks that fit the quota.
+
+**Adjudication ablation.** `phase4-qwen-ft-selfadj` uses `adjudicator: generator`, `use_rag: false`, judge `null` and only the adjudication task: each model adjudicates the gold turns itself. The adjudication metrics are deterministic (section 4.4), so no judge is needed.
+
+**Model card and checks.** One JSON card (`training/model_cards/keeper-qwen25-3b-sft-v1.json`, written by `python -m sft.check_adapter`) describes the pair: the `status` of the adapter check, the Ollama digest of each tag (`ollama_digests.ft`, `ollama_digests.base`), the hashes of each model's weights, of the train/val files and of the frozen section split, plus the training and conversion settings. Both profiles name it in `model_card`. Before anything is generated, `evals.run` requires that:
+- the card exists and its `status` is `passed`. The check writes the card even when its gates fail (for instance when the adapter has no effect on the outputs), and the review item C4 demands it passes before any fine-tuned arm runs. `--allow-failed-card` overrides this deliberately; the override is recorded in `config.json` (`allow_failed_card`);
+- Ollama serves each tag under the digest in the card, so a tag that was re-created or re-pulled cannot silently change a run.
+
+`--dry-run` only warns about all of this, `--judge-only` checks the cards but not Ollama, and `--summarize-only` checks nothing.
+
+The run's `config.json` records a `model_cards` entry per profile (status, digest, weights, data and split hashes, and the informational hash of the card file). The fingerprint covers all of these except the card file hash, because the card also holds timestamps and git state: running the check again on the same models does not orphan a run, while another status, digest, weights, data or split does. Runs without such a profile record exactly what they recorded before.
+
+## 9. Known limitations
 
 - Gold data v1 is AI-drafted and needs human review; key facts and adjudication labels encode one Keeper's judgement.
 - The judge shares a model family with the generator arms, so it must be calibrated with human labels (section 6).
 - Seeds give only partial determinism on API models.
 - The corpus is small (50 chunks), so retrieval is easier than it would be over full rulebooks. Absolute retrieval numbers do not transfer; the comparisons between arms are the result.
 - Conflict probes edit one passage at a time. Distractor-context and multi-passage conflicts are future work.
+- Phase 4 fine-tunes one small model on one adapter run (v1, one seed): the base-vs-fine-tuned contrast is a single training run, not a distribution over runs.

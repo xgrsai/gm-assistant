@@ -25,6 +25,15 @@ class ModelProfile(BaseModel):
     finetuned: bool = False
     base: str | None = None            # FT profile -> its base profile
     quant: str | None = None           # logged: bf16 | Q4_K_M | ...
+    model_card: str | None = None      # repo-relative JSON card of a Phase 4 model: evals/model_cards.py
+
+    def snapshot(self) -> dict:
+        """The profile as recorded in run configs, run logs and frozen SFT inputs.
+
+        Fields added after the first recorded runs stay out while unset: the dump of a profile that does not use them
+        is key-for-key what it was before, so existing run fingerprints and frozen files do not change.
+        """
+        return self.model_dump(mode="json", exclude={"model_card"} if self.model_card is None else None)
 
 
 class ModelFactory:

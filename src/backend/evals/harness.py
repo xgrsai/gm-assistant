@@ -39,7 +39,9 @@ from keeper.nodes import adjudicate_turn, search_query
 from keeper.rag.corpus import Chunk
 from keeper.rag.glossary import load_glossary
 from keeper.spec import ExperimentSpec, KeeperContext
+from server.settings import REPO_ROOT
 
+from . import model_cards
 from .datasets import EvalDatasets, corpus_sections, perturbed_hit
 from .experiment import EvalExperiment, context_signature
 from .judge import PROMPTS as JUDGE_PROMPTS
@@ -65,6 +67,8 @@ def fingerprint_view(snapshot: dict) -> dict:
 
     Judge settings and the SELECTION of cells (enabled tasks, limits, query modes, languages, conditions) are
     excluded: judgments are keyed by judge signature and records by cell, so a smoke run can grow into the full run.
+    Of a model card only what identifies the models is kept: `card_sha256` also covers the timestamps and git state the
+    card holds, so re-running the adapter check on the same models must not orphan a run.
     """
     exp = copy.deepcopy(snapshot["experiment"])
     for key in ("description", "judge", "judge_prompt_versions"):
@@ -72,8 +76,12 @@ def fingerprint_view(snapshot: dict) -> dict:
     for task in exp.get("tasks", {}).values():
         for key in ("enabled", "limit", "query_modes", "languages", "conditions", "threshold_grid"):
             task.pop(key, None)
-    skip = {"git_sha", "created_at", "judge", "fingerprint", "sessions"}
-    return {**{k: v for k, v in snapshot.items() if k not in skip}, "experiment": exp}
+    skip = {"git_sha", "created_at", "judge", "fingerprint", "sessions", "allow_failed_card"}
+    view = {**{k: v for k, v in snapshot.items() if k not in skip}, "experiment": exp}
+    if "model_cards" in view:
+        view["model_cards"] = {name: {k: v for k, v in card.items() if k != "card_sha256"}
+                               for name, card in view["model_cards"].items()}
+    return view
 
 
 def sha16(obj) -> str:
@@ -141,6 +149,8 @@ class Harness:
     judge_enabled: bool = True
     max_attempts: int = 3
     backoff_s: float = 20.0
+    repo_root: Path = REPO_ROOT   # model cards are resolved against it
+    allow_failed_card: bool = False   # --allow-failed-card: run with a card whose adapter check failed (recorded)
     progress: Callable[[str], None] = print
     _graph: object = field(default=None, init=False, repr=False)
 
@@ -163,14 +173,19 @@ class Harness:
             "dataset_hashes": self.datasets.hashes,
             "spec_hashes": {f"{s.arm}@{seed}": s.spec_hash()
                             for seed in self.exp.seeds for s in self.exp.specs(seed)},
-            "model_profiles": {p: self.deps.llms.profile(p).model_dump() for p in sorted(profiles)},
+            "model_profiles": {p: self.deps.llms.profile(p).snapshot() for p in sorted(profiles)},
             "prompt_hashes": {p: self.deps.prompts.hash(p) for p in sorted(prompts)},
             "corpus_chunk_ids_hash": sha16(sorted(c.id for c in self.chunks)),
-            "judge": {"profile": self.deps.llms.profile(self.exp.judge).model_dump() if self.exp.judge else None,
+            "judge": {"profile": self.deps.llms.profile(self.exp.judge).snapshot() if self.exp.judge else None,
                       "prompt_hashes": {p: JUDGE_PROMPTS.hash(p)
                                         for p in sorted(self.exp.judge_prompt_versions.values())}},
             **(extra or {}),
         }
+        cards = model_cards.snapshot(self.deps.llms, profiles, self.repo_root)
+        if cards:  # only runs with a model-card profile; other runs keep the keys (and fingerprints) they always had
+            snapshot["model_cards"] = cards
+            if self.allow_failed_card and any(c["status"] != model_cards.PASSED for c in cards.values()):
+                snapshot["allow_failed_card"] = True   # a deliberate override, kept out of the fingerprint
         snapshot["fingerprint"] = sha16(fingerprint_view(snapshot))
         return snapshot
 
@@ -183,6 +198,10 @@ class Harness:
                                  f"{old.get('fingerprint')} != {snap['fingerprint']}); use a new --run-name")
             # same experiment: keep the original record, remember later sessions (judge, git sha, task selection)
             session = {"judge": snap["judge"], "tasks": snap["experiment"]["tasks"], **(extra or {})}
+            if "model_cards" in snap:   # the card file may have been rewritten by a repeated check of the same models
+                session["card_sha256"] = {name: c["card_sha256"] for name, c in snap["model_cards"].items()}
+            if snap.get("allow_failed_card"):
+                session["allow_failed_card"] = True
             old.setdefault("sessions", []).append(session)
             self.paths.config.write_text(json.dumps(old, ensure_ascii=False, indent=2), encoding="utf-8")
             return old
@@ -528,26 +547,44 @@ class Harness:
     # ------------------------------------------------------------------ planning
 
     def plan(self) -> dict:
-        """Planned LLM calls (upper bound, ignoring what is already done) for a dry run."""
+        """Planned LLM calls (upper bound, ignoring what is already done) for a dry run.
+
+        The last line counts the calls that spend the Gemini API quota (the rest runs on local models).
+        """
         t = self.exp.tasks
         arms = self.exp.specs(self.exp.seeds[0])
         n_seeds = len(self.exp.seeds)
         rag_sigs = len(self.exp.rag_specs())
+        judge = bool(self.exp.judge and self.judge_enabled)
+
+        def gemini(profile: str) -> bool:
+            return self.deps.llms.profile(profile).provider == "google_genai"
+
+        api = 0
         calls: dict[str, int] = {}
         missing = self.missing_contexts() if rag_sigs else []
         calls["frozen_contexts (aux analyze)"] = sum(1 for _, r in missing if r["mode"] == "analyze")
+        api += sum(1 for spec, r in missing if r["mode"] == "analyze" and gemini(spec.aux))
         if t.retrieval.enabled:
             calls["retrieval (embeddings only)"] = 0
         if t.rules_qa.enabled:
-            n = len(self.items("rules_qa")) * len(t.rules_qa.languages) * len(arms) * n_seeds
-            calls["rules_qa (narrate)"] = n
-            calls["rules_qa (judge)"] = n if self.exp.judge and self.judge_enabled else 0
+            per_arm = len(self.items("rules_qa")) * len(t.rules_qa.languages) * n_seeds
+            calls["rules_qa (narrate)"] = per_arm * len(arms)
+            calls["rules_qa (judge)"] = per_arm * len(arms) if judge else 0
+            api += per_arm * sum(1 for s in arms if gemini(s.generator))
         if t.conflict_probes.enabled:
-            per_arm = sum(1 for s in arms for c in t.conflict_probes.conditions if (c == "no_context") != s.use_rag)
-            n = len(self.items("conflict_probes")) * len(t.conflict_probes.languages) * per_arm * n_seeds
-            calls["conflict_probes (narrate)"] = n
-            calls["conflict_probes (judge)"] = n if self.exp.judge and self.judge_enabled else 0
+            per_item = len(self.items("conflict_probes")) * len(t.conflict_probes.languages) * n_seeds
+            conditions = {s.arm: sum(1 for c in t.conflict_probes.conditions if (c == "no_context") != s.use_rag)
+                          for s in arms}
+            calls["conflict_probes (narrate)"] = per_item * sum(conditions.values())
+            calls["conflict_probes (judge)"] = per_item * sum(conditions.values()) if judge else 0
+            api += per_item * sum(conditions[s.arm] for s in arms if gemini(s.generator))
         if t.adjudication.enabled:
-            calls["adjudication (aux)"] = len(self.items("adjudication")) * len(arms) * n_seeds
+            per_arm = len(self.items("adjudication")) * n_seeds
+            calls["adjudication (adjudicator model)"] = per_arm * len(arms)
+            api += per_arm * sum(1 for s in arms if gemini(s.aux if s.adjudicator == "aux" else s.generator))
+        if judge and gemini(self.exp.judge):
+            api += calls.get("rules_qa (judge)", 0) + calls.get("conflict_probes (judge)", 0)
         calls["total"] = sum(calls.values())
+        calls["of which Gemini (API quota)"] = api
         return calls

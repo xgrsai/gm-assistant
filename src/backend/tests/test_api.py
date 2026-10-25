@@ -119,6 +119,7 @@ def test_turn_with_roll_streams_events(make_client, tmp_path):
     lines = (tmp_path / "artifacts" / "runs").glob("*.jsonl")
     record = json.loads(next(lines).read_text(encoding="utf-8").splitlines()[-1])
     assert record["status"] == "done" and record["rolls"] == [roll] and record["spec_hash"]
+    assert "model_card" not in record["models"]["generator"]   # no card: the keys the run log always had
 
 
 def test_no_roll_turn(make_client):
