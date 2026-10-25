@@ -4,7 +4,7 @@
 
 ```yaml
 gemini-flash:
-  provider: google_genai      # google_genai | ollama | vllm
+  provider: google_genai      # google_genai | ollama | vllm | external (graded outside the harness)
   model: gemini-3.8-flash
   thinking_level: low         # Gemini 3+: low | medium | high ("minimal" is rejected by 3.8-flash)
   max_tokens: 4096            # Gemini thinking tokens count toward output — keep generous
@@ -12,7 +12,7 @@ gemini-flash:
   # optional: temperature (ignored by Gemini >= 3.6), num_ctx (Ollama), finetuned, base, quant, model_card
 ```
 
-Current profiles: `gemini-flash` (generator), `gemini-aux` (analyze/adjudicate), `gemini-judge` (evals), `qwen25-3b-ollama` (local, official blob, pulled; phase3 runs), `qwen25-3b-ollama-aux`, `gemma4-base-ollama` (not pulled), and the Phase 4 pair `qwen25-3b-selfq4-ollama` (base) and `keeper-qwen25-3b-ollama` (`finetuned: true`).
+Current profiles: `gemini-flash` (generator), `gemini-aux` (analyze/adjudicate), `gemini-judge` (evals), `claude-sonnet-agent` (external judge: `provider: external`, never built by `ModelFactory`; graded by Claude Code subagents through `evals/external_judge.py`), `qwen25-3b-ollama` (local, official blob, pulled; phase3 runs), `qwen25-3b-ollama-aux`, `gemma4-base-ollama` (not pulled), and the Phase 4 pair `qwen25-3b-selfq4-ollama` (base) and `keeper-qwen25-3b-ollama` (`finetuned: true`).
 
 **Phase 4 pair.** The author's Ollama rejects `ADAPTER`, so both models are GGUFs converted and quantized to Q4_K_M by the same llama.cpp and created in Ollama with the official qwen2.5:3b template: `keeper-qwen25-3b:sft-v1` (LoRA merged into Qwen2.5-3B-Instruct) and `qwen2.5-3b-selfq4:v1` (same weights, same conversion, no LoRA). The base is therefore NOT the official `qwen2.5:3b` blob of `qwen25-3b-ollama` (phase3 runs use that profile; never edit it). Sampling, `num_ctx`, `context_window` and `max_tokens` are copied from `qwen25-3b-ollama` into both, so base and fine-tuned differ only by the model. Both carry the same `model_card` (repo-relative JSON, `training/model_cards/keeper-qwen25-3b-sft-v1.json`, written by `python -m sft.check_adapter`), which records the check `status`, the Ollama digest of each tag and the hashes of the weights, data and split. `evals/model_cards.py` reads it: the role of a profile is `ft` when `finetuned: true`, else `base`; the digest is `ollama_digests.<role>` and the weights are the `gguf.files` entry of that role. `python -m evals.run` stops unless the card's `status` is `passed` (override: `--allow-failed-card`, recorded in `config.json`) and Ollama serves each such tag under the card's digest (a dry run only warns), and the run's `config.json` gets a `model_cards` key; the card file hash in it is informational (the card holds timestamps), the rest is in the fingerprint.
 

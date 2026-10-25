@@ -142,6 +142,36 @@ uv run python -m evals.calibrate score phase3-gemini
 
 The judge (`gemini-3.8-flash`) is the same model as the Gemini generator arms, so self-preference bias is possible. State the κ and this limitation in the thesis, or use a judge from another model family.
 
+### 6.1 External judge (Claude Code subagents)
+
+**Why.** The free Gemini key allows 5 requests a minute and `gemini-3.8-flash` is often overloaded, so grading the 544 answers of `phase4-qwen-ft` with `gemini-judge` was not practical. The author decided to grade that run with Claude Sonnet subagents in a Claude Code session instead. The harness cannot call subagents, so it **exports the exact judge prompts to files and imports the judgments**; everything downstream (`judgments.jsonl`, `metrics.py`, the 2x2 report) is unchanged.
+
+**Pieces.**
+- profile `claude-sonnet-agent` in `config/models.yaml`: `provider: external`, `model: claude-sonnet-5-5`. `ModelFactory` refuses to build it ("graded outside the harness; use python -m evals.external_judge"), and `evals.run` never calls it: `--judge-only` only says so, and `--dry-run` counts its answers on the line "to grade outside the harness" instead of as Gemini calls;
+- experiment `evals/experiments/phase4-qwen-ft-claude-judge.yaml`: `phase4-qwen-ft` with another `judge` and `description`. It keeps `name: phase4-qwen-ft` on purpose, because the name is part of the run fingerprint: the judge is not, so the file binds to the existing run (`--summarize-only` reports the 544 answers as not graded yet; `export` and `import` stop if the fingerprint differs);
+- the same judge prompts (`judge-qa-v1`, `judge-conflict-v1`) and the same schemas (`QAJudgment`, `ConflictJudgment`) as `gemini-judge`: the functions that render a prompt and post-process a judgment (`rules_prompt`, `rules_result`, `conflict_prompt`, `conflict_result` in `evals/judge.py`) are shared by the Gemini path and the external path, so the two cannot drift apart.
+
+**Workflow** (from `src/backend`):
+
+```powershell
+uv run python -m evals.external_judge export evals/experiments/phase4-qwen-ft-claude-judge.yaml --batches 10
+# one subagent per artifacts/eval/runs/phase4-qwen-ft/external_judge/claude-sonnet-agent/batch-XX.jsonl
+uv run python -m evals.external_judge import evals/experiments/phase4-qwen-ft-claude-judge.yaml
+uv run python -m evals.run evals/experiments/phase4-qwen-ft-claude-judge.yaml --summarize-only
+```
+
+A line of a batch is `{"id", "schema", "prompt"}`. The agent answers each prompt as an object of the schema named in the line (`schemas.json` holds both pydantic JSON schemas) and writes `batch-XX.out.jsonl` next to the batch, one `{"id": ..., "judgment": {...}}` per line, where `judgment` has exactly the fields of the schema (for `ConflictJudgment`, `follows` is the letter the judge sees, `a`/`b`/`both`/`neither`; the harness maps it back to the original or perturbed fact).
+
+**Blinding.** The batches contain an opaque id, the schema name and the prompt, never the arm, the condition, the record key or the run name; those stay in the private `map.json` (id -> record key, task, item, language, prompt version, whether the two facts were shown swapped). The export tag is part of every id, items inside a batch are shuffled and ids are assigned after shuffling, so neither the id nor the position says anything about the arm. **The agent must be given only its batch file and `schemas.json`**: `map.json`, `records.jsonl` and `config.json` in the same run directory name the arms. What stays visible is the answer text itself; a fine-tuned or RAG answer can often be recognised by its style, `[R#]` markers or the dice line, as with any judge, and the prompt (unchanged, so that the two judges stay comparable) tells the judge to ignore the markers.
+
+**Pairing.** All answers to one (task, item, language) go into the same batch, so the arms and conditions of an item, hence every paired contrast of the 2x2 analysis, are graded by the same agent; groups are dealt to batches with a seeded RNG (`--seed`, default 7, balanced by item count). Differences in strictness between agents therefore add noise to the contrasts instead of favouring an arm. The batch of every judgment is kept in its `external` field.
+
+**Import.** `import` reads every `batch-XX.out.jsonl`, validates each judgment with the pydantic model of its item, applies the same post-processing as the harness (key-fact indices, score, mapping of the swapped facts) and appends records shaped like the harness's own (`record_key`, `task`, `judge` = `claude-sonnet-agent|<prompt version>|<prompt hash>`, `judgment`, `status`, plus `external: {batch, export}`; `metrics.py` ignores the extra field except to print a note in the report). It is idempotent. Invalid JSON, unknown or duplicate ids and schema errors are reported and the valid lines are still imported; the command exits non-zero and lists the ids still missing until every exported answer has a judgment. For a second pass, run `export --force` after importing: it exports only the answers not graded yet under new ids and moves the previous export to `archive/` (nothing is deleted). It refuses to run if the judge prompts or the gold data changed since the export, and notes the import in the `sessions` of `config.json`, whose `experiment` block still names the judge of the run's first session.
+
+**Reproducibility.** The prompts are exact and the export is a function of the answers, the seed and the batch count, but the agents' judgments are not reproducible (no seed or temperature control). The imported `judgments.jsonl` together with the `external_judge/` files (batches, outputs, `map.json`) are the record; keep them with the run.
+
+**Limitations.** (1) The SFT targets were written by Claude, so a Claude judge may favour the style of the fine-tuned model (self-preference); the risk is in the direction of the effect the thesis measures. (2) By the author's decision this run has no second judge, so there is no cross-judge check. (3) Agents are not deterministic, and each batch is one agent, so a batch effect is possible (see Pairing). (4) The only validity check is the human calibration, which must be reported with the numbers: `uv run python -m evals.calibrate export phase4-qwen-ft --n 40 --experiment evals/experiments/phase4-qwen-ft-claude-judge.yaml`, label without looking at the verdicts, then `score` the same way (`--experiment` makes calibrate use the external judge's signature instead of the judge in the run's `config.json`). It covers rules-QA verdicts only, not the conflict-probe classification.
+
 ## 7. Running
 
 ```powershell
@@ -159,6 +189,7 @@ uv run python -m evals.run evals/experiments/phase3-gemini.yaml --summarize-only
 - `config.json`: fingerprint, dataset/prompt/spec hashes, model profiles, git sha;
 - `records.jsonl`: one record per task × arm × seed × item × language × condition;
 - `judgments.jsonl`;
+- `external_judge/<judge>/`: only for an external judge (section 6.1);
 - `metrics.json`;
 - `report.md`.
 
@@ -174,7 +205,7 @@ uv run python -m evals.run evals/experiments/phase3-gemini.yaml --summarize-only
 
 Sampling (temperature 0.7), `num_ctx`, context window and output budget are copied from `qwen25-3b-ollama`, so the two differ only by the model. **The Phase 4 base is not the official `qwen2.5:3b` blob that `phase3-local-qwen` used** (another quantizer), so Phase 3 and Phase 4 numbers are not directly comparable; compare base and fine-tuned arms inside one Phase 4 run. The frozen RAG contexts are shared with `phase3-local-qwen` (same aux model, analyze prompt and retrieval).
 
-**Design.** `phase4-qwen-ft` copies `fixed`, retrieval, `context_query: question_en`, the tasks and the judge from `phase3-local-qwen`; only the generator differs. Adjudication is off (v1 trains the narrator only), and the arms are in the order `base-prompt` (baseline of every paired comparison), `base-rag`, `ft-prompt`, `ft-rag`. Generation is local and calls no Gemini model: `--dry-run --no-judge` prints 0 on the line "of which Gemini (API quota)". Only the judge uses Gemini, so answers are generated first (`--no-judge --concurrency 1`) and graded later with `--judge-only`, in chunks that fit the quota.
+**Design.** `phase4-qwen-ft` copies `fixed`, retrieval, `context_query: question_en`, the tasks and the judge from `phase3-local-qwen`; only the generator differs. Adjudication is off (v1 trains the narrator only), and the arms are in the order `base-prompt` (baseline of every paired comparison), `base-rag`, `ft-prompt`, `ft-rag`. Generation is local and calls no Gemini model: `--dry-run --no-judge` prints 0 on the line "of which Gemini (API quota)". Only the judge uses Gemini, so answers are generated first (`--no-judge --concurrency 1`) and graded later with `--judge-only`, in chunks that fit the quota. The `phase4-qwen-ft` run itself is graded by an external judge instead (`phase4-qwen-ft-claude-judge.yaml`, section 6.1), because the free Gemini quota is too small.
 
 **Adjudication ablation.** `phase4-qwen-ft-selfadj` uses `adjudicator: generator`, `use_rag: false`, judge `null` and only the adjudication task: each model adjudicates the gold turns itself. The adjudication metrics are deterministic (section 4.4), so no judge is needed.
 
@@ -196,6 +227,7 @@ The run's `config.json` records a `model_cards` entry per profile (status, diges
 
 - Gold data v1 is AI-drafted and needs human review; key facts and adjudication labels encode one Keeper's judgement.
 - The judge shares a model family with the generator arms, so it must be calibrated with human labels (section 6).
+- The `phase4-qwen-ft` run is graded by Claude subagents (section 6.1): the SFT targets were written by Claude, so the judge may favour the fine-tuned style, and there is no second judge.
 - Seeds give only partial determinism on API models.
 - The corpus is small (50 chunks), so retrieval is easier than it would be over full rulebooks. Absolute retrieval numbers do not transfer; the comparisons between arms are the result.
 - Conflict probes edit one passage at a time. Distractor-context and multi-passage conflicts are future work.

@@ -698,16 +698,21 @@ def factorial_metrics(config: dict, by_task: dict[str, list[dict]], judgments: d
 
 
 def summarize(run_dir: Path, datasets: EvalDatasets, judge_signatures: dict[str, str],
-              split_path: Path | None = None) -> dict:
+              split_path: Path | None = None, external_judge: bool = False) -> dict:
+    """Writes metrics.json and report.md of the run. `external_judge`: the judge is graded outside the harness
+    (judgments imported from evals/external_judge.py are recognised by their "external" field even without it)."""
     config = json.loads((run_dir / "config.json").read_text(encoding="utf-8"))
     exp = config["experiment"]
     arm_order = [a["arm"] for a in exp["arms"]]
     records = list(latest_ok(JsonlStore(run_dir / "records.jsonl").read()).values())
     all_records = JsonlStore(run_dir / "records.jsonl").read()
     judgments: dict[str, dict[str, dict]] = defaultdict(dict)
+    external: set[str] = set()   # exports whose judgments were imported from a judge outside the harness
     for j in JsonlStore(run_dir / "judgments.jsonl").read():
         if j.get("status") == "ok" and j["judge"] == judge_signatures.get(j["task"]):
             judgments[j["task"]][j["record_key"]] = j["judgment"]
+            if j.get("external"):
+                external.add(str(j["external"].get("export")))
 
     by_task = defaultdict(list)
     for r in records:
@@ -734,6 +739,9 @@ def summarize(run_dir: Path, datasets: EvalDatasets, judge_signatures: dict[str,
         "adjudication": adjudication_metrics(by_task["adjudication"], {a.id: a for a in datasets.adjudication},
                                              arm_order),
     }
+    if external or external_judge:   # only runs graded outside the harness get the key and the report note
+        metrics["external_judge"] = {"exports": sorted(external),
+                                     "judge": sorted({s.split("|")[0] for s in judge_signatures.values()})}
     factorial = factorial_metrics(config, by_task, judgments, datasets, split_path)
     if factorial is not None:   # only when the arms form the 2x2: other runs keep their metrics.json and report.md
         metrics["factorial"] = factorial
@@ -765,9 +773,17 @@ def render_report(m: dict, config: dict) -> str:
              f"`{m['judge']}`", ""]
     if m["unresolved_errors"]:
         parts += [f"**Unresolved errors** (rerun to retry): {m['unresolved_errors']}", ""]
+    grade = "run with `--judge-only`" if not m.get("external_judge") else \
+        "the judge is external: export and import with `python -m evals.external_judge`"
     if m.get("pending_judgments"):
-        parts += [f"**Answers not graded yet** (run with `--judge-only`; judge-based columns are empty until then): "
+        parts += [f"**Answers not graded yet** ({grade}; judge-based columns are empty until then): "
                   f"{m['pending_judgments']}", ""]
+    if m.get("external_judge"):
+        names = ", ".join(f"`{n}`" for n in m["external_judge"]["judge"])
+        parts += [f"> Note: the judge is external ({names}): its judgments are imported with `python -m "
+                  "evals.external_judge`, not produced by the harness. The export hides arm and condition, but see the "
+                  "limitations in docs/evaluation.md, section 6.1 (a judge may favour the style of its own model "
+                  "family). Validate against human labels before reporting.", ""]
     profiles = config["model_profiles"]
     judge = exp.get("judge")
     gens = {profiles[a.get("generator", exp["fixed"].get("generator", ""))]["model"]
@@ -850,7 +866,7 @@ def render_report(m: dict, config: dict) -> str:
             parts += [table(["comparison", "only base correct", "only arm correct", "McNemar p"],
                             [[k, v["only_a"], v["only_b"], v["p"]] for k, v in adj["comparisons"].items()]), ""]
     if m.get("factorial"):
-        parts += render_factorial(m["factorial"])
+        parts += render_factorial(m["factorial"], grade)
     return "\n".join(parts)
 
 
@@ -872,8 +888,8 @@ def effect_row(task: str, label: str, name: str, block: dict) -> list:
     return [task, label, EFFECT_LABELS[name], block["n"], e["mean_diff"], e["ci95"], e["p"], e.get("p_holm")]
 
 
-def render_factorial(f: dict) -> list[str]:
-    """The 2x2 sections of report.md (see the module comment above CELLS)."""
+def render_factorial(f: dict, grade: str = "run with `--judge-only`") -> list[str]:
+    """The 2x2 sections of report.md (see the module comment above CELLS). `grade`: how to get the answers graded."""
     arms = [f["cells"][c] for c in CELLS]
     qa = f["rules_qa"]
     parts = ["## 2x2: base vs fine-tuned x prompt-only vs RAG", "",
@@ -902,7 +918,7 @@ def render_factorial(f: dict) -> list[str]:
     blocks = [(task, label, b, lost) for task, label, b, lost in blocks if b]
     conflict = f.get("conflict_probes") or {}
     if not (qa["answerable"]["score"] or conflict):
-        parts += ["No rules QA or conflict-probe answer is graded in all four arms yet (run with `--judge-only`); "
+        parts += [f"No rules QA or conflict-probe answer is graded in all four arms yet ({grade}); "
                   "judge-based columns and contrasts appear after that.", ""]
     if blocks or conflict:
         rows = [[task, label, b["n"], lost, *[b["means"][c] for c in CELLS]] for task, label, b, lost in blocks]

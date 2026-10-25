@@ -1,0 +1,66 @@
+# The phase4-qwen-ft experiment (same arms, tasks, prompts and retrieval; do not edit that file) graded by an EXTERNAL
+# judge: Claude Code subagents (Claude Sonnet 5.5) instead of gemini-judge. The free Gemini key allows 5 requests a
+# minute and the model is often overloaded, so the author decided to grade the 544 generated answers of
+# artifacts/eval/runs/phase4-qwen-ft/ this way. Only `judge` and `description` differ; the judge is not part of the
+# run fingerprint, so this file binds to the existing run. `name` stays phase4-qwen-ft on purpose: it IS part of the
+# fingerprint (and it makes the run directory the default), so a different name would be a different run.
+#
+# The harness never calls this judge (provider "external"); the judge prompts are exported and the judgments imported:
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft-claude-judge.yaml --summarize-only   # pending: 544
+#   uv run python -m evals.external_judge export evals/experiments/phase4-qwen-ft-claude-judge.yaml --batches 10
+#   # one subagent per artifacts/eval/runs/phase4-qwen-ft/external_judge/claude-sonnet-agent/batch-XX.jsonl: it answers
+#   # every prompt as the schema named in the line (schemas.json) and writes batch-XX.out.jsonl, one
+#   # {"id": ..., "judgment": {...}} per line. It must read only its batch file and schemas.json (the other files of
+#   # the run name the arms), and sees only the opaque ids: arm, condition and record key stay in the private map.json.
+#   uv run python -m evals.external_judge import evals/experiments/phase4-qwen-ft-claude-judge.yaml
+#   uv run python -m evals.run evals/experiments/phase4-qwen-ft-claude-judge.yaml --summarize-only   # the report
+# import lists the ids still missing; `export --force` (after import) exports only the answers not graded yet.
+# Limitation (docs/evaluation.md, section 6.1): the SFT targets were written by Claude, so this judge may favour the
+# fine-tuned style, and this run has no second judge; the human calibration (evals.calibrate --experiment) is the check.
+name: phase4-qwen-ft
+description: phase4-qwen-ft graded by Claude Sonnet subagents (external judge claude-sonnet-agent, exported prompts and imported judgments) instead of gemini-judge
+scenario_id: demo-haunt
+dataset_dir: eval/coc7e
+corpus_dirs: [open/coc7e]
+seeds: [11]
+judge: claude-sonnet-agent
+
+fixed:
+  aux: gemini-aux
+  adjudicator: aux
+  prompt_version: keeper-v2
+  adjudicate_prompt_version: adjudicate-v2
+  analyze_prompt_version: analyze-v1
+  history_max_tokens: 6000
+  retrieval:
+    collection: coc7e__nomic15__c1000o200
+    embedder: nomic15
+    quotas: {rules: 4, lore: 1}
+    exact: true
+    min_score: 0.55
+
+arms:                       # the first arm is the baseline of every paired comparison
+  - arm: base-prompt
+    generator: qwen25-3b-selfq4-ollama
+    use_rag: false
+  - arm: base-rag
+    generator: qwen25-3b-selfq4-ollama
+    use_rag: true
+  - arm: ft-prompt
+    generator: keeper-qwen25-3b-ollama
+    use_rag: false
+  - arm: ft-rag
+    generator: keeper-qwen25-3b-ollama
+    use_rag: true
+
+tasks:
+  retrieval:
+    enabled: false          # generator-independent; see phase3-gemini
+  rules_qa:
+    languages: [uk]
+    context_query: question_en
+  conflict_probes:
+    languages: [uk]
+    conditions: [perturbed, original, no_context]
+  adjudication:
+    enabled: false          # v1 trains the narrator only; the adjudication effect is phase4-qwen-ft-selfadj

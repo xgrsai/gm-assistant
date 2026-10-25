@@ -45,7 +45,7 @@ from . import model_cards
 from .datasets import EvalDatasets, corpus_sections, perturbed_hit
 from .experiment import EvalExperiment, context_signature
 from .judge import PROMPTS as JUDGE_PROMPTS
-from .judge import judge_conflict_answer, judge_rules_answer
+from .judge import judge_conflict_answer, judge_rules_answer, judge_signature
 
 GLOSSARY = Path(__file__).resolve().parents[3] / "data" / "glossary" / "coc7e-uk-en.yaml"
 
@@ -501,25 +501,40 @@ class Harness:
     # ------------------------------------------------------------------ LLM judge
 
     def judge_signature(self, task: str) -> str:
-        version = self.exp.judge_prompt_versions[task]
-        return f"{self.exp.judge}|{version}|{JUDGE_PROMPTS.hash(version)}"
+        return judge_signature(self.exp.judge, self.exp.judge_prompt_versions[task])
+
+    @property
+    def judge_is_external(self) -> bool:
+        """The judge is graded outside the harness (profile provider "external"): evals/external_judge.py."""
+        return bool(self.exp.judge) and self.deps.llms.profile(self.exp.judge).provider == "external"
+
+    def ungraded(self) -> list[tuple[str, dict, str]]:
+        """(record key, record, judge signature) of the latest ok rules-QA / conflict answers that have no ok judgment
+        under the current signature: what the judge still has to grade (here or, for an external judge, outside)."""
+        judged = {(j["record_key"], j["judge"]) for j in self.judgments.read() if j.get("status") == "ok"}
+        latest: dict[str, dict] = {}
+        for r in self.records.read():
+            if r["task"] in ("rules_qa", "conflict_probes") and r.get("status") == "ok":
+                latest[record_key(r)] = r
+        out = []
+        for key, r in latest.items():
+            sig = self.judge_signature(r["task"])
+            if (key, sig) not in judged:
+                out.append((key, r, sig))
+        return out
 
     async def run_judge(self) -> None:
         if not self.exp.judge or not self.judge_enabled:
             self.progress("judge: disabled")
             return
-        judged = {(j["record_key"], j["judge"]) for j in self.judgments.read() if j.get("status") == "ok"}
+        if self.judge_is_external:
+            self.progress(f"judge: {self.exp.judge} is graded outside the harness; import its judgments with "
+                          "python -m evals.external_judge (export, then import)")
+            return
         qa = {i.id: i for i in self.datasets.rules_qa}
         probes = {p.id: p for p in self.datasets.conflict_probes}
-        latest: dict[str, dict] = {}
-        for r in self.records.read():
-            if r["task"] in ("rules_qa", "conflict_probes") and r.get("status") == "ok":
-                latest[record_key(r)] = r
         jobs = []
-        for key, r in latest.items():
-            sig = self.judge_signature(r["task"])
-            if (key, sig) in judged:
-                continue
+        for key, r, sig in self.ungraded():
             version = self.exp.judge_prompt_versions[r["task"]]
 
             def job(r=r, key=key, sig=sig, version=version):
@@ -549,18 +564,21 @@ class Harness:
     def plan(self) -> dict:
         """Planned LLM calls (upper bound, ignoring what is already done) for a dry run.
 
-        The last line counts the calls that spend the Gemini API quota (the rest runs on local models).
+        The line "of which Gemini" counts the calls that spend the Gemini API quota (the rest runs on local models).
+        With an external judge the harness makes no judge calls: the answers it will have to grade outside the harness
+        are counted on a line after the total.
         """
         t = self.exp.tasks
         arms = self.exp.specs(self.exp.seeds[0])
         n_seeds = len(self.exp.seeds)
         rag_sigs = len(self.exp.rag_specs())
-        judge = bool(self.exp.judge and self.judge_enabled)
+        external = bool(self.exp.judge and self.judge_enabled and self.judge_is_external)
+        judge = bool(self.exp.judge and self.judge_enabled) and not external
 
         def gemini(profile: str) -> bool:
             return self.deps.llms.profile(profile).provider == "google_genai"
 
-        api = 0
+        api = outside = 0
         calls: dict[str, int] = {}
         missing = self.missing_contexts() if rag_sigs else []
         calls["frozen_contexts (aux analyze)"] = sum(1 for _, r in missing if r["mode"] == "analyze")
@@ -571,6 +589,7 @@ class Harness:
             per_arm = len(self.items("rules_qa")) * len(t.rules_qa.languages) * n_seeds
             calls["rules_qa (narrate)"] = per_arm * len(arms)
             calls["rules_qa (judge)"] = per_arm * len(arms) if judge else 0
+            outside += per_arm * len(arms) if external else 0
             api += per_arm * sum(1 for s in arms if gemini(s.generator))
         if t.conflict_probes.enabled:
             per_item = len(self.items("conflict_probes")) * len(t.conflict_probes.languages) * n_seeds
@@ -578,6 +597,7 @@ class Harness:
                           for s in arms}
             calls["conflict_probes (narrate)"] = per_item * sum(conditions.values())
             calls["conflict_probes (judge)"] = per_item * sum(conditions.values()) if judge else 0
+            outside += per_item * sum(conditions.values()) if external else 0
             api += per_item * sum(conditions[s.arm] for s in arms if gemini(s.generator))
         if t.adjudication.enabled:
             per_arm = len(self.items("adjudication")) * n_seeds
@@ -587,4 +607,6 @@ class Harness:
             api += calls.get("rules_qa (judge)", 0) + calls.get("conflict_probes (judge)", 0)
         calls["total"] = sum(calls.values())
         calls["of which Gemini (API quota)"] = api
+        if external:   # after the total: these are not calls of the harness
+            calls[f"to grade outside the harness ({self.exp.judge})"] = outside
         return calls

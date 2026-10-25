@@ -8,6 +8,10 @@
     uv run python -m evals.run evals/experiments/phase3-gemini.yaml --summarize-only
     uv run python -m evals.run evals/experiments/phase3-gemini.yaml --judge-only      # grade existing answers
 
+A judge whose profile has provider "external" (claude-sonnet-agent) is never called: --judge-only and the last step
+of a full run only say so, the report shows what is not graded yet, and the judgments come from
+`python -m evals.external_judge`.
+
 A profile with a model card (the Phase 4 models) needs a card whose adapter check passed (--allow-failed-card to
 override, recorded) and must be served by Ollama under the digest in the card, or the run stops before generating;
 --dry-run only warns.
@@ -144,7 +148,7 @@ async def run(args: argparse.Namespace) -> None:
     judge_sigs = {t: harness.judge_signature(t) for t in exp.judge_prompt_versions} if exp.judge else {}
 
     if args.summarize_only:
-        summarize(harness.run_dir, datasets, judge_sigs)
+        summarize(harness.run_dir, datasets, judge_sigs, external_judge=harness.judge_is_external)
         print(f"report: {harness.run_dir / 'report.md'}")
         return
     if args.dry_run:
@@ -161,7 +165,7 @@ async def run(args: argparse.Namespace) -> None:
         t = exp.tasks
         if args.judge_only:
             await harness.run_judge()
-            summarize(harness.run_dir, datasets, judge_sigs)
+            summarize(harness.run_dir, datasets, judge_sigs, external_judge=harness.judge_is_external)
             print(f"report: {harness.run_dir / 'report.md'}")
             return
         if t.retrieval.enabled:
@@ -176,7 +180,7 @@ async def run(args: argparse.Namespace) -> None:
     finally:
         if deps.retriever is not None:
             await deps.retriever.client.close()
-    summarize(harness.run_dir, datasets, judge_sigs)
+    summarize(harness.run_dir, datasets, judge_sigs, external_judge=harness.judge_is_external)
     print(f"report: {harness.run_dir / 'report.md'}")
 
 

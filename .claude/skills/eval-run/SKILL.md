@@ -27,6 +27,7 @@ All commands run from `src/backend` with `uv run`. On Windows set `PYTHONUTF8=1`
 | Local generation, grade later | `... phase3-local-qwen.yaml --no-judge` | none (Ollama) |
 | Base vs fine-tuned 2x2 (Phase 4) | `... phase4-qwen-ft.yaml --no-judge --concurrency 1`, then `--judge-only` | none for generation; the line "of which Gemini (API quota)" of `--dry-run` counts the rest |
 | Grade answers already generated | `... --judge-only` | 1 judge call per answer |
+| Grade with subagents (external judge) | `uv run python -m evals.external_judge export <yaml> --batches N`, then `import <yaml>` (`references/experiments.md`) | none from the harness |
 | Rebuild the report only | `... --summarize-only` | none |
 
 `--limit N` caps items per task (groups for adjudication). `--tasks` takes a comma list of `retrieval,rules_qa,conflict_probes,adjudication`. `--concurrency 1` suits Ollama on the 6 GB GPU.
@@ -55,7 +56,7 @@ uv run python -m evals.calibrate export <run> --n 40   # blinded CSV: no arm nam
 # the author fills human_verdict: correct | partially_correct | incorrect
 uv run python -m evals.calibrate score <run>           # Cohen's kappa (3-way and binary) + confusion matrix
 ```
-The human should label without looking at the judge's verdicts. Roughly, κ ≥ 0.6 is usable with the limitation stated; lower means fix the judge prompt (new version file) or use a judge from another model family.
+The human should label without looking at the judge's verdicts. Roughly, κ ≥ 0.6 is usable with the limitation stated; lower means fix the judge prompt (new version file) or use a judge from another model family. For a run graded by an external judge add `--experiment <yaml with that judge>` to both commands (otherwise the judge in the run's `config.json` is used, which has judged nothing).
 
 ## Adding or changing an experiment
 

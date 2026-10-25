@@ -7,6 +7,12 @@
 
 The CSV hides arm names, strips [R#] citation markers and shuffles rows (deterministically), so the rater cannot
 tell prompt-only from RAG answers by their form.
+
+The judge to calibrate is the one in the run's config.json. A run graded later by another judge (an external one, see
+evals/external_judge.py) is calibrated by naming the experiment that holds that judge:
+
+    uv run python -m evals.calibrate export phase4-qwen-ft --n 40 --experiment <experiment.yaml>
+    uv run python -m evals.calibrate score phase4-qwen-ft --experiment <experiment.yaml>
 """
 
 from __future__ import annotations
@@ -20,12 +26,12 @@ from collections import Counter
 from pathlib import Path
 
 from keeper.citations import BRACKET
-from server.settings import get_settings
+from server.settings import BACKEND_DIR, get_settings
 
 from .datasets import EvalDatasets
 from .experiment import EvalExperiment
 from .harness import JsonlStore, record_key
-from .judge import PROMPTS
+from .judge import judge_signature
 from .stats import cohen_kappa
 
 VERDICTS = ("correct", "partially_correct", "incorrect")
@@ -35,19 +41,20 @@ def run_dir(name: str) -> Path:
     return get_settings().artifacts_dir / "eval" / "runs" / name
 
 
-def judge_sig(config: dict) -> str:
-    exp = EvalExperiment(**config["experiment"])
-    version = exp.judge_prompt_versions["rules_qa"]
-    return f"{exp.judge}|{version}|{PROMPTS.hash(version)}"
+def judge_sig(config: dict, experiment: EvalExperiment | None = None) -> str:
+    """Signature of the rules-QA judge: the one in the run's config.json, or in `experiment` when a later experiment
+    file with another judge graded the run."""
+    exp = experiment or EvalExperiment(**config["experiment"])
+    return judge_signature(exp.judge, exp.judge_prompt_versions["rules_qa"])
 
 
-def export(name: str, n: int, seed: int) -> Path:
+def export(name: str, n: int, seed: int, experiment: EvalExperiment | None = None) -> Path:
     d = run_dir(name)
     config = json.loads((d / "config.json").read_text(encoding="utf-8"))
     s = get_settings()
     ds = EvalDatasets.load(s.data_dir / config["experiment"]["dataset_dir"])
     items = {i.id: i for i in ds.rules_qa}
-    sig = judge_sig(config)
+    sig = judge_sig(config, experiment)
     judged = {j["record_key"] for j in JsonlStore(d / "judgments.jsonl").read()
               if j.get("status") == "ok" and j["judge"] == sig}
     records = {record_key(r): r for r in JsonlStore(d / "records.jsonl").read()
@@ -74,10 +81,10 @@ def export(name: str, n: int, seed: int) -> Path:
     return out
 
 
-def score(name: str) -> dict:
+def score(name: str, experiment: EvalExperiment | None = None) -> dict:
     d = run_dir(name)
     config = json.loads((d / "config.json").read_text(encoding="utf-8"))
-    sig = judge_sig(config)
+    sig = judge_sig(config, experiment)
     mapping = json.loads((d / "human_labels.map.json").read_text(encoding="utf-8"))
     judge = {j["record_key"]: j["judgment"]["verdict"] for j in JsonlStore(d / "judgments.jsonl").read()
              if j.get("status") == "ok" and j["judge"] == sig}
@@ -96,6 +103,7 @@ def score(name: str) -> dict:
     binary_h = ["correct" if v == "correct" else "not" for v in human]
     binary_m = ["correct" if v == "correct" else "not" for v in model]
     result = {
+        "judge": sig,
         "n": len(human),
         "kappa_3way": round(cohen_kappa(human, model), 3),
         "kappa_binary": round(cohen_kappa(binary_h, binary_m), 3),
@@ -117,11 +125,18 @@ def main() -> None:
     e.add_argument("--seed", type=int, default=7)
     s = sub.add_parser("score")
     s.add_argument("run")
+    for sp in (e, s):
+        sp.add_argument("--experiment", type=Path, default=None,
+                        help="experiment YAML whose judge graded the run (default: the judge in the run's config.json)")
     a = p.parse_args()
+    experiment = None
+    if a.experiment:
+        path = a.experiment if a.experiment.is_absolute() or a.experiment.exists() else BACKEND_DIR / a.experiment
+        experiment = EvalExperiment.load(path)
     if a.cmd == "export":
-        export(a.run, a.n, a.seed)
+        export(a.run, a.n, a.seed, experiment)
     else:
-        score(a.run)
+        score(a.run, experiment)
 
 
 if __name__ == "__main__":

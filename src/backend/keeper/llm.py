@@ -15,7 +15,8 @@ from pydantic import BaseModel, ConfigDict, SecretStr
 class ModelProfile(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    provider: Literal["google_genai", "ollama", "vllm"]
+    # "external": graded outside the harness (evals/external_judge.py); there is no client to build, only a name
+    provider: Literal["google_genai", "ollama", "vllm", "external"]
     model: str
     temperature: float | None = None   # ignored for Gemini >= 3.6 (provider-fixed sampling)
     max_tokens: int = 1024             # Gemini: thinking tokens count toward output, keep generous
@@ -67,7 +68,7 @@ class ModelFactory:
     def chat(self, name: str, *, seed: int | None = None) -> BaseChatModel:
         key = (name, seed)
         if key not in self._cache:
-            self._cache[key] = self._build(self.profile(name), seed)
+            self._cache[key] = self._build(self.profile(name), seed, name)
         return self._cache[key]
 
     def structured(self, name: str, schema: type[BaseModel], *, seed: int | None = None) -> Runnable:
@@ -75,7 +76,7 @@ class ModelFactory:
                 .with_structured_output(schema, method="json_schema")
                 .with_config(tags=["nostream"]))  # never leaks into the token stream
 
-    def _build(self, p: ModelProfile, seed: int | None) -> BaseChatModel:
+    def _build(self, p: ModelProfile, seed: int | None, name: str | None = None) -> BaseChatModel:
         match p.provider:
             case "google_genai":
                 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -110,4 +111,7 @@ class ModelFactory:
                     kw["temperature"] = p.temperature
                 return ChatOpenAI(model=p.model, base_url=self._vllm_url, api_key="EMPTY",
                                   max_tokens=p.max_tokens, timeout=self._timeout, max_retries=2, **kw)
+            case "external":
+                raise ValueError(f"profile {name or p.model!r} is graded outside the harness; "
+                                 "use python -m evals.external_judge")
         raise ValueError(f"unknown provider {p.provider}")

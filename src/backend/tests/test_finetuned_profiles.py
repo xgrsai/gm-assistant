@@ -216,6 +216,27 @@ def test_phase4_experiment_differs_from_phase3_local_qwen_only_by_the_models():
     assert ft.tasks.rules_qa.context_query == "question_en" and not ft.tasks.adjudication.enabled
 
 
+def test_claude_judge_experiment_is_phase4_with_another_judge_and_binds_to_its_run(llms, chunks, tmp_path):
+    write_card(tmp_path)
+    plain = EvalExperiment.load(EXPERIMENTS / "phase4-qwen-ft.yaml")
+    claude = EvalExperiment.load(EXPERIMENTS / "phase4-qwen-ft-claude-judge.yaml")
+    assert claude.judge == "claude-sonnet-agent" and llms.profile("claude-sonnet-agent").provider == "external"
+    differing = {k for k, v in plain.model_dump().items() if v != claude.model_dump()[k]}
+    assert differing == {"description", "judge"}   # the name stays: it is part of the fingerprint
+    a = make_harness("phase4-qwen-ft", llms, chunks, tmp_path).config_snapshot()
+    b = make_harness("phase4-qwen-ft-claude-judge", llms, chunks, tmp_path).config_snapshot()
+    assert a["fingerprint"] == b["fingerprint"]   # the judge is not part of it: this file binds to the existing run
+    assert a["judge"]["profile"]["provider"] == "google_genai" and b["judge"]["profile"]["provider"] == "external"
+    assert set(b["judge"]["profile"]) == LEGACY_PROFILE_KEYS
+    assert b["judge"]["prompt_hashes"] == a["judge"]["prompt_hashes"]   # the same judge prompts
+    # nothing is sent anywhere: the harness reports the answers to grade outside instead of Gemini calls
+    plan = make_harness("phase4-qwen-ft-claude-judge", llms, chunks, tmp_path).plan()
+    assert plan["of which Gemini (API quota)"] == 0 and plan["rules_qa (judge)"] == plan["conflict_probes (judge)"] == 0
+    assert plan["to grade outside the harness (claude-sonnet-agent)"] == (
+        plan["rules_qa (narrate)"] + plan["conflict_probes (narrate)"])
+    assert plan["total"] == plan["rules_qa (narrate)"] + plan["conflict_probes (narrate)"]
+
+
 def test_selfadj_experiment_isolates_the_adjudicator(llms):
     exp = EvalExperiment.load(EXPERIMENTS / "phase4-qwen-ft-selfadj.yaml")
     specs = exp.specs(exp.seeds[0])

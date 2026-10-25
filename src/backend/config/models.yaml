@@ -24,6 +24,13 @@ gemini-judge:
   max_tokens: 2048
   context_window: 1000000
 
+# Judge graded outside the harness: Claude Code subagents (Claude Sonnet 5.5) answer the exported judge prompts and the
+# judgments are imported with evals/external_judge.py. Same judge prompts and schemas as gemini-judge; the harness
+# never calls it (ModelFactory refuses to build an "external" profile). Sampling and token limits are not applicable.
+claude-sonnet-agent:
+  provider: external
+  model: claude-sonnet-5-5
+
 # Local models via Ollama (native app). Ollama is already a backend dependency.
 qwen25-3b-ollama:
   provider: ollama
