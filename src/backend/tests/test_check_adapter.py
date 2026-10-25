@@ -693,7 +693,7 @@ def test_card_only_gives_a_clear_error_for_results_of_an_older_schema(env, capsy
     env.card.unlink()
     assert ca.main(env.argv("--card-only")) == 2
     err = capsys.readouterr().err
-    assert "results schema 1" in err and "writes schema 2" in err and "KeyError" not in err
+    assert "results schema 1" in err and f"writes schema {ca.RESULTS_SCHEMA}" in err and "KeyError" not in err
     assert not env.card.exists()
     old.pop("schema")
     write_json(env.results, old)
@@ -1065,7 +1065,7 @@ def test_client_chat_sends_deterministic_options_and_parses_the_reply():
     assert reply == ca.Reply("Привіт 🎲", "length", 5)
     assert seen["url"] == "http://ollama.test:11434/api/chat"
     assert seen["body"] == {"model": "m", "messages": [{"role": "user", "content": "hi"}], "stream": False,
-                            "options": {"temperature": 0, "seed": 0}}
+                            "options": {"temperature": 0, "seed": 0}, "keep_alive": 0}
 
 
 def test_client_show_tags_version():

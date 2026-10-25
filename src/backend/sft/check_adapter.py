@@ -17,9 +17,11 @@ the final Keeper reply; never gold evaluation items) go through the base model a
 not involved).
 
 Gates (a failed gate exits with 1; the results and the card are written all the same):
-  determinism  the first `--repeat` prompts are sent to the base model a second time, after the whole first pass (so
-               nothing is served from the prompt cache). Their replies must be identical (`--min-stable`, default
-               1.0): if the base model is not deterministic, "FT differs from base" proves nothing.
+  determinism  the first `--repeat` prompts are sent to the base model a second time, after the whole first pass.
+               Their replies must be identical (`--min-stable`, default 1.0): if the base model is not deterministic,
+               "FT differs from base" proves nothing. Every request starts cold (`keep_alive: 0`, see `OllamaClient`):
+               a prompt that reuses a cached prefix of another length is evaluated in other batches, and on CUDA that
+               is enough to flip a greedy token after a few dozen tokens.
   effect       the share of prompts whose FT reply differs from the base reply is at least `--min-differ` (0.8, C4).
                A pair counts only if both replies are non-empty: an empty reply is a serving problem, not an effect.
   template     `/api/show` returns the same chat template for the base model, the FT model and the official
@@ -100,7 +102,8 @@ SUPERSEDED_LORA_GGUF = {
     "status": "superseded and not used for any result: Ollama no longer supports ADAPTER",
 }  # fmt: skip
 
-RESULTS_SCHEMA = 2  # 2: `status` (passed | passed_unverified | failed) was added
+KEEP_ALIVE = 0  # every /api/chat request starts cold (OllamaClient.chat)
+RESULTS_SCHEMA = 3  # 2: `status` (passed | passed_unverified | failed); 3: cold requests (`settings.keep_alive`)
 CARD_SCHEMA = 1
 SELECTION_SEED = 1927  # fixed: the chosen prompts do not depend on --seed (decoding) or on the order of val.jsonl
 DICE = "🎲"
@@ -190,7 +193,11 @@ class OllamaClient:
         return data
 
     def chat(self, model: str, messages: list[dict[str, str]], options: dict[str, Any]) -> Reply:
-        body = {"model": model, "messages": messages, "stream": False, "options": options}
+        # keep_alive 0 unloads the model after the reply, so every request starts with an empty prompt cache. Ollama
+        # reuses the longest cached prefix (the shared system prompt), and a prompt evaluated from another prefix length
+        # gives slightly different CUDA numerics: on 2026-10-25, 3 of 5 base repeats diverged after 63-272 characters,
+        # while two cold requests for the same prompt were identical. The reload costs a few seconds per request.
+        body = {"model": model, "messages": messages, "stream": False, "options": options, "keep_alive": KEEP_ALIVE}
         data = self._call("POST", "/api/chat", body)
         message = data.get("message")
         if not isinstance(message, dict) or not isinstance(message.get("content"), str):
@@ -335,8 +342,8 @@ def generate_all(
 ) -> list[dict[str, Any]]:  # fmt: skip
     """base on every prompt, base again on the first `repeat` ones, then FT on every prompt.
 
-    One model at a time (Ollama on a 6 GB GPU would swap two models back and forth otherwise), and the repeat comes
-    after the whole first pass so that the second answer is computed from scratch rather than from the prompt cache.
+    One model at a time (Ollama on a 6 GB GPU would swap two models back and forth otherwise). Every request starts
+    cold (`OllamaClient.chat`), so the repeat, coming after the whole first pass, is computed exactly like the first.
     An OllamaError propagates; the replies received so far stay in `records` (pass the list to keep them).
     """
     records = new_records(cases) if records is None else records
@@ -701,7 +708,7 @@ def settings_of(cfg: CheckConfig, n: int) -> dict[str, Any]:
         "base": cfg.base, "ft": cfg.ft, "official": cfg.official, "n": n, "repeat": min(cfg.repeat, n),
         "temperature": 0, "seed": cfg.seed, "num_ctx": cfg.num_ctx, "num_predict": cfg.num_predict,
         "min_differ": cfg.min_differ, "min_stable": cfg.min_stable, "selection_seed": SELECTION_SEED,
-        "parity_ignore": list(cfg.parity_ignore),
+        "parity_ignore": list(cfg.parity_ignore), "keep_alive": KEEP_ALIVE,
     }
 
 
@@ -1180,7 +1187,7 @@ def run(args: argparse.Namespace, client_factory: Callable[..., OllamaApi], log:
         if results.get("schema") != RESULTS_SCHEMA:
             raise CheckError(
                 f"{results_path} has results schema {results.get('schema')!r}, but this version writes schema "
-                f"{RESULTS_SCHEMA} (the gate status was added in 2); run the check again"
+                f"{RESULTS_SCHEMA} (2 added the gate status, 3 cold requests); run the check again"
             )
         if results.get("incomplete"):
             raise CheckError(f"{results_path} is from a run that stopped midway ({results.get('error')}); run it again")
