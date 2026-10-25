@@ -1,0 +1,18 @@
+# Environment for training/merge_and_quantize.py (Colab CPU runtime). NOT the backend's environment.
+#
+# The pins are the ones of the training run (train_meta.json -> versions: transformers 5.17.0, peft 0.20.0,
+# accelerate 1.15.0, Python 3.13), so that the adapter is read by the same PEFT that wrote it.
+#
+# Left to the Colab image on purpose:
+#   - torch (CPU is enough; a pin here could pull a different build). Its version is recorded in gguf_meta.json.
+#   - numpy, tqdm, pyyaml, requests: what llama.cpp's gguf-py (used straight from the checkout) needs.
+#   - huggingface_hub, safetensors, tokenizers: resolved by transformers 5.17.0.
+# llama.cpp's own requirements/*.txt are NOT installed: they pin torch and transformers (a different major version
+# than the one above). If convert_hf_to_gguf.py reports a missing module, install just that one.
+#
+#   pip install -r training/requirements-merge.txt
+transformers==5.17.0
+peft==0.20.0
+accelerate==1.15.0
+safetensors
+huggingface_hub

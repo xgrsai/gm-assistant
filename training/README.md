@@ -1,14 +1,15 @@
 # Phase 4: LoRA-донавчання Кіпера (Qwen2.5-3B, QLoRA)
 
 Скрипт `train_unsloth.py` донавчає LoRA-адаптер на SFT-даних Кіпера (стиль наративу та робота з пасажами KNOWLEDGE BASE).
-Працює на Colab / Kaggle (одна T4), не на локальній GTX 1660 Ti. Локально адаптер лише конвертується в GGUF і
-підключається в Ollama.
+Працює на Colab / Kaggle (одна T4), не на локальній GTX 1660 Ti. Адаптер потім зливається з повноточною базою й
+квантується в GGUF окремим скриптом `merge_and_quantize.py` (Colab, CPU), а локально лише підключається в Ollama
+(розділ "Сервінг" нижче).
 
 | Що | Значення |
 |---|---|
 | База для навчання | `unsloth/Qwen2.5-3B-Instruct-bnb-4bit` (QLoRA, fp16 на T4) |
-| HF-близнюк бази (для GGUF) | `Qwen/Qwen2.5-3B-Instruct` |
-| Сервінг | Ollama: `FROM qwen2.5:3b` + `ADAPTER adapter.gguf` (той самий Q4_K_M blob, що й у base-арм) |
+| HF-близнюк бази (для злиття й GGUF) | `Qwen/Qwen2.5-3B-Instruct` |
+| Сервінг | Ollama без `ADAPTER` (його відхиляє Ollama автора): `merge_and_quantize.py` дає два Q4_K_M GGUF одним llama.cpp: FT = LoRA, злита в базу (`keeper-qwen25-3b:sft-v1`), і база без LoRA (`qwen2.5-3b-selfq4:v1`); обидва з офіційним шаблоном `qwen2.5:3b` (`python -m sft.ollama_models`) |
 | Дані | `artifacts/sft/coc7e-v1/{train,val}.jsonl` + `manifest.json` (кроки `python -m sft.build`, S4) |
 | Піни | `unsloth==2026.10.2`, `unsloth_zoo==2026.10.2`, `trl==1.13.0`, `peft==0.20.0` (`requirements-train.txt`) |
 
@@ -45,13 +46,14 @@ torch / transformers / bitsandbytes беруться з образу Colab/Kaggl
    вміщується (так було на першому прогоні на T4). Справжній тест — саме навчання.
 7. Навчання з чекпоінтами кожні `--save-steps` у `<out>/checkpoints`.
 8. Після навчання: `<out>/adapter/` (LoRA + токенізатор; це ОСТАННІЙ крок, а не найкращий за eval loss),
-   `<out>/train_meta.json`, за `--llama-cpp-dir` ще `<out>/adapter.gguf`.
+   `<out>/train_meta.json`; необов'язковий `--llama-cpp-dir` ще робить `<out>/adapter.gguf`, але для сервінгу він більше
+   не потрібен (див. "Сервінг: злитий GGUF замість ADAPTER").
 
 `train_meta.json`: id і revision бази (та HF-близнюка для GGUF), sha256 даних і весь manifest, гіперпараметри, seed,
 версії torch / transformers / unsloth / trl / peft / bitsandbytes, CUDA, GPU, рядок chat template з sha256 (unsloth
 і plain transformers, з прапорцем збігу), звіти gates (включно з типом collator), train / eval loss з кривою eval,
 `eval_loss_best` і його крок поруч із кроком збереженого адаптера, sha256 `train_unsloth.py` і `gates.py`, git commit,
-а для GGUF ще commit llama.cpp і revision HF-бази.
+а за `--llama-cpp-dir` ще commit llama.cpp і revision HF-бази (для злитих GGUF ці факти пише `gguf_meta.json`).
 
 ## `--max-len` і памʼять T4
 
@@ -183,83 +185,136 @@ Kaggle ~ 30 год GPU на тиждень) вкладаються, але дл�
 - `train_meta.json` -> `versions`, `hardware`, `chat_template` (поле `same_as_transformers` не `false`), `code`
   заповнені (потрібні для розділу про відтворюваність).
 
-## Адаптер у GGUF
+## Сервінг: злитий (merged) GGUF замість ADAPTER
 
-`convert_lora_to_gguf.py` з llama.cpp потребує конфіг ПОВНОЇ бази (`--base`), а не 4-бітного репозиторію з
-`adapter_config.json`. Це легко робити локально на Windows (ваги бази не потрібні, лише json-файли); краще в окремому venv,
-бо requirements llama.cpp можуть змінити версії torch / transformers.
+Ollama автора відхиляє `ADAPTER` ("LoRA adapters are no longer supported"), тому `adapter.gguf` (конвертація
+`convert_lora_to_gguf.py`, llama.cpp `71255fef…`) **не використовується** для жодного результату: він лишається лише в
+`gguf.superseded` model card. Натомість (запасний варіант з `docs/critique.md` C4) `merge_and_quantize.py` зливає LoRA в
+повноточну `Qwen/Qwen2.5-3B-Instruct` (float16) і квантує в Q4_K_M, а **базу** конвертує й квантує тим самим llama.cpp
+без LoRA. Тож арми base і FT відрізняються лише навчанням (база НЕ є офіційним blob `qwen2.5:3b`, а власним Q4_K_M).
 
-```
-git clone --depth 1 https://github.com/ggml-org/llama.cpp
-python -m venv .venv-llamacpp
-.venv-llamacpp/Scripts/pip install -r llama.cpp/requirements/requirements-convert_lora_to_gguf.txt huggingface_hub
-.venv-llamacpp/Scripts/python -c "from huggingface_hub import snapshot_download; print(snapshot_download('Qwen/Qwen2.5-3B-Instruct', allow_patterns=['*.json', 'merges.txt']))"
-git -C llama.cpp rev-parse HEAD
-```
+| Ollama-тег | Що це | GGUF |
+|---|---|---|
+| `qwen2.5-3b-selfq4:v1` | база: Qwen2.5-3B-Instruct, сконвертована й проквантована без LoRA | `qwen2.5-3b-instruct.Q4_K_M.gguf` |
+| `keeper-qwen25-3b:sft-v1` | FT: LoRA злита в базу, потім Q4_K_M | `keeper-qwen25-3b-sft-v1.Q4_K_M.gguf` |
+| `qwen2.5:3b` | офіційна модель Ollama: лише джерело шаблону й stop-токенів, не арм | (вже завантажена) |
 
-Команда `snapshot_download` друкує шлях до теки з конфігом бази (`<BASE_CFG>`); `git rev-parse` дає commit llama.cpp, який варто
-записати поруч з адаптером. Далі, з `<OUT>` = тека результатів з Drive:
+LoRA тренувалась проти NF4-бази, а зливається в float16-базу: звичайна практика QLoRA, невелика розбіжність
+train/serve, яку треба згадати в тексті роботи (`merge.note` у `gguf_meta.json`).
 
-```
-.venv-llamacpp/Scripts/python llama.cpp/convert_lora_to_gguf.py --base <BASE_CFG> --outtype f16 --outfile <OUT>/adapter.gguf <OUT>/adapter
-```
+### Крок 1. Злиття і квантування (Colab, CPU-рантайм)
 
-Те саме може зробити скрипт наприкінці навчання, якщо передати `--llama-cpp-dir <шлях до llama.cpp>` (sha256 GGUF,
-commit llama.cpp і revision HF-бази потрапляють у `train_meta.json`). Лінукс/Colab: ті самі команди з
-`.venv-llamacpp/bin/`.
+Runtime -> Change runtime type -> **CPU** (GPU тут не потрібен). Команди, залежності (`requirements-merge.txt`) і
+порядок перевірок описані в докстрінгу `training/merge_and_quantize.py` (`--adapter-dir` = тека `adapter/` з результату
+навчання, `--out` = тека на Drive). Скрипт зупиняється, якщо злиття не змінило ваг (адаптер-no-op, C4), якщо хеші не
+збігаються тощо; наприкінці він записує `gguf_meta.json` (commit llama.cpp, версії peft/transformers, dtype злиття,
+sha256 обох GGUF, sha256 адаптера) і друкує наступні кроки.
 
-## Підключення в Ollama
+### Крок 2. Файли на машину з Ollama
 
-Результат кладемо в git-ignored `adapters/` у корені репозиторію (`.gguf` та `adapters/` ігноруються git):
-
-```
-mkdir adapters/keeper-qwen25-3b-sft-v1
-cp <OUT>/adapter.gguf <OUT>/train_meta.json <OUT>/manifest.json adapters/keeper-qwen25-3b-sft-v1/
-cp training/ollama/Modelfile.template adapters/keeper-qwen25-3b-sft-v1/Modelfile
-cd adapters/keeper-qwen25-3b-sft-v1
-ollama pull qwen2.5:3b
-ollama create keeper-qwen25-3b:sft-v1 -f Modelfile
-```
-
-## Швидка перевірка, що адаптер діє
-
-Критика C4: адаптер може завантажитись без помилок і не змінювати виходи. `ollama run` не має прапорців
-`temperature` / `seed` і не передає системний промпт Кіпера, тож відмінності між моделями там нічого не доводять.
-Порівнюйте через `/api/chat` з детермінованим декодуванням на реальних прикладах `val.jsonl` (повідомлення без
-останньої репліки асистента: `[system, ...історія, user]`). Ефект зараховується, лише якщо FT-відповідь відрізняється
-від base-відповіді ПРИ `temperature: 0, seed: 0`, а сама base при двох запусках дає однаковий результат (інакше
-порівняння безглузде). `num_ctx` має вміщати найдовший промпт, інакше Ollama мовчки обріже його.
+Покладіть у git-ignored `adapters/keeper-qwen25-3b-sft-v1/` (поруч із результатами навчання `adapter/`,
+`train_meta.json`, `manifest.json`):
 
 ```
-import json
-import urllib.request
-
-def chat(model, messages):
-    body = {"model": model, "messages": messages, "stream": False,
-            "options": {"temperature": 0, "seed": 0, "num_ctx": 16384, "num_predict": 300}}
-    req = urllib.request.Request("http://localhost:11434/api/chat", json.dumps(body).encode(),
-                                 {"Content-Type": "application/json"})
-    return json.load(urllib.request.urlopen(req))["message"]["content"]
-
-with open("artifacts/sft/coc7e-v1/val.jsonl", encoding="utf-8") as fh:
-    rows = [json.loads(line) for line in fh][:5]
-differ = stable = 0
-for row in rows:
-    prompt = row["messages"][:-1]
-    base, base_again = chat("qwen2.5:3b", prompt), chat("qwen2.5:3b", prompt)
-    ft = chat("keeper-qwen25-3b:sft-v1", prompt)
-    stable += base == base_again
-    differ += base != ft
-print(f"base deterministic {stable}/{len(rows)}, FT differs from base {differ}/{len(rows)}")
+adapters/keeper-qwen25-3b-sft-v1/
+    adapter/adapter_model.safetensors  adapter/adapter_config.json   # з навчання
+    train_meta.json  manifest.json                                   # з навчання
+    keeper-qwen25-3b-sft-v1.Q4_K_M.gguf                              # з merge_and_quantize.py
+    qwen2.5-3b-instruct.Q4_K_M.gguf                                  # з merge_and_quantize.py
+    gguf_meta.json                                                   # з merge_and_quantize.py
 ```
 
-Очікування: `differ` близько `len(rows)`. `0` означає, що адаптер не застосовано: перевірте `ollama show --modelfile
-keeper-qwen25-3b:sft-v1` (є рядок `ADAPTER`), шлях до `adapter.gguf` і що GGUF зроблено з `--base` повної бази.
-Повна перевірка (більше прикладів, метрика стилю) з'явиться як `python -m sft.check_adapter` (крок S8).
+### Крок 3. Modelfile і `ollama create`
+
+База і FT мають мати **той самий** офіційний шаблон чату й stop-токени. `sft.ollama_models` бере Modelfile офіційної
+`qwen2.5:3b` (як `ollama show qwen2.5:3b --modelfile`), міняє в ньому лише рядок `FROM` на `FROM ./<файл>.gguf` і пише
+`Modelfile.base` та `Modelfile.ft` поруч із GGUF. Нічого не додавайте вручну (`ADAPTER`, `TEMPLATE`, `SYSTEM`):
+
+```
+cd src/backend
+uv run python -m sft.ollama_models modelfiles --gguf-dir ../../adapters/keeper-qwen25-3b-sft-v1
+```
+
+`qwen2.5:3b` має бути в `ollama list`; робіть `ollama pull qwen2.5:3b` **лише якщо її там немає**: повторний pull може
+оновити офіційну модель, на якій працюють арми phase3, посеред дослідження. Команда друкує `ollama create` для обох
+моделей; виконуйте їх з теки з GGUF і повертайтесь у `src/backend` (команди без `&&`, по одній у рядок, бо в PowerShell 5.1
+`&&` немає):
+
+```
+cd ../../adapters/keeper-qwen25-3b-sft-v1
+ollama create qwen2.5-3b-selfq4:v1 -f Modelfile.base
+ollama create keeper-qwen25-3b:sft-v1 -f Modelfile.ft
+cd ../../src/backend
+```
+
+Імена GGUF беруться з `gguf_meta.json` (`outputs.<роль>.file`), якщо квантування було не Q4_K_M; прапорці `--base-gguf`,
+`--ft-gguf`, `--base-tag`, `--ft-tag`, `--official` перевизначають усе.
+
+## Перевірка адаптера і model card
+
+Критика C4: модель може створитись без помилок і не відрізнятися від бази (адаптер "мовчки" не діє), а `ollama run` не має
+`temperature` / `seed` і не передає системний промпт Кіпера, тож відмінності там нічого не доводять. Тому
+`sft.check_adapter` ходить напряму в `/api/chat` Ollama з `temperature: 0`, `seed: 0`, `num_ctx: 16384`, на 20
+детермінованих прикладах `artifacts/sft/coc7e-v1/val.jsonl` (повідомлення без останньої репліки асистента; НЕ gold-дані
+оцінювання). Після кроку 3 (обидва `ollama create` виконано з теки `adapters/keeper-qwen25-3b-sft-v1`) поверніться в
+`src/backend`: `check_adapter` запускається звідти (шляхи за замовчуванням відраховуються від кореня репозиторію, а модуль
+`sft` лежить у `src/backend`):
+
+```
+cd ../../src/backend
+uv run python -m sft.check_adapter
+```
+
+Прогін триває ≈10-15 хв на GTX 1660 Ti (base x20, base ще раз x5, FT x20), прогрес друкується. Гейти (будь-який
+провалений = код виходу 1, повідомлення пояснює, що робити, а результати й картка все одно записуються):
+
+| Гейт | Що перевіряє |
+|---|---|
+| `determinism` | перші 5 промптів base, надіслані вдруге (після повного першого проходу), дають ту саму відповідь; інакше порівняння з FT безглузде |
+| `effect` | FT-відповідь відрізняється від base-відповіді для ≥ 80% промптів (порожня відповідь не рахується) |
+| `template` | шаблон чату base = FT = офіційна `qwen2.5:3b` (`/api/show`) |
+| `weights` | blob за тегом = sha256 відповідного GGUF з теки; blob-и base і FT різні; жодна модель не має шару `ADAPTER` |
+| `parity` | **строго base проти FT** (це пара, яку порівнює робота): заголовки обох GGUF мають однакову кількість тензорів, а `model_info` (плюс family / розмір / квантування) з `/api/show` збігається, окрім ключів `general.*` (інші можна виключити `--parity-ignore ПРЕФІКС` після огляду). Різниця в параметрах конвертації (rope base, довжина контексту, id EOS) змішала б ефект навчання з артефактом конвертації |
+
+Порівняння `model_info` base з офіційною `qwen2.5:3b` лише **інформативне**: її blob давно сконвертував інший llama.cpp,
+тож безневинні розбіжності метаданих очікувані. Вони пишуться в `serving.parity.official_differences` картки й
+друкуються попередженням, але не валять гейт і не знижують статус (шаблон чату проти офіційного, навпаки, перевіряється
+строго: його копіює Modelfile). Порожній шаблон чату вважається значенням (він відрізняється від справжнього), а не
+"невідомо". Не перевірене через API (старий Ollama без `model_info` у base/FT, немає `qwen2.5:3b` для порівняння шаблону)
+позначається `NOT VERIFIED` і не валить прогін, але **статус картки тоді `passed_unverified`, а не `passed`**; `evals/model_cards.py` приймає лише `passed` (інакше потрібен
+`--allow-failed-card`), тож виправте те, що не вдалось прочитати (наприклад, `ollama pull qwen2.5:3b`, якщо її немає в
+`ollama list`), і повторіть перевірку. Явна розбіжність дає `failed`. Інформативно (не гейти): частка відповідей із рядком 🎲 там, де є кидок (і хибних там, де його немає),
+частка кирилиці в україномовних відповідях, частка відповідей з `[R#]`, довжина відповіді; дельти FT-base, FT-еталон
+(таргет у val.jsonl), base-еталон. Перед запуском перевіряється, що `val.jsonl` — це саме файл, яким навчали (sha256 з
+`manifest.json` і з `train_meta.json`), і що `section_split.v1.json` не змінювали.
+
+Результат:
+
+- `adapters/keeper-qwen25-3b-sft-v1/check_adapter.json` — повний результат із кожною відповіддю (git-ignored). Якщо
+  Ollama впав посеред прогону, отримані відповіді потрапляють у **окремий** `check_adapter.incomplete.json` з
+  `"incomplete": true` (код виходу 2, картки немає): наявний повний `check_adapter.json`, на який посилається
+  `results_file.sha256` закоміченої картки, не перезаписується; наступний повний прогін видаляє залишок. `--card-only`
+  відхиляє неповний файл і файл зі старою схемою результатів (поточна `schema: 2`, додано `status`);
+- `training/model_cards/keeper-qwen25-3b-sft-v1.json` — **model card** (комітиться; її читає `evals/model_cards.py`, а
+  прогони оцінювання відмовляються стартувати, якщо digest тегу в Ollama інший). У ній: гіперпараметри, версії,
+  втрати, зведення гейтів і sha256 chat template з `train_meta.json`; sha256 `adapter_model.safetensors`; sha256 обох GGUF,
+  commit llama.cpp, dtype злиття й весь `gguf_meta.json` дослівно; digest-и Ollama (`ollama_digests.ft/base`, `serving.*`)
+  і результат порівняння шаблонів; sha256 `train.jsonl` / `val.jsonl` і `manifest.json`, `section_split.v1.json`; git
+  commit даних і поточний commit; результати перевірки без відповідей.
+
+`status` картки: `passed` (усі гейти пройдені й перевірені), `passed_unverified` (пройдені, але щось не вдалось
+перевірити або була **пропущена** перевірка узгодженості злиття: `waived_mismatches` у `gguf_meta.json` від
+`merge_and_quantize.py --allow-mismatch`, чи адаптер не збігається з тим, що записано в `train_meta.json`; усе це лежить
+у верхньому полі картки `waived_mismatches` і друкується попередженням), `failed`. `--card-only` перебудовує лише картку з уже збережених результатів (без Ollama), `--n`,
+`--repeat`, `--num-predict`, `--min-differ` змінюють параметри прогону. Якщо `effect` провалено — це і є сигнал C4: злиття не змінило поведінки або тег
+створено не з того файлу; якщо `determinism` — закрийте інші програми, що використовують GPU/модель, і повторіть.
 
 ## Застереження
 
-- Адаптер тренується на NF4-базі (QLoRA), а Ollama застосовує його до Q4_K_M. Це невелика розбіжність
-  train/serve, яку треба згадати в тексті роботи; base і FT при сервінгу мають однаковий blob.
-- Не комітьте ваги, адаптери та `.gguf` (див. `.gitignore`); у git лише код, README і `Modelfile.template`.
+- Адаптер тренується на NF4-базі (QLoRA), а зливається з float16-базою і далі квантується в Q4_K_M. Це невелика
+  розбіжність train/serve, яку треба згадати в тексті роботи. Base-арм (`qwen2.5-3b-selfq4:v1`) проходить той самий
+  конвеєр convert + quantize без LoRA, тож він не збігається з офіційним blob `qwen2.5:3b`, але відрізняється від FT лише
+  навчанням.
+- Не комітьте ваги, адаптери та `.gguf` (див. `.gitignore`); у git лише код, README і model card
+  (`training/model_cards/*.json`). Modelfile генерується (`python -m sft.ollama_models`), а не зберігається в репозиторії.
 - Не змінюйте промпт, дані чи модель посеред серії: кожна зміна даних = нова версія (`--version v2`) і новий `--out`.
